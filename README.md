@@ -1,6 +1,6 @@
 <div>
     <p align="left">
-        <a href="README-es.md">Español<a> · <b>English</b>
+        <a href="README.es.md">Español<a> · <b>English</b>
     </p>
 </div>
 
