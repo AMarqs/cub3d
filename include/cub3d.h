@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alba <alba@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: albmarqu <albmarqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 13:06:37 by alba              #+#    #+#             */
-/*   Updated: 2025/07/09 13:08:00 by alba             ###   ########.fr       */
+/*   Updated: 2025/07/11 10:28:07 by albmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,14 @@ typedef struct s_color
 
 typedef struct s_data
 {
-	//char	*line;
 	int		file_rows;
 	char	**map_data;
-
-
-	char	*no;
-	char	*so;
-	char	*we;
-	char	*ea;
+	
+	char	*no_texture;
+	char	*so_texture;
+	char	*we_texture;
+	char	*ea_texture;
+	
 	t_color	floor;
 	t_color	ceiling;
 	int		map_rows;
@@ -71,13 +70,21 @@ typedef struct s_data
 ************/
 
 size_t	ft_strlen(const char *s);
+int		ft_isletter(int c);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*get_next_line(int fd);
 
 void	check_args(int argc, char **argv);
 void	open_file(char *argv, t_data *data);
 void	read_file(char *argv, t_data *data);
-void	parse_textures(t_data *data);
+void	file2array(char *argv, t_data *data);
+
+// void	parse_textures(t_data *data);
+// void	parse_no(char *no, t_data *data);
+// void	parse_so(char *so, t_data *data);
+// void	parse_we(char *we, t_data *data);
+// void	parse_ea(char *ea, t_data *data);
+
 
 /******
 * MEM *

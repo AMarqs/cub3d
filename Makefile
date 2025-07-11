@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: alba <alba@student.42.fr>                  +#+  +:+       +#+         #
+#    By: albmarqu <albmarqu@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/09 13:08:16 by alba              #+#    #+#              #
-#    Updated: 2025/07/09 13:08:36 by alba             ###   ########.fr        #
+#    Updated: 2025/07/11 10:29:04 by albmarqu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,6 @@ CLEAN = rm -Rf
 SRC = 	main.c \
 		parse/check_args.c \
 		parse/file2array.c \
-		parse/parse_info.c \
 		libft_BORRAR.c \
 		get_next_line/get_next_line_bonus.c \
 		get_next_line/get_next_line_utils_bonus.c
@@ -38,8 +37,8 @@ OBJS_DIR = obj
 OBJS = $(addprefix $(OBJS_DIR)/, $(SRC:.c=.o))
 
 #Libraries
-MLX_DIR	= /sgoinfre/shared/MLX42/build
-MLX = $(MLX_DIR)/libmlx42.a
+# MLX_DIR	= /sgoinfre/shared/MLX42/build
+# MLX = $(MLX_DIR)/libmlx42.a
 
 #Headers
 HEADERS	= -I ./include #$(LIBFT)
@@ -74,9 +73,9 @@ all: header $(NAME)
 header:
 	@echo "$$HEADER_ART"
 
-$(NAME): $(OBJS) $(MLX)
+$(NAME): $(OBJS) #$(MLX)-lreadline
 	@printf "\n$(COLOR_SUCCESS)Compiling executable...$(COLOR_RESET)\n"
-	@$(CC) $(OBJS) $(HEADERS) -o $(NAME) -lreadline
+	@$(CC) $(OBJS) $(HEADERS) -o $(NAME) 
 	@printf "$(COLOR_SUCCESS)✅ $(NAME) is ready!$(COLOR_RESET)\n"
 
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c
@@ -90,8 +89,8 @@ $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c
 	@printf "$(COLOR_INFO)] %3d%%$(COLOR_RESET)" $(PERCENT)
 	@$(CC) $(CFLAGS) -c $< -o $@ $(HEADERS)
 
-$(MLX):
-	@make -C $(MLX_DIR) all
+# $(MLX):
+# 	@make -C $(MLX_DIR) all
 
 clean:
 	@printf "$(COLOR_INFO)Cleaning object files...$(COLOR_RESET)"
@@ -102,7 +101,7 @@ fclean: clean
 	@printf "$(COLOR_INFO)Deleting $(NAME)...$(COLOR_RESET)"
 	@$(CLEAN) $(NAME)
 	@printf "\r$(COLOR_SUCCESS)✅ $(NAME) deleted successfully!$(COLOR_RESET)\n"
-	@make -C $(MLX_DIR) clean
+# 	@make -C $(MLX_DIR) clean
 
 re: fclean all
 

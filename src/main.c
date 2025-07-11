@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alba <alba@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: albmarqu <albmarqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 21:01:23 by fmesa-or          #+#    #+#             */
-/*   Updated: 2025/07/09 13:11:46 by alba             ###   ########.fr       */
+/*   Updated: 2025/07/11 10:30:10 by albmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	main(int argc, char **argv)
 	read_file(argv[1], data);
 //
 	int i = 0;
-	printf("MAPA\n");
+	printf("\nMAPA\n");
 	while (i <= data->file_rows)
 		printf("%s", data->map_data[i++]);
 //
