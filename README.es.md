@@ -1,3 +1,9 @@
+<div>
+    <p align="left">
+        <a href="/languages/README.md">English<a> · <b>Español</b>
+    </p>
+</div>
+
 # cub3D  
 Mi primer RayCaster con miniLibX
 
