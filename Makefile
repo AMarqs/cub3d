@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: albmarqu <albmarqu@student.42malaga.com    +#+  +:+       +#+         #
+#    By: jortiz-m <jortiz-m@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/09 13:08:16 by alba              #+#    #+#              #
-#    Updated: 2025/07/11 10:29:04 by albmarqu         ###   ########.fr        #
+#    Updated: 2025/07/16 12:41:41 by jortiz-m         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,16 +19,29 @@ CC = cc
 #Flags
 CFLAGS = -Wall -Wextra -Werror -g
 
+#MLX
+MLX_PATH = include/lib/minilibx
+MLX_LIB = $(MLX_PATH)/libmlx.a
+MLX_FLAGS = -L$(MLX_PATH) -lmlx -lXext -lX11 -lm -lz
+
+#LIBFT
+LIBFT_PATH = include/lib/libft
+LIBFT_LIB = $(LIBFT_PATH)/libft.a
+LIBFT_FLAGS = -L$(LIBFT_PATH) -lft
+
 #Clean
 CLEAN = rm -Rf
 
 #Sources
 SRC = 	main.c \
+		init.c \
+		utils.c \
+		game.c \
+		hook/hook.c \
 		parse/check_args.c \
 		parse/file2array.c \
-		libft_BORRAR.c \
-		get_next_line/get_next_line_bonus.c \
-		get_next_line/get_next_line_utils_bonus.c
+		parse/parse_info.c \
+		parse/textures.c
 SRCS_DIR = src
 SRCS = $(addprefix $(SRCS_DIR)/, $(SRC))
 
@@ -37,11 +50,10 @@ OBJS_DIR = obj
 OBJS = $(addprefix $(OBJS_DIR)/, $(SRC:.c=.o))
 
 #Libraries
-# MLX_DIR	= /sgoinfre/shared/MLX42/build
-# MLX = $(MLX_DIR)/libmlx42.a
+LIBS = -L$(MLX_PATH) -lmlx -lXext -lX11 -lm
 
 #Headers
-HEADERS	= -I ./include #$(LIBFT)
+HEADERS	= -I ./include -I $(MLX_PATH) -I $(LIBFT_PATH)
 
 #Colors
 COLOR_INFO = \033[1;36m
@@ -68,14 +80,14 @@ $(COLOR_RESET)
 endef
 export HEADER_ART
 
-all: header $(NAME)
+all: header $(MLX_LIB) $(LIBFT_LIB) $(NAME)
 
 header:
 	@echo "$$HEADER_ART"
 
-$(NAME): $(OBJS) #$(MLX)-lreadline
+$(NAME): $(OBJS) $(MLX_LIB) $(LIBFT_LIB)
 	@printf "\n$(COLOR_SUCCESS)Compiling executable...$(COLOR_RESET)\n"
-	@$(CC) $(OBJS) $(HEADERS) -o $(NAME) 
+	@$(CC) $(OBJS) $(HEADERS) $(LIBS) $(LIBFT_FLAGS) -o $(NAME) 
 	@printf "$(COLOR_SUCCESS)✅ $(NAME) is ready!$(COLOR_RESET)\n"
 
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c
@@ -89,8 +101,15 @@ $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c
 	@printf "$(COLOR_INFO)] %3d%%$(COLOR_RESET)" $(PERCENT)
 	@$(CC) $(CFLAGS) -c $< -o $@ $(HEADERS)
 
-# $(MLX):
-# 	@make -C $(MLX_DIR) all
+$(MLX_LIB):
+	@printf "$(COLOR_INFO)Compiling MLX library...$(COLOR_RESET)\n"
+	@make -C $(MLX_PATH) all > /dev/null 2>&1
+	@printf "$(COLOR_SUCCESS)✅ MLX library compiled!$(COLOR_RESET)\n"
+
+$(LIBFT_LIB):
+	@printf "$(COLOR_INFO)Compiling libft library...$(COLOR_RESET)\n"
+	@make -C $(LIBFT_PATH) all > /dev/null 2>&1
+	@printf "$(COLOR_SUCCESS)✅ Libft library compiled!$(COLOR_RESET)\n"
 
 clean:
 	@printf "$(COLOR_INFO)Cleaning object files...$(COLOR_RESET)"
@@ -101,7 +120,12 @@ fclean: clean
 	@printf "$(COLOR_INFO)Deleting $(NAME)...$(COLOR_RESET)"
 	@$(CLEAN) $(NAME)
 	@printf "\r$(COLOR_SUCCESS)✅ $(NAME) deleted successfully!$(COLOR_RESET)\n"
-# 	@make -C $(MLX_DIR) clean
+	@printf "$(COLOR_INFO)Cleaning MLX library...$(COLOR_RESET)\n"
+	@make -C $(MLX_PATH) clean > /dev/null 2>&1
+	@printf "$(COLOR_SUCCESS)✅ MLX library cleaned!$(COLOR_RESET)\n"
+	@printf "$(COLOR_INFO)Cleaning libft library...$(COLOR_RESET)\n"
+	@make -C $(LIBFT_PATH) fclean > /dev/null 2>&1
+	@printf "$(COLOR_SUCCESS)✅ Libft library cleaned!$(COLOR_RESET)\n"
 
 re: fclean all
 

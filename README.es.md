@@ -4,7 +4,7 @@
     </p>
 </div>
 
-# cub3D  
+# cub3d  
 Mi primer RayCaster con miniLibX
 
 ##### Resumen
@@ -15,7 +15,7 @@ Este proyecto está inspirado en el mundialmente famoso juego Wolfenstein 3D, co
 
 ## Instrucciones
 
-| **Nombre del programa** | **cub3D** |
+| **Nombre del programa** | **cub3d** |
 |-------------------------|-----------|
 | **Archivos a entregar** | Todos tus archivos |
 | **Makefile** | all, clean, fclean, re, bonus |

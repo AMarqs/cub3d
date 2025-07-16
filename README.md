@@ -4,7 +4,7 @@
     </p>
 </div>
 
-# cub3D  
+# cub3d  
 My first RayCaster with miniLibX
 
 ##### Summary
@@ -15,7 +15,7 @@ This project is inspired by the world-famous Wolfenstein 3D game, which is   con
 
 ## Instructions
 
-| **Program name** | **cub3D** |
+| **Program name** | **cub3d** |
 |------------------|-----------|
 | **Turn in files** | All your files |
 | **Makefile** | all, clean, fclean, re, bonus |
@@ -31,21 +31,21 @@ The constraints are as follows:
 - You must use the miniLibX. Either the version that is available on the operating system, or from its sources. If you choose to work with the sources, you will need to apply the same rules for your libft as those written above in Common
 Instructions part.
 
-- The management of your window must remain smooth: changing to another window, minimizing, etc.
+- The management of your windowdow must remain smooth: changing to another windowdow, minimizing, etc.
 
 - Display different wall textures (the choice is yours) that vary depending on which side the wall is facing (North, South, East, West).
 
 - Your program must be able to set the floor and ceiling colors to two different ones.
 
-- The program displays the image in a window and respects the following rules:
+- The program displays the image in a windowdow and respects the followindowg rules:
 
     - The left and right arrow keys of the keyboard must allow you to look left and right in the maze.
 
     - The W, A, S, and D keys must allow you to move the point of view through the maze.
 
-    - Pressing ESC must close the window and quit the program cleanly.
+    - Pressing ESC must close the windowdow and quit the program cleanly.
 
-    - Clicking on the red cross on the window’s frame must close the window and quit the program cleanly.
+    - Clicking on the red cross on the windowdow’s frame must close the windowdow and quit the program cleanly.
 
     - The use of images of the minilibX library is strongly recommended.
 
