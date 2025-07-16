@@ -1,5 +1,3 @@
-<<<<<<< Updated upstream
-=======
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -8,7 +6,7 @@
 /*   By: jortiz-m <jortiz-m@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 13:06:37 by alba              #+#    #+#             */
-/*   Updated: 2025/07/16 12:46:35 by jortiz-m         ###   ########.fr       */
+/*   Updated: 2025/07/16 19:24:39 by jortiz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +17,7 @@
 * LIBRARIES *
 ************/
 
-#include "mlx.h"
+#include "lib/MLX42/include/MLX42/MLX42.h"
 #include "libft.h"
 #include <unistd.h>
 #include <stdlib.h>
@@ -227,4 +225,3 @@ int		create_rgb(int r, int g, int b);	// Crea color RGB para MLX
 ******/
 
 #endif
->>>>>>> Stashed changes

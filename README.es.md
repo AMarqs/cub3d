@@ -5,7 +5,7 @@
 </div>
 
 # cub3d  
-Mi primer RayCaster con miniLibX
+Mi primer RayCaster con MLX42
 
 ##### Resumen
 
@@ -20,7 +20,7 @@ Este proyecto está inspirado en el mundialmente famoso juego Wolfenstein 3D, co
 | **Archivos a entregar** | Todos tus archivos |
 | **Makefile** | all, clean, fclean, re, bonus |
 | **Argumentos** | un mapa en formato *.cub |
-| **Funciones externas** | - open, close, read, write, printf, malloc, free, perror, strerror, exit, gettimeofday <br> - Todas las funciones de la biblioteca matemática (-lm man man 3 math) <br> - Todas las funciones de la biblioteca MiniLibX |
+| **Funciones externas** | - open, close, read, write, printf, malloc, free, perror, strerror, exit, gettimeofday <br> - Todas las funciones de la biblioteca matemática (-lm man man 3 math) <br> - Todas las funciones de la biblioteca MLX42 |
 | **Libft autorizada** | Sí |
 | **Descripción** | Debes crear una representación gráfica 3D “realista” del interior de un laberinto desde una perspectiva en primera persona. <br>Debes crear esta representación utilizando los principios de ray-casting mencionados anteriormente. |
 
@@ -28,7 +28,7 @@ Este proyecto está inspirado en el mundialmente famoso juego Wolfenstein 3D, co
 
 Las restricciones son las siguientes:
 
-- Debes usar la miniLibX. Ya sea la versión que está disponible en el sistema operativo o desde sus fuentes. Si eliges trabajar con las fuentes, deberás aplicar las mismas reglas para tu libft que las escritas anteriormente en la parte de Instrucciones Comunes.
+- Debes usar la MLX42. Ya sea la versión que está disponible en el sistema operativo o desde sus fuentes. Si eliges trabajar con las fuentes, deberás aplicar las mismas reglas para tu libft que las escritas anteriormente en la parte de Instrucciones Comunes.
 
 - La gestión de tu ventana debe ser fluida: cambiar a otra ventana, minimizar, etc.
 
@@ -46,7 +46,7 @@ Las restricciones son las siguientes:
 
     - Hacer clic en la cruz roja del marco de la ventana debe cerrar la ventana y salir del programa de manera limpia.
 
-    - Se recomienda encarecidamente el uso de imágenes de la biblioteca minilibX.
+    - Se recomienda encarecidamente el uso de imágenes de la biblioteca MLX42.
 
 - Tu programa debe aceptar como primer argumento un archivo de descripción de escena con la extensión .cub.
 

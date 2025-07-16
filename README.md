@@ -5,7 +5,7 @@
 </div>
 
 # cub3d  
-My first RayCaster with miniLibX
+My first RayCaster with MLX42
 
 ##### Summary
 
@@ -20,7 +20,7 @@ This project is inspired by the world-famous Wolfenstein 3D game, which is   con
 | **Turn in files** | All your files |
 | **Makefile** | all, clean, fclean, re, bonus |
 | **Arguments**  | a map in format *.cub |
-| **External functions** | - open, close, read, write, printf, malloc, free, perror, strerror, exit, gettimeofday <br> - All functions of the math library (-lm man man 3 math) <br> - All functions of the MiniLibX library |
+| **External functions** | - open, close, read, write, printf, malloc, free, perror, strerror, exit, gettimeofday <br> - All functions of the math library (-lm man man 3 math) <br> - All functions of the MLX42 library |
 | **Libft authorized** | Yes |
 | **Description** | You must create a “realistic” 3D graphical representation of the inside of a maze from a first-person perspective. <br>You have to create this representation using the ray-casting principles mentioned earlier. |
 
@@ -28,7 +28,7 @@ This project is inspired by the world-famous Wolfenstein 3D game, which is   con
 
 The constraints are as follows:
 
-- You must use the miniLibX. Either the version that is available on the operating system, or from its sources. If you choose to work with the sources, you will need to apply the same rules for your libft as those written above in Common
+- You must use the MLX42. Either the version that is available on the operating system, or from its sources. If you choose to work with the sources, you will need to apply the same rules for your libft as those written above in Common
 Instructions part.
 
 - The management of your windowdow must remain smooth: changing to another windowdow, minimizing, etc.
@@ -47,7 +47,7 @@ Instructions part.
 
     - Clicking on the red cross on the windowdow’s frame must close the windowdow and quit the program cleanly.
 
-    - The use of images of the minilibX library is strongly recommended.
+    - The use of images of the MLX42 library is strongly recommended.
 
 - Your program must take as a first argument a scene description file with the .cub extension.
 

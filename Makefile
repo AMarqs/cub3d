@@ -6,7 +6,7 @@
 #    By: jortiz-m <jortiz-m@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/09 13:08:16 by alba              #+#    #+#              #
-#    Updated: 2025/07/16 12:41:41 by jortiz-m         ###   ########.fr        #
+#    Updated: 2025/07/16 19:26:48 by jortiz-m         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,8 +20,8 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -g
 
 #MLX
-MLX_PATH = include/lib/minilibx
-MLX_LIB = $(MLX_PATH)/libmlx.a
+MLX_PATH = include/lib/MLX42
+MLX_LIB = $(MLX_PATH)/build/libmlx42.a
 MLX_FLAGS = -L$(MLX_PATH) -lmlx -lXext -lX11 -lm -lz
 
 #LIBFT
@@ -53,7 +53,7 @@ OBJS = $(addprefix $(OBJS_DIR)/, $(SRC:.c=.o))
 LIBS = -L$(MLX_PATH) -lmlx -lXext -lX11 -lm
 
 #Headers
-HEADERS	= -I ./include -I $(MLX_PATH) -I $(LIBFT_PATH)
+HEADERS	= -I ./include $(MLX_PATH) $(LIBFT_PATH)
 
 #Colors
 COLOR_INFO = \033[1;36m
