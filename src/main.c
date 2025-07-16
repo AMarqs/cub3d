@@ -6,7 +6,7 @@
 /*   By: jortiz-m <jortiz-m@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 21:01:23 by jortiz-m          #+#    #+#             */
-/*   Updated: 2025/07/16 19:24:45 by jortiz-m         ###   ########.fr       */
+/*   Updated: 2025/07/16 19:43:10 by jortiz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,11 @@ int	main(int argc, char **argv)
 	printf("Correct file, %d lines\n", game->data.file_rows);
 	read_file(argv[1], &game->data);
 	// Debug print map
+	/*
 	printf("\nMAPA\n");
-	while (i <= game->data.file_rows)
+	while (i <= game->data.file_rows) 
 		printf("%s", game->data.map_data[i++]);
-	init_game(game);
-	init_player(game, 'N', 5, 5); // Default player position and direction
-	mlx_loop(game->mlx);
+	*/
+	ft_init_game(game);
 	return (0);
 }
