@@ -1,11 +1,9 @@
-!!! En el Makefile no se pueden usar wildcards
-- MLX al descargar el repo, se buggea
-- Añadir libft, yo estoy poniendo las funciones sueltas de la librerías
 - Tenemos que tener nuestras propias texturas, las que hay las he copiado de un compi
 
 HASTA AHORA HE CONSEGUIDO:
 - COMPROBAR SI LOS ARGUMENTOS ESTÁN BIEN, Y LA EXTENSIÓN
 - DUPLICAR LO QUE HAY DENTRO DEL ARCHIVO EN UNA VARIABLE DATA_MAP
+- CHEQUEAR LA PARTE DEL MAPA DE INFORMACIÓN: TEXTURAS Y COLORES
 
 AHORA:
-- CHEQUEAR QUE LO QUE HAY EN DATA_MAP ES UN MAPA CORRECTO
+- CHEQUEAR LA PARTE DEL MAPA

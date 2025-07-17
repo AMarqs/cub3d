@@ -6,7 +6,7 @@
 /*   By: albmarqu <albmarqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 13:06:37 by albmarqu          #+#    #+#             */
-/*   Updated: 2025/07/17 17:51:34 by albmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/17 21:38:39 by albmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,11 +82,9 @@ typedef struct s_data
 	char	*so_texture;
 	char	*we_texture;
 	char	*ea_texture;
-	t_color	floor;
-	t_color	ceiling;
-	
-	int		map_rows;
-	int		map_col;
+	t_color	*floor;
+	t_color	*ceiling;
+	char	**map;
 }	t_data;
 
 /************
@@ -99,21 +97,28 @@ typedef struct s_data
 void	check_args(int argc, char **argv);
 void	open_file(char *argv, t_data *data);
 void	read_file(char *argv, t_data *data);
-void	file2map(char *argv, t_data *data);
-void	parse_textures(t_data *data);
-
+void	file2map(int file, t_data *data);
+void	parse_info(t_data *data);
+void	check_count(t_count *count);
+// Textures
 void	texture_type(t_data *data, int i, t_count *count);
 void	parse_no(char *no, t_data *data);
 void	parse_so(char *so, t_data *data);
 void	parse_we(char *we, t_data *data);
 void	parse_ea(char *ea, t_data *data);
 void	open_texture_file(char *path);
-void	texture_error(void);
-
+// Colors
 void	texture_color(t_data *data, int i, t_count *count);
 void	parse_f(char *f, t_data *data);
 void	parse_c(char *c, t_data *data);
+// Map
+void	parse_map(t_data *data, int i);
 
-void	check_count(t_count *count);
+
+//// ERRORS ////
+
+void	error_alocating(t_data *data);
+void	frees(t_data *data);
+
 
 #endif

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isletter.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jortiz-m <jortiz-m@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: albmarqu <albmarqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 11:25:24 by jortiz-m          #+#    #+#             */
-/*   Updated: 2025/07/16 11:29:36 by jortiz-m         ###   ########.fr       */
+/*   Updated: 2025/07/17 19:40:17 by albmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int ft_isletter(int c)
+int	ft_isletter(int c)
 {
 	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
 		return (0);

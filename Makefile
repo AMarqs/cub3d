@@ -6,7 +6,7 @@
 #    By: albmarqu <albmarqu@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/09 13:08:16 by albmarqu          #+#    #+#              #
-#    Updated: 2025/07/17 17:43:13 by albmarqu         ###   ########.fr        #
+#    Updated: 2025/07/17 21:50:01 by albmarqu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,11 +34,12 @@ CLEAN = rm -Rf
 
 #Sources
 SRC = 	main.c \
-		parse/check_args.c \
-		parse/file2array.c \
+		parse/parse_args.c \
 		parse/parse_info.c \
 		parse/parse_textures.c \
-		parse/parse_colors.c
+		parse/parse_colors.c \
+		parse/parse_map.c \
+		errors.c
 SRCS_DIR = src
 SRCS = $(addprefix $(SRCS_DIR)/, $(SRC))
 
@@ -47,7 +48,7 @@ OBJS_DIR = obj
 OBJS = $(addprefix $(OBJS_DIR)/, $(SRC:.c=.o))
 
 #Libraries
-LIBS = -L$(MLX_PATH) -lmlx -lXext -lX11 -lm
+LIBS = -L$(MLX_PATH) -lXext -lX11 -lm #-lmlx 
 
 #Headers
 HEADERS	= -I ./include -I $(MLX_PATH) -I $(LIBFT_PATH)

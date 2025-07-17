@@ -12,12 +12,6 @@
 
 #include "cub3d.h"
 
-void	texture_error(void)
-{
-	write(2, "Error\nInvalid texture data\n", 27);
-	exit(EXIT_FAILURE);
-}
-
 void	open_texture_file(char *path)
 {
 	int	fd;
@@ -33,90 +27,72 @@ void	open_texture_file(char *path)
 	close(fd);
 }
 
-void	parse_no(char *no, t_data *data)
+void	parse_route(char *route)
 {
 	int	i;
-	int	j;
 
-	i = 0;
-	j = 0;
-	no += 2;
-	while (*no == ' ')
-		no++;
-	while (no[i] && no[i] != '\n')
-	{
-		if (!ft_isletter(no[i]) && no[i] != '/' && no[i] != '.')
-			texture_error();
-		data->no_texture[j] = no[i];
+	i = 2;
+	while (route[i] == ' ')
 		i++;
-		j++;
+	while (route[i] && route[i] != '\n')
+	{
+		if (ft_isletter(route[i]) && route[i] != '/' && route[i] != '.')
+		{
+			write(2, "Error\nInvalid texture data\n", 27);
+			exit(EXIT_FAILURE);
+		}
+		i++;
 	}
-	data->no_texture[j] = '\0';
+}
+
+void	parse_no(char *no, t_data *data)
+{
+	int		len;
+	char	*aux;
+
+	len = ft_strlen(no);
+	parse_route(no);
+	aux = ft_substr(no, 2, len);
+	data->no_texture = ft_strtrim(aux, " \n");
+	free(aux);
 	open_texture_file(data->no_texture);
 }
 
 void	parse_so(char *so, t_data *data)
 {
-	int	i;
-	int	j;
+	int		len;
+	char	*aux;
 
-	i = 0;
-	j = 0;
-	so += 2;
-	while (*so == ' ')
-		so++;
-	while (so[i] && so[i] != '\n')
-	{
-		if (!ft_isletter(so[i]) && so[i] != '/' && so[i] != '.')
-			texture_error();
-		data->so_texture[j] = so[i];
-		i++;
-		j++;
-	}
-	data->so_texture[j] = '\0';
+	len = ft_strlen(so);
+	parse_route(so);
+	aux = ft_substr(so, 2, len);
+	data->so_texture = ft_strtrim(aux, " \n");
+	free(aux);
 	open_texture_file(data->so_texture);
 }
 
 void	parse_we(char *we, t_data *data)
 {
-	int	i;
-	int	j;
+	int		len;
+	char	*aux;
 
-	i = 0;
-	j = 0;
-	we += 2;
-	while (*we == ' ')
-		we++;
-	while (we[i] && we[i] != '\n')
-	{
-		if (!ft_isletter(we[i]) && we[i] != '/' && we[i] != '.')
-			texture_error();
-		data->we_texture[j] = we[i];
-		i++;
-		j++;
-	}
-	data->we_texture[j] = '\0';
+	len = ft_strlen(we);
+	parse_route(we);
+	aux = ft_substr(we, 2, len);
+	data->we_texture = ft_strtrim(aux, " \n");
+	free(aux);
 	open_texture_file(data->we_texture);
 }
 
 void	parse_ea(char *ea, t_data *data)
 {
-	int	i;
-	int	j;
+	int		len;
+	char	*aux;
 
-	i = 0;
-	j = 0;
-	ea += 2;
-	while (*ea == ' ')
-		ea++;
-	while (ea[i] && ea[i] != '\n')
-	{
-		if (!ft_isletter(ea[i]) && ea[i] != '/' && ea[i] != '.')
-			texture_error();
-		data->ea_texture[j] = ea[i];
-		i++;
-		j++;
-	}
-	data->ea_texture[j] = '\0';
+	len = ft_strlen(ea);
+	parse_route(ea);
+	aux = ft_substr(ea, 2, len);
+	data->ea_texture = ft_strtrim(aux, " \n");
+	free(aux);
 	open_texture_file(data->ea_texture);
 }

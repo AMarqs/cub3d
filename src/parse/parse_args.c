@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   file2array.c                                       :+:      :+:    :+:   */
+/*   check_args.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: albmarqu <albmarqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/30 18:30:49 by albmarqu          #+#    #+#             */
-/*   Updated: 2025/07/17 15:52:01 by albmarqu         ###   ########.fr       */
+/*   Created: 2025/06/30 18:29:44 by albmarqu          #+#    #+#             */
+/*   Updated: 2025/07/17 21:49:13 by albmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,7 @@ void	read_file(char *argv, t_data *data)
 	if (data->map_data == NULL)
 	{
 		close(file);
-		write(2, "Error\nError allocating memory\n", 30);
-		free(data->map_data);
-		exit(EXIT_FAILURE);
+		error_alocating(data);
 	}
 	file2map(file, data);
 	close(file);
@@ -79,4 +77,23 @@ void	open_file(char *argv, t_data *data)
 		data->file_rows++;
 	}
 	close(file);
+}
+
+/*
+	1. Compruebo si el numero de argumentos es 2: el nombre del programa en si
+	   y el nombre del archivo para el mapa.
+	2. Compruebo si el archivo del mapa tiene como extensión .cub
+*/
+void	check_args(int argc, char **argv)
+{
+	if (argc != 2)
+	{
+		write(2, "Error\nWrong number of arguments\n", 32);
+		exit(EXIT_FAILURE);
+	}
+	if (ft_strncmp((argv[1] + ft_strlen(argv[1]) - 4), ".cub", 4))
+	{
+		write(2, "Error\nBad extension\n", 20);
+		exit(EXIT_FAILURE);
+	}
 }
