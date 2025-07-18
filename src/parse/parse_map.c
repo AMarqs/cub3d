@@ -6,7 +6,7 @@
 /*   By: albmarqu <albmarqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 20:30:52 by albmarqu          #+#    #+#             */
-/*   Updated: 2025/07/18 13:38:40 by albmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/18 13:44:06 by albmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ void	parse_floor(t_data *data)
 		{
 			if (data->map[row][col] == 0)
 			{
+				//// COMPROBAR QUE EXISTAN
 				correct_floor(data, (row - 1), col);
 				correct_floor(data, (row + 1), col);
 				correct_floor(data, row, (col - 1));
