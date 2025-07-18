@@ -1,7 +1,7 @@
-SO ./textures/wolf1.png
-WE ./textures/wolf2.png
-EA ./textures/wolf3.png
-NO ./textures/wolf4.png
+SO ./textures/beds.png
+WE ./textures/blue.png
+EA ./textures/tree.png
+NO ./textures/grey.png
 
 C 9, 24, 51
 F 48, 27, 104

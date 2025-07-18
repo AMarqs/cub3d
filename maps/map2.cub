@@ -1,7 +1,7 @@
-SO ./textures/stone_wall.png
-WE ./textures/stone_wall.png
-EA ./textures/stone_wall.png
-NO ./textures/coal_ore.png
+SO ./textures/beds.png
+WE ./textures/blue.png
+EA ./textures/tree.png
+NO ./textures/grey.png
 
 C 105, 105, 105
 F 127, 127, 127

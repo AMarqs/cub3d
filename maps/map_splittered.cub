@@ -1,7 +1,7 @@
-SO ./textures/neon_broken_wall.png
-WE ./textures/neon_wall1.png
-EA ./textures/neon_wall2.png
-NO ./textures/neon_wall3.png
+SO ./textures/beds.png
+WE ./textures/blue.png
+EA ./textures/tree.png
+NO ./textures/grey.png
 
 C 9, 24, 51
 F 48, 27, 104

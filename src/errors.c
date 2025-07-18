@@ -6,7 +6,7 @@
 /*   By: albmarqu <albmarqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 19:52:39 by albmarqu          #+#    #+#             */
-/*   Updated: 2025/07/17 21:44:46 by albmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/18 14:45:07 by albmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,14 @@ void	frees(t_data *data)
 {
 	if (data->map_data)
 		free(data->map_data);
+	if (data->no_texture)
+		free(data->no_texture);
+	if (data->so_texture)
+		free(data->so_texture);
+	if (data->we_texture)
+		free(data->we_texture);
+	if (data->ea_texture)
+		free(data->ea_texture);
 	if (data->floor)
 		free(data->floor);
 	if (data->ceiling)

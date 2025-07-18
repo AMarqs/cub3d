@@ -6,11 +6,55 @@
 /*   By: albmarqu <albmarqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 16:22:48 by albmarqu          #+#    #+#             */
-/*   Updated: 2025/07/18 13:45:20 by albmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/18 14:40:17 by albmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+long	ft_atol(const char *str)
+{
+	long	i;
+	long	sign;
+	long	num;
+
+	i = 0;
+	sign = 1;
+	num = 0;
+	while ((str[i] >= 9 && str[i] <= 13) || str[i] == 32)
+		i++;
+	if (str[i] == '-' || str[i] == '+')
+	{
+		if (str[i] == '-')
+			sign = -1;
+		i++;
+	}
+	while (str[i] != '\0' && str[i] >= '0' && str[i] <= '9')
+	{
+		num = num * 10 + str[i] - 48;
+		i++;
+	}
+	num = num * sign;
+	return (num);
+}
+
+long	color_range(const char *str)
+{
+	long	num;
+
+	if (ft_strlen(str) > 11)
+	{
+		write(2, "Error\nWrong color range\n", 24);
+		exit(EXIT_FAILURE);
+	}
+	num = ft_atol(str);
+	if (num < 0 || num > 255)
+	{
+		write(2, "Error\nWrong color range\n", 24);
+		exit(EXIT_FAILURE);
+	}
+	return (num);
+}
 
 void	count_commas(char *str)
 {
@@ -32,15 +76,6 @@ void	count_commas(char *str)
 	}
 }
 
-void	color_range(int i)
-{
-	if (i < 0 || i > 255)
-	{
-		write(2, "Error\nWrong color range\n", 24);
-		exit(EXIT_FAILURE);
-	}
-}
-
 void	parse_f(char *f, t_data *data)
 {
 	char	**floor;
@@ -51,13 +86,9 @@ void	parse_f(char *f, t_data *data)
 	f = ft_strtrim(f, " ");
 	count_commas(f);
 	floor = ft_split(f, ',');
-	/// CALCULAR LONGITUD DEL STRING, SI ES MAYOR QUE 13 ESTÁ MAL PORQUE TE PASAS DE NUMERO
-	data->floor->r = ft_atoi(floor[0]);
-	data->floor->g = ft_atoi(floor[1]);
-	data->floor->b = ft_atoi(floor[2]);
-	color_range(data->floor->r);
-	color_range(data->floor->g);
-	color_range(data->floor->b);
+	data->floor->r = color_range(floor[0]);
+	data->floor->g = color_range(floor[1]);
+	data->floor->b = color_range(floor[2]);
 }
 
 void	parse_c(char *c, t_data *data)
@@ -70,11 +101,7 @@ void	parse_c(char *c, t_data *data)
 	c = ft_strtrim(c, " ");
 	count_commas(c);
 	ceiling = ft_split(c, ',');
-	//////////////////
-	data->ceiling->r = ft_atoi(ceiling[0]);
-	data->ceiling->g = ft_atoi(ceiling[1]);
-	data->ceiling->b = ft_atoi(ceiling[2]);
-	color_range(data->ceiling->r);
-	color_range(data->ceiling->g);
-	color_range(data->ceiling->b);
+	data->ceiling->r = color_range(ceiling[0]);
+	data->ceiling->g = color_range(ceiling[1]);
+	data->ceiling->b = color_range(ceiling[2]);
 }
