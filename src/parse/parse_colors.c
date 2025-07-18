@@ -6,7 +6,7 @@
 /*   By: albmarqu <albmarqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 16:22:48 by albmarqu          #+#    #+#             */
-/*   Updated: 2025/07/18 14:40:17 by albmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/18 19:24:43 by albmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,13 @@ long	color_range(const char *str)
 
 	if (ft_strlen(str) > 11)
 	{
-		write(2, "Error\nWrong color range\n", 24);
+		write(2, "Error\nInvaild RGB color\n", 24);
 		exit(EXIT_FAILURE);
 	}
 	num = ft_atol(str);
 	if (num < 0 || num > 255)
 	{
-		write(2, "Error\nWrong color range\n", 24);
+		write(2, "Error\nInvaild RGB color\n", 24);
 		exit(EXIT_FAILURE);
 	}
 	return (num);
@@ -71,7 +71,7 @@ void	count_commas(char *str)
 	}
 	if (comma != 2)
 	{
-		write(2, "Error\nWrong color format\n", 25);
+		write(2, "Error\nWrong RGB color format\n", 29);
 		exit(EXIT_FAILURE);
 	}
 }

@@ -6,4 +6,6 @@ HASTA AHORA HE CONSEGUIDO:
 - CHEQUEAR LA PARTE DEL MAPA DE INFORMACIÓN: TEXTURAS Y COLORES
 
 AHORA:
-- CHEQUEAR LA PARTE DEL MAPA
+- CHEQUEAR 	QUE FUNCIONE EL PARSEO DEL MAPA
+- El map spliterred no funciona
+- Me falta comprobar que el player no esté en una pared

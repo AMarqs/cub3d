@@ -6,7 +6,7 @@
 /*   By: albmarqu <albmarqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 20:30:52 by albmarqu          #+#    #+#             */
-/*   Updated: 2025/07/18 13:44:06 by albmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/18 19:25:57 by albmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,10 @@ void	parse_player(t_data *data)
 
 void	correct_floor(t_data *data, int row, int col)
 {
-	if (data->map[row][col] != '1' && data->map[row][col] != '0'
+	if (!data->map[row][col]
+		|| (data->map[row][col] != '1' && data->map[row][col] != '0'
 		&& data->map[row][col] != 'N' && data->map[row][col] != 'S'
-		&& data->map[row][col] != 'W' && data->map[row][col] != 'E')
+		&& data->map[row][col] != 'W' && data->map[row][col] != 'E'))
 	{
 		write(2, "Error\nIncorrect floor position\n", 31);
 		exit(EXIT_FAILURE);
@@ -92,7 +93,6 @@ void	parse_floor(t_data *data)
 		{
 			if (data->map[row][col] == 0)
 			{
-				//// COMPROBAR QUE EXISTAN
 				correct_floor(data, (row - 1), col);
 				correct_floor(data, (row + 1), col);
 				correct_floor(data, row, (col - 1));

@@ -6,7 +6,7 @@
 /*   By: albmarqu <albmarqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 13:06:37 by albmarqu          #+#    #+#             */
-/*   Updated: 2025/07/18 14:30:42 by albmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/18 19:17:52 by albmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ void	open_file(char *argv, t_data *data);
 void	read_file(char *argv, t_data *data);
 void	file2map(int file, t_data *data);
 void	parse_info(t_data *data);
+void	init_counters(t_count *count);
 void	check_count(t_count *count);
 // Textures
 void	texture_type(t_data *data, int i, t_count *count);
@@ -112,6 +113,9 @@ void	open_texture_file(char *path);
 void	texture_color(t_data *data, int i, t_count *count);
 void	parse_f(char *f, t_data *data);
 void	parse_c(char *c, t_data *data);
+void	count_commas(char *str);
+long	color_range(const char *str);
+long	ft_atol(const char *str);
 // Map
 void	parse_map(t_data *data, int i);
 
