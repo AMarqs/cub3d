@@ -9,3 +9,7 @@ AHORA:
 - CHEQUEAR 	QUE FUNCIONE EL PARSEO DEL MAPA
 - El map spliterred no funciona
 - Me falta comprobar que el player no esté en una pared
+
+
+
+UNIFICAR TODOS LOS ERRORES DEL MAPA EN UNO, NO TENER 80 TEXTOS DISTINTOS

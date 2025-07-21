@@ -6,7 +6,7 @@
 /*   By: albmarqu <albmarqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 16:22:48 by albmarqu          #+#    #+#             */
-/*   Updated: 2025/07/18 19:24:43 by albmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/21 17:22:04 by albmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,25 +38,27 @@ long	ft_atol(const char *str)
 	return (num);
 }
 
-long	color_range(const char *str)
+long	color_range(const char *str, t_data *data)
 {
 	long	num;
 
 	if (ft_strlen(str) > 11)
 	{
 		write(2, "Error\nInvaild RGB color\n", 24);
+		frees(data);
 		exit(EXIT_FAILURE);
 	}
 	num = ft_atol(str);
 	if (num < 0 || num > 255)
 	{
 		write(2, "Error\nInvaild RGB color\n", 24);
+		frees(data);
 		exit(EXIT_FAILURE);
 	}
 	return (num);
 }
 
-void	count_commas(char *str)
+void	count_commas(char *str, t_data *data)
 {
 	int	i;
 	int	comma;
@@ -72,6 +74,7 @@ void	count_commas(char *str)
 	if (comma != 2)
 	{
 		write(2, "Error\nWrong RGB color format\n", 29);
+		frees(data);
 		exit(EXIT_FAILURE);
 	}
 }
@@ -84,11 +87,11 @@ void	parse_f(char *f, t_data *data)
 	if (data->floor == NULL)
 		error_alocating(data);
 	f = ft_strtrim(f, " ");
-	count_commas(f);
+	count_commas(f, data);
 	floor = ft_split(f, ',');
-	data->floor->r = color_range(floor[0]);
-	data->floor->g = color_range(floor[1]);
-	data->floor->b = color_range(floor[2]);
+	data->floor->r = color_range(floor[0], data);
+	data->floor->g = color_range(floor[1], data);
+	data->floor->b = color_range(floor[2], data);
 }
 
 void	parse_c(char *c, t_data *data)
@@ -99,9 +102,9 @@ void	parse_c(char *c, t_data *data)
 	if (data->ceiling == NULL)
 		error_alocating(data);
 	c = ft_strtrim(c, " ");
-	count_commas(c);
+	count_commas(c, data);
 	ceiling = ft_split(c, ',');
-	data->ceiling->r = color_range(ceiling[0]);
-	data->ceiling->g = color_range(ceiling[1]);
-	data->ceiling->b = color_range(ceiling[2]);
+	data->ceiling->r = color_range(ceiling[0], data);
+	data->ceiling->g = color_range(ceiling[1], data);
+	data->ceiling->b = color_range(ceiling[2], data);
 }

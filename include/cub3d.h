@@ -6,7 +6,7 @@
 /*   By: albmarqu <albmarqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 13:06:37 by albmarqu          #+#    #+#             */
-/*   Updated: 2025/07/18 19:17:52 by albmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/21 17:23:30 by albmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ typedef struct s_data
 {
 	int		file_rows;
 	char	**map_data;
+	char	*map_aux;
+	t_count	*count;
 	char	*no_texture;
 	char	*so_texture;
 	char	*we_texture;
@@ -95,26 +97,27 @@ typedef struct s_data
 
 //// PARSE ////
 
-void	check_args(int argc, char **argv);
+void	check_args(int argc, char **argv, t_data *data);
 void	open_file(char *argv, t_data *data);
 void	read_file(char *argv, t_data *data);
 void	file2map(int file, t_data *data);
 void	parse_info(t_data *data);
 void	init_counters(t_count *count);
-void	check_count(t_count *count);
+void	check_count(t_count *count, t_data *data);
 // Textures
-void	texture_type(t_data *data, int i, t_count *count);
+void	parse_texture(char *map, t_data *data);
 void	parse_no(char *no, t_data *data);
 void	parse_so(char *so, t_data *data);
 void	parse_we(char *we, t_data *data);
 void	parse_ea(char *ea, t_data *data);
+void	parse_route(char *route, t_data *data);
 void	open_texture_file(char *path);
 // Colors
-void	texture_color(t_data *data, int i, t_count *count);
+void	parse_color(char *map, t_data *data);
 void	parse_f(char *f, t_data *data);
 void	parse_c(char *c, t_data *data);
-void	count_commas(char *str);
-long	color_range(const char *str);
+void	count_commas(char *str, t_data *data);
+long	color_range(const char *str, t_data *data);
 long	ft_atol(const char *str);
 // Map
 void	parse_map(t_data *data, int i);
@@ -124,6 +127,7 @@ void	parse_map(t_data *data, int i);
 
 void	error_alocating(t_data *data);
 void	frees(t_data *data);
+void	*ft_freematrix(char **matrix);
 
 
 #endif

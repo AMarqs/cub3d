@@ -6,7 +6,7 @@
 #    By: albmarqu <albmarqu@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/09 13:08:16 by albmarqu          #+#    #+#              #
-#    Updated: 2025/07/17 21:50:01 by albmarqu         ###   ########.fr        #
+#    Updated: 2025/07/21 16:16:00 by albmarqu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,11 +35,13 @@ CLEAN = rm -Rf
 #Sources
 SRC = 	main.c \
 		parse/parse_args.c \
+		parse/open_files.c \
 		parse/parse_info.c \
 		parse/parse_textures.c \
 		parse/parse_colors.c \
 		parse/parse_map.c \
-		errors.c
+		errors.c \
+		parse/utils.c
 SRCS_DIR = src
 SRCS = $(addprefix $(SRCS_DIR)/, $(SRC))
 

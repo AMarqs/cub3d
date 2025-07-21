@@ -6,7 +6,7 @@
 /*   By: albmarqu <albmarqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 21:01:23 by fmesa-or          #+#    #+#             */
-/*   Updated: 2025/07/17 21:13:46 by albmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/21 17:16:00 by albmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	parser(int argc, char **argv, t_data *data)
 {
-	check_args(argc, argv);
+	check_args(argc, argv, data);
 	printf("Good arguments\n");
 	open_file(argv[1], data);
 	printf("Correct file, %d lines\n", data->file_rows);
@@ -38,7 +38,8 @@ int	main(int argc, char **argv)
 	if (data == NULL)
 		error_alocating(data);
 	// Initialize the data structure
-	ft_memset(data, 0, sizeof(t_data));
+	ft_memset(data, 0, sizeof(t_data)); // esto no me acuerdo para que era
 	parser(argc, argv, data);
+	frees(data);
 	return (0);
 }

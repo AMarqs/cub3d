@@ -12,22 +12,7 @@
 
 #include "cub3d.h"
 
-void	open_texture_file(char *path)
-{
-	int	fd;
-
-	fd = open(path, O_RDONLY);
-	if (fd < 0)
-	{
-		write(2, "Error\nNo such file or directory: ", 32);
-		write(2, path, ft_strlen(path));
-		write(2, "\n", 1);
-		exit(EXIT_FAILURE);
-	}
-	close(fd);
-}
-
-void	parse_route(char *route)
+void	parse_route(char *route, t_data *data)
 {
 	int	i;
 
@@ -36,9 +21,10 @@ void	parse_route(char *route)
 		i++;
 	while (route[i] && route[i] != '\n')
 	{
-		if (ft_isletter(route[i]) && route[i] != '/' && route[i] != '.')
+		if (!ft_isascii(route[i]) && route[i] != '/' && route[i] != '.') //// QUE PUEDE SER UNA RUTA ????
 		{
 			write(2, "Error\nInvalid texture data\n", 27);
+			frees(data);
 			exit(EXIT_FAILURE);
 		}
 		i++;
@@ -51,7 +37,7 @@ void	parse_no(char *no, t_data *data)
 	char	*aux;
 
 	len = ft_strlen(no);
-	parse_route(no);
+	parse_route(no, data);
 	aux = ft_substr(no, 2, len);
 	data->no_texture = ft_strtrim(aux, " \n");
 	free(aux);
@@ -64,7 +50,7 @@ void	parse_so(char *so, t_data *data)
 	char	*aux;
 
 	len = ft_strlen(so);
-	parse_route(so);
+	parse_route(so, data);
 	aux = ft_substr(so, 2, len);
 	data->so_texture = ft_strtrim(aux, " \n");
 	free(aux);
@@ -77,7 +63,7 @@ void	parse_we(char *we, t_data *data)
 	char	*aux;
 
 	len = ft_strlen(we);
-	parse_route(we);
+	parse_route(we, data);
 	aux = ft_substr(we, 2, len);
 	data->we_texture = ft_strtrim(aux, " \n");
 	free(aux);
@@ -90,7 +76,7 @@ void	parse_ea(char *ea, t_data *data)
 	char	*aux;
 
 	len = ft_strlen(ea);
-	parse_route(ea);
+	parse_route(ea, data);
 	aux = ft_substr(ea, 2, len);
 	data->ea_texture = ft_strtrim(aux, " \n");
 	free(aux);
