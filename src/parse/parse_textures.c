@@ -22,11 +22,7 @@ void	parse_route(char *route, t_data *data)
 	while (route[i] && route[i] != '\n')
 	{
 		if (!ft_isascii(route[i]) && route[i] != '/' && route[i] != '.') //// QUE PUEDE SER UNA RUTA ????
-		{
-			write(2, "Error\nInvalid texture data\n", 27);
-			frees(data);
-			exit(EXIT_FAILURE);
-		}
+			print_error("Invalid texture data\n", data);
 		i++;
 	}
 }
@@ -41,7 +37,7 @@ void	parse_no(char *no, t_data *data)
 	aux = ft_substr(no, 2, len);
 	data->no_texture = ft_strtrim(aux, " \n");
 	free(aux);
-	open_texture_file(data->no_texture);
+	open_texture_file(data->no_texture, data);
 }
 
 void	parse_so(char *so, t_data *data)
@@ -54,7 +50,7 @@ void	parse_so(char *so, t_data *data)
 	aux = ft_substr(so, 2, len);
 	data->so_texture = ft_strtrim(aux, " \n");
 	free(aux);
-	open_texture_file(data->so_texture);
+	open_texture_file(data->so_texture, data);
 }
 
 void	parse_we(char *we, t_data *data)
@@ -67,7 +63,7 @@ void	parse_we(char *we, t_data *data)
 	aux = ft_substr(we, 2, len);
 	data->we_texture = ft_strtrim(aux, " \n");
 	free(aux);
-	open_texture_file(data->we_texture);
+	open_texture_file(data->we_texture, data);
 }
 
 void	parse_ea(char *ea, t_data *data)
@@ -80,5 +76,5 @@ void	parse_ea(char *ea, t_data *data)
 	aux = ft_substr(ea, 2, len);
 	data->ea_texture = ft_strtrim(aux, " \n");
 	free(aux);
-	open_texture_file(data->ea_texture);
+	open_texture_file(data->ea_texture, data);
 }

@@ -6,7 +6,7 @@
 /*   By: albmarqu <albmarqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 19:52:39 by albmarqu          #+#    #+#             */
-/*   Updated: 2025/07/21 17:25:12 by albmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/21 20:13:49 by albmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,10 @@ void	frees(t_data *data)
 		free(data);
 }
 
-void	error_alocating(t_data *data)
+void	print_error(char *str, t_data *data)
 {
-	write(2, "Error\nError allocating memory\n", 30);
+	write(2, "Error\n", 6);
+	write(2, str, ft_strlen(str));
 	frees(data);
 	exit(EXIT_FAILURE);
 }

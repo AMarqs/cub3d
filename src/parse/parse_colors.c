@@ -6,7 +6,7 @@
 /*   By: albmarqu <albmarqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 16:22:48 by albmarqu          #+#    #+#             */
-/*   Updated: 2025/07/21 17:22:04 by albmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/21 20:10:08 by albmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,18 +43,10 @@ long	color_range(const char *str, t_data *data)
 	long	num;
 
 	if (ft_strlen(str) > 11)
-	{
-		write(2, "Error\nInvaild RGB color\n", 24);
-		frees(data);
-		exit(EXIT_FAILURE);
-	}
+		print_error("Invaild RGB color\n", data);
 	num = ft_atol(str);
 	if (num < 0 || num > 255)
-	{
-		write(2, "Error\nInvaild RGB color\n", 24);
-		frees(data);
-		exit(EXIT_FAILURE);
-	}
+		print_error("Invaild RGB color\n", data);
 	return (num);
 }
 
@@ -72,11 +64,7 @@ void	count_commas(char *str, t_data *data)
 		i++;
 	}
 	if (comma != 2)
-	{
-		write(2, "Error\nWrong RGB color format\n", 29);
-		frees(data);
-		exit(EXIT_FAILURE);
-	}
+		print_error("Wrong RGB color format\n", data);
 }
 
 void	parse_f(char *f, t_data *data)
@@ -85,7 +73,7 @@ void	parse_f(char *f, t_data *data)
 
 	data->floor = malloc(sizeof(t_color));
 	if (data->floor == NULL)
-		error_alocating(data);
+		print_error("Error allocating memory\n", data);
 	f = ft_strtrim(f, " ");
 	count_commas(f, data);
 	floor = ft_split(f, ',');
@@ -100,7 +88,7 @@ void	parse_c(char *c, t_data *data)
 
 	data->ceiling = malloc(sizeof(t_color));
 	if (data->ceiling == NULL)
-		error_alocating(data);
+		print_error("Error allocating memory\n", data);
 	c = ft_strtrim(c, " ");
 	count_commas(c, data);
 	ceiling = ft_split(c, ',');

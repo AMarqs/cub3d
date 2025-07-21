@@ -6,7 +6,7 @@
 #    By: albmarqu <albmarqu@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/09 13:08:16 by albmarqu          #+#    #+#              #
-#    Updated: 2025/07/21 16:16:00 by albmarqu         ###   ########.fr        #
+#    Updated: 2025/07/21 20:27:36 by albmarqu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,10 +14,10 @@
 NAME = cub3d
 
 #Compile
-CC = cc
+CC = clang
 
 #Flags
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address
 
 #MLX
 MLX_PATH = include/lib/MLX42/build
@@ -40,7 +40,8 @@ SRC = 	main.c \
 		parse/parse_textures.c \
 		parse/parse_colors.c \
 		parse/parse_map.c \
-		errors.c \
+		parse/parse_player.c \
+		parse/errors.c \
 		parse/utils.c
 SRCS_DIR = src
 SRCS = $(addprefix $(SRCS_DIR)/, $(SRC))
@@ -87,7 +88,7 @@ header:
 
 $(NAME): $(OBJS) $(MLX_LIB) $(LIBFT_LIB)
 	@printf "\n$(COLOR_SUCCESS)Compiling executable...$(COLOR_RESET)\n"
-	@$(CC) $(OBJS) $(HEADERS) $(LIBS) $(LIBFT_FLAGS) -o $(NAME) 
+	@$(CC) $(OBJS) $(HEADERS) $(LIBS) $(CFLAGS) $(LIBFT_FLAGS) -o $(NAME) 
 	@printf "$(COLOR_SUCCESS)✅ $(NAME) is ready!$(COLOR_RESET)\n"
 
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c
@@ -99,7 +100,7 @@ $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c
 	@for i in $$(seq 1 $(PROGRESS)); do printf "█"; done
 	@for i in $$(seq 1 $$(($(BAR_LENGTH)-$(PROGRESS)))); do printf " "; done
 	@printf "$(COLOR_INFO)] %3d%%$(COLOR_RESET)" $(PERCENT)
-	@$(CC) $(CFLAGS) -c $< -o $@ $(HEADERS)
+	@$(CC) $(CFLAGS) -c $< -o $@ $(HEADERS) 
 
 $(MLX_LIB):
 	@printf "$(COLOR_INFO)Compiling MLX library...$(COLOR_RESET)\n"

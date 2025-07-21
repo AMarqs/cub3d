@@ -6,7 +6,7 @@
 /*   By: albmarqu <albmarqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 20:30:52 by albmarqu          #+#    #+#             */
-/*   Updated: 2025/07/18 19:25:57 by albmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/21 20:26:47 by albmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,50 +21,19 @@ void	parse_char(t_data *data)
 	while (data->map[row])
 	{
 		col = 0;
-		while (data->map[row][col])
+		while (data->map[row] && data->map[row][col])
 		{
 			if (data->map[row][col] != '1' && data->map[row][col] != '0'
 				&& data->map[row][col] != 'N' && data->map[row][col] != 'S'
 				&& data->map[row][col] != 'W' && data->map[row][col] != 'E'
 				&& data->map[row][col] != ' ' && data->map[row][col] != '\t'
 				&& data->map[row][col] != '\n')
-			{
-				write(2, "Error\nWrong map characters\n", 27);
-				exit(EXIT_FAILURE);
-			}
+				print_error("Wrong map characters\n", data);
 			col++;
 		}
 		row++;
 	}
-	printf("Good map characters\n");
-}
-
-void	parse_player(t_data *data)
-{
-	int	row;
-	int	col;
-	int	players;
-
-	row = 0;
-	players = 0;
-	while (data->map[row])
-	{
-		col = 0;
-		while (data->map[row][col])
-		{
-			if (data->map[row][col] == 'N' || data->map[row][col] == 'S'
-				|| data->map[row][col] == 'W' || data->map[row][col] == 'E')
-				players++;
-			col++;
-		}
-		row++;
-	}
-	if (players != 1)
-	{
-		write(2, "Error\nWrong number of players\n", 30);
-		exit(EXIT_FAILURE);
-	}
-	printf("Good player\n");
+	write(1, "Good map characters\n", 20);
 }
 
 void	correct_floor(t_data *data, int row, int col)
@@ -73,10 +42,7 @@ void	correct_floor(t_data *data, int row, int col)
 		|| (data->map[row][col] != '1' && data->map[row][col] != '0'
 		&& data->map[row][col] != 'N' && data->map[row][col] != 'S'
 		&& data->map[row][col] != 'W' && data->map[row][col] != 'E'))
-	{
-		write(2, "Error\nIncorrect floor position\n", 31);
-		exit(EXIT_FAILURE);
-	}
+		print_error("Incorrect floor position\n", data);
 }
 
 void	parse_floor(t_data *data)
@@ -89,6 +55,8 @@ void	parse_floor(t_data *data)
 	while (data->map[row])
 	{
 		col = 0;
+		if (!data->map[row][col] || !ft_strncmp(data->map[row], "\n", 1))
+			print_error("Splitted map\n", data);
 		while (data->map[row][col])
 		{
 			if (data->map[row][col] == 0)
@@ -102,7 +70,7 @@ void	parse_floor(t_data *data)
 		}
 		row++;
 	}
-	printf("Good floor (0)\n");
+	write(1, "Good floor (0)\n", 15);
 }
 
 void	parse_map(t_data *data, int i)
@@ -123,13 +91,13 @@ void	parse_map(t_data *data, int i)
 		i++;
 	}
 	i--;
-	data->map = malloc((i + 1) * sizeof(char *));
+	data->map = malloc((data->file_rows - i + 1) * sizeof(char *));
 	if (data->map == NULL)
-		error_alocating(data);
+		print_error("Error allocating memory\n", data);
 	j = 0;
 	while (data->map_data[i])
 	{
-		data->map[j] = data->map_data[i];
+		data->map[j] = ft_strdup(data->map_data[i]);
 		i++;
 		j++;
 	}

@@ -6,7 +6,7 @@
 /*   By: albmarqu <albmarqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 18:29:44 by albmarqu          #+#    #+#             */
-/*   Updated: 2025/07/21 17:17:24 by albmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/21 20:04:59 by albmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,12 @@ void	read_file(char *argv, t_data *data)
 
 	file = open(argv, O_RDONLY);
 	if (file == -1)
-	{
-		write(2, "Error\nError opening file\n", 25);
-		frees(data);
-		exit(EXIT_FAILURE);
-	}
+		print_error("Error opening file\n", data);
 	data->map_data = malloc((data->file_rows + 1) * sizeof(char *));
 	if (data->map_data == NULL)
 	{
 		close(file);
-		error_alocating(data);
+		print_error("Error allocating memory\n", data);
 	}
 	file2map(file, data);
 	close(file);
@@ -52,15 +48,7 @@ void	read_file(char *argv, t_data *data)
 void	check_args(int argc, char **argv, t_data *data)
 {
 	if (argc != 2)
-	{
-		write(2, "Error\nWrong number of arguments\n", 32);
-		free(data);
-		exit(EXIT_FAILURE);
-	}
+		print_error("Wrong number of arguments\n", data);
 	if (ft_strncmp((argv[1] + ft_strlen(argv[1]) - 4), ".cub", 4))
-	{
-		write(2, "Error\nBad extension\n", 20);
-		free(data);
-		exit(EXIT_FAILURE);
-	}
+		print_error("Bad extension\n", data);
 }
