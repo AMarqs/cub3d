@@ -6,7 +6,7 @@
 /*   By: albmarqu <albmarqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 20:30:52 by albmarqu          #+#    #+#             */
-/*   Updated: 2025/07/21 20:26:47 by albmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/21 21:30:34 by albmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,26 @@ void	correct_floor(t_data *data, int row, int col)
 		print_error("Incorrect floor position\n", data);
 }
 
+void	new_line(t_data *data, int row)
+{
+	int	okay;
+
+	okay = 0;
+	if (!data->map[row][0])
+		print_error("Splitted map\n", data);
+	if (!ft_strncmp(data->map[row], "\n", 1))
+	{
+		while (data->map[row] && row < data->file_rows)
+		{
+			if (ft_strncmp(data->map[row], "\n", 1))
+				okay = 1;
+			row++;
+		}
+	}
+	if (okay == 1)
+		print_error("Splitted map\n", data);
+}
+
 void	parse_floor(t_data *data)
 {
 	int	row;
@@ -55,8 +75,7 @@ void	parse_floor(t_data *data)
 	while (data->map[row])
 	{
 		col = 0;
-		if (!data->map[row][col] || !ft_strncmp(data->map[row], "\n", 1))
-			print_error("Splitted map\n", data);
+		new_line(data, row);
 		while (data->map[row][col])
 		{
 			if (data->map[row][col] == 0)

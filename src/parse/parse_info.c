@@ -6,7 +6,7 @@
 /*   By: albmarqu <albmarqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 13:57:52 by albmarqu          #+#    #+#             */
-/*   Updated: 2025/07/21 20:12:48 by albmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/21 20:36:56 by albmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void	parse_info(t_data *data)
 		else if (data->map_aux[0] == 'F' || data->map_aux[0] == 'C')
 			parse_color(data->map_aux, data);
 		else if (data->map_aux[0] != '\n')
-			print_error("Wrong map ubication\n", data);
+			print_error("Wrong map info\n", data);
 		check_count(data->count, data);
 		i++;
 	}

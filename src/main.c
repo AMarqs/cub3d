@@ -6,7 +6,7 @@
 /*   By: albmarqu <albmarqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 21:01:23 by fmesa-or          #+#    #+#             */
-/*   Updated: 2025/07/21 20:12:19 by albmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/21 21:32:56 by albmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	parser(int argc, char **argv, t_data *data)
 //
 	parse_info(data);
 	write(1, "Good map info\n", 14);
+	prepare_game(data);
 }
 
 int	main(int argc, char **argv)

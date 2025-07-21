@@ -6,7 +6,7 @@
 /*   By: albmarqu <albmarqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 13:06:37 by albmarqu          #+#    #+#             */
-/*   Updated: 2025/07/21 20:26:17 by albmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/21 20:41:43 by albmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,6 @@ void	parse_no(char *no, t_data *data);
 void	parse_so(char *so, t_data *data);
 void	parse_we(char *we, t_data *data);
 void	parse_ea(char *ea, t_data *data);
-void	parse_route(char *route, t_data *data);
 void	open_texture_file(char *path, t_data *data);
 // Colors
 void	parse_color(char *map, t_data *data);
