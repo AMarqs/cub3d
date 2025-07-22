@@ -12,6 +12,22 @@
 
 #include "cub3d.h"
 
+void	open_texture_file(char *path, t_data *data)
+{
+	int	fd;
+
+	fd = open(path, O_RDONLY);
+	if (fd < 0)
+	{
+		write(2, "Error\nNo such file or directory: ", 32);
+		write(2, path, ft_strlen(path));
+		write(2, "\n", 1);
+		frees(data);
+		exit(EXIT_FAILURE);
+	}
+	close(fd);
+}
+
 void	parse_no(char *no, t_data *data)
 {
 	int		len;

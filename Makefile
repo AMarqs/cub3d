@@ -6,7 +6,7 @@
 #    By: albmarqu <albmarqu@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/09 13:08:16 by albmarqu          #+#    #+#              #
-#    Updated: 2025/07/21 20:27:36 by albmarqu         ###   ########.fr        #
+#    Updated: 2025/07/22 15:03:41 by albmarqu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,6 @@ CLEAN = rm -Rf
 #Sources
 SRC = 	main.c \
 		parse/parse_args.c \
-		parse/open_files.c \
 		parse/parse_info.c \
 		parse/parse_textures.c \
 		parse/parse_colors.c \

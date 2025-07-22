@@ -6,7 +6,7 @@
 /*   By: albmarqu <albmarqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 18:29:44 by albmarqu          #+#    #+#             */
-/*   Updated: 2025/07/21 20:04:59 by albmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/22 15:03:11 by albmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,26 @@ void	read_file(char *argv, t_data *data)
 		print_error("Error allocating memory\n", data);
 	}
 	file2map(file, data);
+	close(file);
+}
+
+void	open_file(char *argv, t_data *data)
+{
+	int		file;
+	char	*line;
+
+	file = open(argv, O_RDONLY);
+	if (file == -1)
+		print_error("Error opening file\n", data);
+	data->file_rows = 0;
+	line = get_next_line(file);
+	while (line)
+	{
+		free(line);
+		line = get_next_line(file);
+		data->file_rows++;
+	}
+	free(line);
 	close(file);
 }
 

@@ -6,7 +6,7 @@
 /*   By: albmarqu <albmarqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 13:57:52 by albmarqu          #+#    #+#             */
-/*   Updated: 2025/07/21 20:36:56 by albmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/22 15:31:01 by albmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	parse_info(t_data *data)
 	data->count = malloc(sizeof(t_count));
 	if (data->count == NULL)
 		print_error("Error allocating memory\n", data);
-	init_counters(data->count); ///////////////////////////////////// CON EL MEMSET ME HACE FALTA TAMBIEN INICIAR ESTO???
+	init_counters(data->count);
 	while (data->map_data[i] && data->count->total != 6)
 	{
 		data->map_aux = ft_strtrim(data->map_data[i], " ");

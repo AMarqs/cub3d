@@ -6,12 +6,13 @@
 /*   By: albmarqu <albmarqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 13:06:37 by albmarqu          #+#    #+#             */
-/*   Updated: 2025/07/21 20:41:43 by albmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/21 21:35:34 by albmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
+
 
 /************
 * LIBRARIES *
@@ -25,6 +26,7 @@
 # include <stdio.h>
 # include <limits.h>
 
+
 /*********
 * MACROS *
 *********/
@@ -32,7 +34,6 @@
 # define WIN_WIDTH		1920
 # define WIN_HEIGHT		1080
 # define TEXTURE_SIZE	64
-
 # define KEY_W			119
 # define KEY_A			97
 # define KEY_S			115
@@ -40,6 +41,7 @@
 # define KEY_LEFT  		65361
 # define KEY_RIGHT 		65363
 # define KEY_ESC  		65307
+
 
 /*********
 * COLORS *
@@ -52,6 +54,7 @@
 # define PI		"\033[0;94m"
 # define FF		"\033[0;97m"
 # define RES	"\033[0m"
+
 
 /*************
 * STRUCTURES *
@@ -89,6 +92,7 @@ typedef struct s_data
 	t_color	*ceiling;
 	char	**map;
 }	t_data;
+
 
 /************
 * FUNCTIONS *
