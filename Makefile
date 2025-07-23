@@ -1,15 +1,3 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: jortiz-m <jortiz-m@student.42malaga.com    +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/07/09 13:08:16 by joritz-m              #+#    #+#              #
-#    Updated: 2025/07/16 19:26:48 by jortiz-m         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 #Name
 NAME = cub3d
 
@@ -33,15 +21,19 @@ LIBFT_FLAGS = -L$(LIBFT_PATH) -lft
 CLEAN = rm -Rf
 
 #Sources
-SRC = 	main.c \
-		init.c \
-		utils.c \
-		game.c \
-		hook/hook.c \
-		parse/check_args.c \
-		parse/file2array.c \
-		parse/parse_info.c \
-		parse/textures.c
+SRC = 	src/main.c \
+        src/init/init.c \
+        src/init/init_utils.c \
+        src/elements/elements.c \
+        src/input/input.c \
+        src/key_hook/key_hook.c \
+        src/key_utils/key_utils.c \
+        src/raycasting/raycasting.c \
+        src/raycasting_utils/raycasting_utils.c \
+        src/render/render.c \
+        src/textures/textures.c \
+        src/utils/utils.c \
+        src/maps_utils/maps_utils.c
 SRCS_DIR = src
 SRCS = $(addprefix $(SRCS_DIR)/, $(SRC))
 

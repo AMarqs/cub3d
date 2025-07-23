@@ -1,40 +1,23 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jortiz-m <jortiz-m@student.42malaga.com    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/30 21:01:23 by jortiz-m          #+#    #+#             */
-/*   Updated: 2025/07/16 19:43:10 by jortiz-m         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "cub3d.h"
 
 int	main(int argc, char **argv)
 {
 	t_game	*game;
-	int 	i;
-	
-	i = 0;
-	check_args(argc, argv);
-	printf("Good arguments\n");
-	game = malloc(sizeof(t_game));
-	if (game == NULL)
-		error_exit("Error allocating memory for game");
-	// Initialize the data structure
-	ft_memset(game, 0, sizeof(t_game));
-	// Parse the file
-	open_file(argv[1], &game->data);
-	printf("Correct file, %d lines\n", game->data.file_rows);
-	read_file(argv[1], &game->data);
-	// Debug print map
-	/*
-	printf("\nMAPA\n");
-	while (i <= game->data.file_rows) 
-		printf("%s", game->data.map_data[i++]);
-	*/
-	ft_init_game(game);
-	return (0);
+
+	(void)argv;
+	if (argc == 2)
+	{
+		game = malloc(sizeof(t_game));
+        if (!game)
+            return (EXIT_FAILURE);
+        ft_init(game);
+        ft_free_map(&game->data);
+        free(game);
+	}
+	else
+	{
+		fprintf(stderr, "Error\ncub3D needs a .cub map.\n");
+		return (EXIT_FAILURE);
+	}
+	return (EXIT_SUCCESS);
 }
