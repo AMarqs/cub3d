@@ -7,33 +7,24 @@ CC = cc
 #Flags
 CFLAGS = -Wall -Wextra -Werror -g
 
-#MLX
-MLX_PATH = include/lib/MLX42
-MLX_LIB = $(MLX_PATH)/build/libmlx42.a
-MLX_FLAGS = -L$(MLX_PATH) -lmlx -lXext -lX11 -lm -lz
-
-#LIBFT
-LIBFT_PATH = include/lib/libft
-LIBFT_LIB = $(LIBFT_PATH)/libft.a
-LIBFT_FLAGS = -L$(LIBFT_PATH) -lft
-
 #Clean
 CLEAN = rm -Rf
 
 #Sources
-SRC = 	src/main.c \
-        src/init/init.c \
-        src/init/init_utils.c \
-        src/elements/elements.c \
-        src/input/input.c \
-        src/key_hook/key_hook.c \
-        src/key_utils/key_utils.c \
-        src/raycasting/raycasting.c \
-        src/raycasting_utils/raycasting_utils.c \
-        src/render/render.c \
-        src/textures/textures.c \
-        src/utils/utils.c \
-        src/maps_utils/maps_utils.c
+SRC = 	main.c \
+    	init/init.c \
+    	init/init_utils.c \
+    	elements/elements.c \
+    	input/input.c \
+    	raycasting/raycasting.c \
+    	raycasting/raycasting_utils.c \
+    	render/render.c \
+    	render/textures.c \
+    	utils/utils.c \
+		utils/mlx_utils.c \
+    	utils/maps_utils.c
+
+#Directories
 SRCS_DIR = src
 SRCS = $(addprefix $(SRCS_DIR)/, $(SRC))
 
@@ -42,10 +33,13 @@ OBJS_DIR = obj
 OBJS = $(addprefix $(OBJS_DIR)/, $(SRC:.c=.o))
 
 #Libraries
-LIBS = -L$(MLX_PATH) -lmlx -lXext -lX11 -lm
+MLX_DIR = include/lib/MLX42/libmlx42.a
+MLX = $(MLX_DIR)
+LIBFT_DIR = libft
+LIBFT = $(LIBFT_DIR)/libft.a
 
 #Headers
-HEADERS	= -I ./include $(MLX_PATH) $(LIBFT_PATH)
+HEADERS	= -I ./include -I $(LIBFT_DIR) -I include/lib/MLX42/include
 
 #Colors
 COLOR_INFO = \033[1;36m
@@ -72,14 +66,14 @@ $(COLOR_RESET)
 endef
 export HEADER_ART
 
-all: header $(MLX_LIB) $(LIBFT_LIB) $(NAME)
+all: header $(NAME)
 
 header:
 	@echo "$$HEADER_ART"
 
-$(NAME): $(OBJS) $(MLX_LIB) $(LIBFT_LIB)
+$(NAME): $(OBJS) $(MLX)
 	@printf "\n$(COLOR_SUCCESS)Compiling executable...$(COLOR_RESET)\n"
-	@$(CC) $(OBJS) $(HEADERS) $(LIBS) $(LIBFT_FLAGS) -o $(NAME) 
+	@$(CC) $(CFLAGS) $(OBJS) $(MLX) -ldl -lm -o $(NAME) 
 	@printf "$(COLOR_SUCCESS)✅ $(NAME) is ready!$(COLOR_RESET)\n"
 
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c
@@ -93,15 +87,11 @@ $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c
 	@printf "$(COLOR_INFO)] %3d%%$(COLOR_RESET)" $(PERCENT)
 	@$(CC) $(CFLAGS) -c $< -o $@ $(HEADERS)
 
-$(MLX_LIB):
-	@printf "$(COLOR_INFO)Compiling MLX library...$(COLOR_RESET)\n"
-	@make -C $(MLX_PATH) all > /dev/null 2>&1
-	@printf "$(COLOR_SUCCESS)✅ MLX library compiled!$(COLOR_RESET)\n"
+$(LIBFT):
+	@make -C $(LIBFT_DIR)
 
-$(LIBFT_LIB):
-	@printf "$(COLOR_INFO)Compiling libft library...$(COLOR_RESET)\n"
-	@make -C $(LIBFT_PATH) all > /dev/null 2>&1
-	@printf "$(COLOR_SUCCESS)✅ Libft library compiled!$(COLOR_RESET)\n"
+$(MLX):
+	@make -C include/lib/MLX42
 
 clean:
 	@printf "$(COLOR_INFO)Cleaning object files...$(COLOR_RESET)"
@@ -112,12 +102,7 @@ fclean: clean
 	@printf "$(COLOR_INFO)Deleting $(NAME)...$(COLOR_RESET)"
 	@$(CLEAN) $(NAME)
 	@printf "\r$(COLOR_SUCCESS)✅ $(NAME) deleted successfully!$(COLOR_RESET)\n"
-	@printf "$(COLOR_INFO)Cleaning MLX library...$(COLOR_RESET)\n"
-	@make -C $(MLX_PATH) clean > /dev/null 2>&1
-	@printf "$(COLOR_SUCCESS)✅ MLX library cleaned!$(COLOR_RESET)\n"
-	@printf "$(COLOR_INFO)Cleaning libft library...$(COLOR_RESET)\n"
-	@make -C $(LIBFT_PATH) fclean > /dev/null 2>&1
-	@printf "$(COLOR_SUCCESS)✅ Libft library cleaned!$(COLOR_RESET)\n"
+	@make -C include/lib/MLX42 clean
 
 re: fclean all
 

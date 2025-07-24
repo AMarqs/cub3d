@@ -36,7 +36,7 @@ void	ft_calculate_projection(t_ray *ray)
  */
 void	ft_render_wall_slice(t_game *game, t_ray *ray, int column)
 {
-    t_texture	*texture;
+    t_img *texture;
     double		wall_x;
     int			texture_x;
     int			y;
@@ -48,24 +48,24 @@ void	ft_render_wall_slice(t_game *game, t_ray *ray, int column)
     wall_x -= floor(wall_x);
 
     if (ray->side == 0 && ray->ray_dir_x > 0)
-        texture = &game->textures.east;
+        texture = game->textures.east.img;
     else if (ray->side == 0 && ray->ray_dir_x < 0)
-        texture = &game->textures.west;
+        texture = game->textures.west.img;
     else if (ray->side == 1 && ray->ray_dir_y > 0)
-        texture = &game->textures.south;
+        texture = game->textures.south.img;
     else
-        texture = &game->textures.north;
+        texture = game->textures.north.img;
 
-    texture_x = (int)(wall_x * texture->img->width);
+    texture_x = (int)(wall_x * texture->width);
     if ((ray->side == 0 && ray->ray_dir_x < 0) || (ray->side == 1 && ray->ray_dir_y > 0))
-        texture_x = texture->img->width - texture_x - 1;
+        texture_x = texture->width - texture_x - 1;
 
     y = ray->draw_start;
     while (y < ray->draw_end)
     {
-        int	d = y * 256 - HEIGHT * 128 + ray->line_height * 128;
-        int	texture_y = ((d * texture->img->height) / ray->line_height) / 256;
-        uint32_t color = mlx_get_pixel(texture->img, texture_x, texture_y);
+        int d = y * 256 - HEIGHT * 128 + ray->line_height * 128;
+        int texture_y = ((d * texture->height) / ray->line_height) / 256;
+        uint32_t color = mlx_get_pixel(texture, texture_x, texture_y);
         mlx_put_pixel(game->window, column, y, color);
         y++;
     }
@@ -88,7 +88,7 @@ void	ft_raycast_all_columns(t_game *game)
     {
         ft_initialize_raycasting(&ray, game, column);
         ft_calculate_step_and_side_dist(&ray, game);
-        ft_calculate_step_and_side_distperform_dda(&ray, game);
+        ft_perform_dda(&ray, game);
         ft_calculate_wall_distance(&ray, game);
         ft_calculate_projection(&ray);
         ft_render_wall_slice(game, &ray, column);

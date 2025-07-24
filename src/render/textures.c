@@ -36,9 +36,9 @@ char	*ft_find_texture_path(t_data *data, char identifier)
  * Utiliza la ruta de la textura para cargarla como una imagen y la convierte
  * en una textura utilizable por MLX42. Si ocurre un error, termina el programa.
  */
-void	ft_load_texture(t_game *game, char identifier, t_img *texture)
+void    ft_load_texture(t_game *game, char identifier, t_texture *texture)
 {
-    mlx_texture_t	*raw_texture;
+    mlx_texture_t *raw_texture = NULL;
     char			*path;
 
     path = ft_find_texture_path(&game->data, identifier);
@@ -51,9 +51,6 @@ void	ft_load_texture(t_game *game, char identifier, t_img *texture)
     }
     free(path);
     texture->img = mlx_texture_to_image(game->mlx, raw_texture);
-    texture->bits_per_pixel = raw_texture->width * 4; // Ejemplo de cálculo
-    texture->line_length = raw_texture->width * 4;
-    texture->endian = 0; // MLX42 no utiliza endian directamente
     mlx_delete_texture(raw_texture);
 }
 
@@ -64,7 +61,7 @@ void	ft_load_texture(t_game *game, char identifier, t_img *texture)
  * Llama a la función ft_load_texture para cargar las texturas de las paredes
  * (Norte, Sur, Este, Oeste).
  */
-void	ft_load_all_textures(t_game *game)
+void    ft_load_all_textures(t_game *game)
 {
     ft_load_texture(game, 'N', &game->textures.north);
     ft_load_texture(game, 'S', &game->textures.south);

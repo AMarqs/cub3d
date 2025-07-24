@@ -8,7 +8,7 @@
  */
 void	ft_close_with_error(t_data *data)
 {
-    free_map_resources(data);
+    ft_free_map(data);
     exit(EXIT_FAILURE);
 }
 

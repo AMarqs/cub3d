@@ -71,26 +71,37 @@ typedef struct s_color
 // Estructura para imágenes de MLX (texturas y pantalla)
 typedef struct s_img
 {
-	void	*img;			// Puntero a la imagen MLX
-	int		bits_per_pixel;	// Bits por píxel
-	int		line_length;	// Longitud de línea en bytes
-	int		endian;			// Orden de bytes
-}	t_img;
+    int width;
+    int height;
+    void *data;
+    int bits_per_pixel;
+    int line_length;
+    int endian;
+} t_img;
 
 // Estructura para las 4 texturas de las paredes
 typedef struct s_texture
 {
-	t_img	north;	// Textura pared norte
-	t_img	south;	// Textura pared sur
-	t_img	east;	// Textura pared este
-	t_img	west;	// Textura pared oeste
-}	t_texture;
+    mlx_image_t *img;
+} t_texture;
+
+typedef struct s_textures
+{
+    t_texture east;
+    t_texture west;
+    t_texture south;
+    t_texture north;
+} t_textures;
 
 // Estructura principal del jugador
 typedef struct s_player
 {
-	float	x;			// Posición X del jugador
-	float	y;			// Posición Y del jugador
+    double x;
+    double y;
+    double dir_x;    // Dirección del jugador en X
+    double dir_y;    // Dirección del jugador en Y
+    double plane_x;  // Plano de cámara en X
+    double plane_y;  // Plano de cámara en Y
 }	t_player;
 
 // Estructura del mapa del juego
@@ -103,12 +114,14 @@ typedef struct s_map
 // Estructura temporal para parsear el archivo .cub
 typedef struct s_data
 {
-	int		file_rows;		// Número de líneas del archivo
-	char	**map_data;		// Datos del archivo en array
-	char	*no_texture;	// Ruta textura norte
-	char	*so_texture;	// Ruta textura sur
-	char	*we_texture;	// Ruta textura oeste
-	char	*ea_texture;	// Ruta textura este
+    int		file_rows;		// Número de líneas del archivo
+    char	**map_data;		// Datos del archivo en array
+    char	*no_texture;	// Ruta textura norte
+    char	*so_texture;	// Ruta textura sur
+    char	*we_texture;	// Ruta textura oeste
+    char	*ea_texture;	// Ruta textura este
+    t_color	floor;			// Color del suelo
+    t_color	ceiling;		// Color del techo
 }	t_data;
 
 // Estructura para manejar los datos del raycasting
@@ -128,25 +141,42 @@ typedef struct t_ray
     int		step_y;           // Dirección del paso en Y (+1 o -1)
     int		hit;              // Indica si el rayo golpeó una pared (1) o no (0)
     int		side;             // Indica si el rayo golpeó una pared en X (0) o en Y (1)
+    int		draw_start;
+    int		draw_end;
+    int		line_height;
 }	t_ray;
 
 typedef struct s_line
 {
-    int x0, y0;
-    int x1, y1;
-    int color;
+    int x;         // columna a dibujar
+    int start_y;   // inicio de la línea vertical
+    int end_y;     // fin de la línea vertical
+    int color;     // color de la línea
 }   t_line;
+
+// Estructura para el estado de las teclas
+typedef struct s_input
+{
+    bool	w;
+    bool	a;
+    bool	s;
+    bool	d;
+    bool	left;
+    bool	right;
+}	t_input;
 
 // Estructura principal del juego (contiene todo)
 typedef struct t_game
 {
 	void		*mlx;		// Conexión MLX
 	void		*window;	// Ventana del juego
-	t_texture	textures;	// Todas las texturas
+	t_textures	textures;	// Todas las texturas
 	t_player	player;		// Datos del jugador
 	t_map		map;		// Datos del mapa
 	t_data		data;		// Datos de parsing temporal
 	t_ray		ray;		// Datos del raycasting
+	t_input		input;		// Estado de las teclas
+	t_texture	*texture; // Textura actual para el rayo
 }	t_game;
 
 /************
@@ -202,7 +232,7 @@ void	ft_update_game(void *param);
 
 /* textures.c */
 char	*ft_find_texture_path(t_data *data, char identifier);
-void	ft_load_texture(t_game *game, char identifier, t_img *texture);
+void	ft_load_texture(t_game *game, char identifier, t_texture *texture);
 void	ft_load_all_textures(t_game *game);
 
 /* utils.c */
@@ -218,5 +248,8 @@ void	ft_free_map(t_data *data);
 void	ft_read_map_lines(int fd, char *line, t_data *data);
 void	ft_read_map(t_data *data, char **argv);
 void	ft_validate_map_name(char **argv);
+
+/* mlx_utils.c */
+uint32_t mlx_get_pixel(t_img *img, int x, int y);
 
 #endif

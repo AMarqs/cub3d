@@ -80,7 +80,7 @@ void	ft_read_map_lines(int fd, char *line, t_data *data)
         {
             fprintf(stderr, "Error\nCould not duplicate line.\n");
             free(line);
-            ft_free_map_resources(data);
+            ft_free_map(data);
             exit(EXIT_FAILURE);
         }
         free(line);
@@ -119,7 +119,7 @@ void	ft_read_map(t_data *data, char **argv)
     if (!line)
     {
         fprintf(stderr, "Error\nThe map is empty.\n");
-        ft_free_map_resources(data);
+        ft_free_map(data);
         exit(EXIT_FAILURE);
     }
     ft_read_map_lines(fd, line, data);
