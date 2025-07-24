@@ -6,7 +6,7 @@
 /*   By: albmarqu <albmarqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 13:06:37 by albmarqu          #+#    #+#             */
-/*   Updated: 2025/07/21 21:35:34 by albmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/24 18:10:44 by albmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,12 @@ typedef struct s_data
 	char	**map;
 }	t_data;
 
+typedef struct s_init
+{
+	int		pos_dir;  // 1-N, 2-S, 3-E, 4-W
+	int		pos_x;
+	int		pos_y;
+}	t_init;
 
 /************
 * FUNCTIONS *
@@ -137,6 +143,12 @@ void	good_player(t_data *data, int row, int col);
 void	print_error(char *str, t_data *data);
 void	frees(t_data *data);
 void	*ft_freematrix(char **matrix);
+
+
+//// INITIATION ////
+
+void	initiation(t_data *data, t_init	*init);
+void	player_pos(t_data *data, t_init	*init);
 
 
 #endif

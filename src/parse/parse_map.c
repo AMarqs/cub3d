@@ -6,7 +6,7 @@
 /*   By: albmarqu <albmarqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 20:30:52 by albmarqu          #+#    #+#             */
-/*   Updated: 2025/07/21 21:30:34 by albmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/24 17:59:20 by albmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	parse_char(t_data *data)
 		}
 		row++;
 	}
-	write(1, "Good map characters\n", 20);
+	// write(1, "Good map characters\n", 20);
 }
 
 void	correct_floor(t_data *data, int row, int col)
@@ -89,7 +89,7 @@ void	parse_floor(t_data *data)
 		}
 		row++;
 	}
-	write(1, "Good floor (0)\n", 15);
+	// write(1, "Good floor (0)\n", 15);
 }
 
 void	parse_map(t_data *data, int i)
@@ -121,11 +121,11 @@ void	parse_map(t_data *data, int i)
 		j++;
 	}
 ///
-	i = 0;
-	printf("\nREAL MAPA\n");
-	while (i < j)
-		printf("%s", data->map[i++]);
-	printf("\n");
+	// i = 0;
+	// printf("\nREAL MAPA\n");
+	// while (i < j)
+	// 	printf("%s", data->map[i++]);
+	// printf("\n");
 ///
 	parse_char(data);
 	parse_player(data);

@@ -6,7 +6,7 @@
 /*   By: albmarqu <albmarqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 20:26:34 by albmarqu          #+#    #+#             */
-/*   Updated: 2025/07/21 20:27:15 by albmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/24 17:59:05 by albmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,5 @@ void	parse_player(t_data *data)
 	}
 	if (players != 1)
 		print_error("Wrong number of players\n", data);
-	write(1, "Good player\n", 12);
+	// write(1, "Good player\n", 12);
 }

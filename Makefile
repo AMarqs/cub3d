@@ -6,7 +6,7 @@
 #    By: albmarqu <albmarqu@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/09 13:08:16 by albmarqu          #+#    #+#              #
-#    Updated: 2025/07/22 15:03:41 by albmarqu         ###   ########.fr        #
+#    Updated: 2025/07/24 17:51:50 by albmarqu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,8 @@ SRC = 	main.c \
 		parse/parse_map.c \
 		parse/parse_player.c \
 		parse/errors.c \
-		parse/utils.c
+		parse/utils.c \
+		initiation/player_position.c		
 SRCS_DIR = src
 SRCS = $(addprefix $(SRCS_DIR)/, $(SRC))
 

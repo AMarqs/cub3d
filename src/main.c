@@ -6,7 +6,7 @@
 /*   By: albmarqu <albmarqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 21:01:23 by albmarqu          #+#    #+#             */
-/*   Updated: 2025/07/21 21:36:35 by albmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/24 18:23:07 by albmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	parser(int argc, char **argv, t_data *data)
 {
 	check_args(argc, argv, data);
-	write(1, "Good arguments\n", 15);
+	// write(1, "Good arguments\n", 15);
 	open_file(argv[1], data);
 	// printf("Correct file, %d lines\n", data->file_rows);
 	read_file(argv[1], data);
@@ -27,20 +27,36 @@ void	parser(int argc, char **argv, t_data *data)
 	// printf("\n");
 //
 	parse_info(data);
-	write(1, "Good map info\n", 14);
-	prepare_game(data);
+	// write(1, "Good map info\n", 14);
+	// prepare_game(data);
+}
+
+void	initiation(t_data *data, t_init	*init)
+{
+	init->pos_dir = 0;
+	init->pos_x = 0;
+	init->pos_y = 0;
+	player_pos(data, init);
+	
 }
 
 int	main(int argc, char **argv)
 {
 	t_data	*data;
+	t_init	*init;
 
 	data = malloc(sizeof(t_data));
 	if (data == NULL)
 		print_error("Error allocating memory\n", data);
 	// Initialize the data structure
 	ft_memset(data, 0, sizeof(t_data)); // esto no me acuerdo para que era
+	init = malloc(sizeof(t_init));
+	if (init == NULL)
+		print_error("Error allocating memory\n", data); // CAMBIAR LA LIBERACION DE MEMORIA A INIT
+	// Initialize the init structure
+	ft_memset(init, 0, sizeof(t_init)); // esto no me acuerdo para que era
 	parser(argc, argv, data);
+	initiation(data, init);
 	frees(data);
 	return (0);
 }
