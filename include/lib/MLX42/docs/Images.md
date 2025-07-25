@@ -66,7 +66,7 @@ int32_t	main(void)
 	if (!img)
 		error();
 
-	// Set every pixel to white
+	// Set every pixel to wcollisione
 	memset(img->pixels, 255, img->width * img->height * sizeof(int32_t));
 
 	// Display an instance of the image

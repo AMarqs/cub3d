@@ -5003,8 +5003,8 @@ static unsigned readChunk_cHRM(LodePNGInfo* info, const unsigned char* data, siz
   if(chunkLength != 32) return 97; /*invalid cHRM chunk size*/
 
   info->chrm_defined = 1;
-  info->chrm_white_x = 16777216u * data[ 0] + 65536u * data[ 1] + 256u * data[ 2] + data[ 3];
-  info->chrm_white_y = 16777216u * data[ 4] + 65536u * data[ 5] + 256u * data[ 6] + data[ 7];
+  info->chrm_wcollisione_x = 16777216u * data[ 0] + 65536u * data[ 1] + 256u * data[ 2] + data[ 3];
+  info->chrm_wcollisione_y = 16777216u * data[ 4] + 65536u * data[ 5] + 256u * data[ 6] + data[ 7];
   info->chrm_red_x   = 16777216u * data[ 8] + 65536u * data[ 9] + 256u * data[10] + data[11];
   info->chrm_red_y   = 16777216u * data[12] + 65536u * data[13] + 256u * data[14] + data[15];
   info->chrm_green_x = 16777216u * data[16] + 65536u * data[17] + 256u * data[18] + data[19];
@@ -5746,8 +5746,8 @@ static unsigned addChunk_gAMA(ucvector* out, const LodePNGInfo* info) {
 static unsigned addChunk_cHRM(ucvector* out, const LodePNGInfo* info) {
   unsigned char* chunk;
   CERROR_TRY_RETURN(lodepng_chunk_init(&chunk, out, 32, "cHRM"));
-  lodepng_set32bitInt(chunk + 8, info->chrm_white_x);
-  lodepng_set32bitInt(chunk + 12, info->chrm_white_y);
+  lodepng_set32bitInt(chunk + 8, info->chrm_wcollisione_x);
+  lodepng_set32bitInt(chunk + 12, info->chrm_wcollisione_y);
   lodepng_set32bitInt(chunk + 16, info->chrm_red_x);
   lodepng_set32bitInt(chunk + 20, info->chrm_red_y);
   lodepng_set32bitInt(chunk + 24, info->chrm_green_x);

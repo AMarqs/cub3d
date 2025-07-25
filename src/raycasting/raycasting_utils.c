@@ -1,99 +1,93 @@
-#include "cub3d.h"
 
-/**
- * ft_initialize_raycasting - Inicializa los valores necesarios para el raycasting.
- * @ray: Puntero a la estructura del rayo.
- * @game: Puntero a la estructura principal del juego.
- * @x: Índice de la columna actual en la pantalla.
- * 
- * Calcula la dirección inicial del rayo, las posiciones en el mapa y las distancias delta.
- */
-void	ft_initialize_raycasting(t_ray *ray, t_game *game, int x)
+#include "cub3D.h"
+
+void	ft_calculate_projection(t_ray	*ray)
 {
-    ray->camera_x = 2 * x / (double)WIDTH - 1;
-    ray->ray_dir_x = game->player.dir_x + game->player.plane_x * ray->camera_x;
-    ray->ray_dir_y = game->player.dir_y + game->player.plane_y * ray->camera_x;
-    ray->map_x = (int)game->player.x;
-    ray->map_y = (int)game->player.y;
-    ray->delta_dist_x = fabs(1 / ray->ray_dir_x);
-    ray->delta_dist_y = fabs(1 / ray->ray_dir_y);
-    ray->hit = 0;
+	int	wall_line_height;
+	int	wall_draw_start;
+	int	wall_draw_end;
+
+	wall_line_height = (int)(HEIGHT / ray->distance_to_wall);
+	wall_draw_start = -wall_line_height / 2 + HEIGHT / 2;
+	if (wall_draw_start < 0)
+		wall_draw_start = 0;
+	wall_draw_end = wall_line_height / 2 + HEIGHT / 2;
+	if (wall_draw_end >= HEIGHT)
+		wall_draw_end = HEIGHT - 1;
+	ray->wall_draw_start = wall_draw_start;
+	ray->wall_draw_end = wall_draw_end;
+	ray->wall_line_height = wall_line_height;
 }
 
-/**
- * ft_calculate_step_and_side_dist - Calcula los pasos y las distancias laterales del rayo.
- * @ray: Puntero a la estructura del rayo.
- * @game: Puntero a la estructura principal del juego.
- * 
- * Determina la dirección del paso (positivo o negativo) y calcula las distancias iniciales
- * desde el jugador hasta los lados del bloque en el mapa.
- */
-void	ft_calculate_step_and_side_dist(t_ray *ray, t_game *game)
+uint32_t	ft_get_pixel_from_texture(mlx_image_t *img, int x, int y)
 {
-    if (ray->ray_dir_x < 0)
-    {
-        ray->step_x = -1;
-        ray->side_dist_x = (game->player.x - ray->map_x) * ray->delta_dist_x;
-    }
-    else
-    {
-        ray->step_x = 1;
-        ray->side_dist_x = (ray->map_x + 1.0 - game->player.x) * ray->delta_dist_x;
-    }
-    if (ray->ray_dir_y < 0)
-    {
-        ray->step_y = -1;
-        ray->side_dist_y = (game->player.y - ray->map_y) * ray->delta_dist_y;
-    }
-    else
-    {
-        ray->step_y = 1;
-        ray->side_dist_y = (ray->map_y + 1.0 - game->player.y) * ray->delta_dist_y;
-    }
+	int	i;
+
+	i = (y * img->width + x) * 4;
+	return (
+		(img->pixels[i] << 24)
+		| (img->pixels[i + 1] << 16)
+		| (img->pixels[i + 2] << 8)
+		| (img->pixels[i + 3])
+	);
 }
 
-/**
- * ft_perform_dda - Realiza el algoritmo Digital Differential Analyzer (DDA).
- * @ray: Puntero a la estructura del rayo.
- * @game: Puntero a la estructura principal del juego.
- * 
- * Avanza el rayo en el mapa hasta que golpea una pared. Actualiza las distancias laterales
- * y las posiciones en el mapa en cada paso.
- */
-void	ft_perform_dda(t_ray *ray, t_game *game)
+void	ft_draw_wall_slice_with_aux(t_game *game, t_ray *ray, int x, t_ray_aux *aux)
 {
-    while (ray->hit == 0)
-    {
-        if (ray->side_dist_x < ray->side_dist_y)
-        {
-            ray->side_dist_x += ray->delta_dist_x;
-            ray->map_x += ray->step_x;
-            ray->side = 0;
-        }
-        else
-        {
-            ray->side_dist_y += ray->delta_dist_y;
-            ray->map_y += ray->step_y;
-            ray->side = 1;
-        }
-        if (game->data.map_data[ray->map_y][ray->map_x] == '1')
-            ray->hit = 1;
-    }
+	if ((ray->side == 0 && ray->ray_x > 0)
+		|| (ray->side == 1 && ray->ray_y < 0))
+		aux->tex_x = aux->texture->width - aux->tex_x - 1;
+	aux->y = ray->wall_draw_start;
+	while (aux->y < ray->wall_draw_end)
+	{
+		aux->d = aux->y * 256 - HEIGHT * 128 + ray->wall_line_height * 128;
+		aux->tex_y = (aux->d * aux->texture->height) / ray->wall_line_height / 256;
+		aux->color = ft_get_pixel_from_texture(aux->texture,
+				aux->tex_x, aux->tex_y);
+		mlx_put_pixel(game->img, x, aux->y, aux->color);
+		aux->y++;
+	}
 }
 
-/**
- * ft_
-calculate_wall_distance - Calcula la distancia perpendicular desde el jugador a la pared.
- * @ray: Puntero a la estructura del rayo.
- * @game: Puntero a la estructura principal del juego.
- * 
- * Determina la distancia perpendicular a la pared que el rayo ha golpeado,
- * utilizando la posición del jugador y los pasos del rayo.
- */
-void	ft_calculate_wall_distance(t_ray *ray, t_game *game)
+void	ft_draw_wall_slice(t_game *game, t_ray *ray, int x)
 {
-    if (ray->side == 0)
-        ray->perp_wall_dist = (ray->map_x - game->player.x + (1 - ray->step_x) / 2) / ray->ray_dir_x;
-    else
-        ray->perp_wall_dist = (ray->map_y - game->player.y + (1 - ray->step_y) / 2) / ray->ray_dir_y;
+	t_ray_aux	aux;
+
+	if (ray->side == 0)
+	{
+		if (ray->ray_x > 0)
+			aux.texture = game->images.ea;
+		else
+			aux.texture = game->images.we;
+	}
+	else
+	{
+		if (ray->ray_y > 0)
+			aux.texture = game->images.so;
+		else
+			aux.texture = game->images.no;
+	}
+	if (ray->side == 0)
+		aux.wall_x = game->player.y + ray->distance_to_wall * ray->ray_y;
+	else
+		aux.wall_x = game->player.x + ray->distance_to_wall * ray->ray_x;
+	aux.wall_x -= floor(aux.wall_x);
+	aux.tex_x = (int)(aux.wall_x * (double)aux.texture->width);
+	ft_draw_wall_slice_with_aux(game, ray, x, &aux);
+}
+
+void	ft_raycast_all_columns(t_game *game)
+{
+	int		x;
+	t_ray	ray;
+
+	x = -1;
+	while (++x < WIDTH)
+	{
+		ft_init_ray(game, &ray, x);
+		ft_calculate_steps_and_sidedist(game, &ray);
+		ft_perform_dda(game, &ray);
+		ft_calculate_projection(&ray);
+		ft_draw_wall_slice(game, &ray, x);
+	}
 }

@@ -5,7 +5,7 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jortiz-m <jortiz-m@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/09 13:06:37 by joritz-m              #+#    #+#             */
+/*   Created: 2025/07/09 13:06:37 by joritz-m              #+#    #+#         */
 /*   Updated: 2025/07/16 19:24:39 by jortiz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -60,196 +60,180 @@
 * STRUCTURES *
 *************/
 
-// Estructura para colores RGB
-typedef struct s_color
+typedef struct s_ray
 {
-	int	r;	// Componente rojo (0-255)
-	int	g;	// Componente verde (0-255)
-	int	b;	// Componente azul (0-255)
-}	t_color;
+	double	camera_x;
+	double	ray_x;
+	double	ray_y;
+	double	delta_distance_x;
+	double	delta_distance_y;
+	double	side_distance_x;
+	double	side_distance_y;
+	double	distance_to_wall;
+	int		step_x;
+	int		step_y;
+	int		collision;
+	int		map_x;
+	int		map_y;
+	int		side;
+	int		wall_draw_start;
+	int		wall_draw_end;
+	int		wall_line_height;
+}			t_ray;
 
-// Estructura para imágenes de MLX (texturas y pantalla)
-typedef struct s_img
+typedef struct s_ray_aux
 {
-    int width;
-    int height;
-    void *data;
-    int bits_per_pixel;
-    int line_length;
-    int endian;
-} t_img;
+	mlx_image_t	*texture;
+	double		wall_x;
+	uint32_t	color;
+	int			tex_y;
+	int			tex_x;
+	int			y;
+	int			d;
+}			t_ray_aux;
 
-// Estructura para las 4 texturas de las paredes
-typedef struct s_texture
-{
-    mlx_image_t *img;
-} t_texture;
-
-typedef struct s_textures
-{
-    t_texture east;
-    t_texture west;
-    t_texture south;
-    t_texture north;
-} t_textures;
-
-// Estructura principal del jugador
 typedef struct s_player
 {
-    double x;
-    double y;
-    double dir_x;    // Dirección del jugador en X
-    double dir_y;    // Dirección del jugador en Y
-    double plane_x;  // Plano de cámara en X
-    double plane_y;  // Plano de cámara en Y
-}	t_player;
+	double	x;
+	double	y;
+	double	dir_x;
+	double	dir_y;
+	double	plane_x;
+	double	plane_y;
+	double	move_speed;
+	double	rot_speed;
+}			t_player;
 
-// Estructura del mapa del juego
-typedef struct s_map
+typedef struct s_control
 {
-	t_color		floor;			// Color del suelo
-	t_color		ceiling;		// Color del techo
-}	t_map;
+	bool	w;
+	bool	s;
+	bool	a;
+	bool	d;
+	bool	left;
+	bool	right;
+}			t_control;
 
-// Estructura temporal para parsear el archivo .cub
-typedef struct s_data
+typedef struct s_images
 {
-    int		file_rows;		// Número de líneas del archivo
-    char	**map_data;		// Datos del archivo en array
-    char	*no_texture;	// Ruta textura norte
-    char	*so_texture;	// Ruta textura sur
-    char	*we_texture;	// Ruta textura oeste
-    char	*ea_texture;	// Ruta textura este
-    t_color	floor;			// Color del suelo
-    t_color	ceiling;		// Color del techo
-}	t_data;
+	mlx_image_t	*no;
+	mlx_image_t	*so;
+	mlx_image_t	*ea;
+	mlx_image_t	*we;
+}				t_images;
 
-// Estructura para manejar los datos del raycasting
-typedef struct t_ray
+typedef struct s_game
 {
-    double	camera_x;         // Posición del rayo en el plano de la cámara
-    double	ray_dir_x;        // Dirección X del rayo
-    double	ray_dir_y;        // Dirección Y del rayo
-    int		map_x;            // Posición X en el mapa
-    int		map_y;            // Posición Y en el mapa
-    double	side_dist_x;      // Distancia desde el jugador al siguiente lado en X
-    double	side_dist_y;      // Distancia desde el jugador al siguiente lado en Y
-    double	delta_dist_x;     // Distancia entre lados en X
-    double	delta_dist_y;     // Distancia entre lados en Y
-    double	perp_wall_dist;   // Distancia perpendicular desde el jugador a la pared
-    int		step_x;           // Dirección del paso en X (+1 o -1)
-    int		step_y;           // Dirección del paso en Y (+1 o -1)
-    int		hit;              // Indica si el rayo golpeó una pared (1) o no (0)
-    int		side;             // Indica si el rayo golpeó una pared en X (0) o en Y (1)
-    int		draw_start;
-    int		draw_end;
-    int		line_height;
-}	t_ray;
+	char			**map;
+	int				height;
+	t_player		player;
+	t_control		control;
+	t_images		images;
+	mlx_t			*mlx;
+	mlx_image_t		*img;
+	uint8_t			ceiling_r;
+	uint8_t			ceiling_g;
+	uint8_t			ceiling_b;
+	uint8_t			floor_r;
+	uint8_t			floor_g;
+	uint8_t			floor_b;
+}			t_game;
+
+typedef struct s_elem
+{
+	int	n;
+	int	s;
+	int	e;
+	int	w;
+	int	c;
+	int	f;
+}		t_elem;
+
+typedef struct s_start
+{
+	int	n;
+	int	s;
+	int	e;
+	int	w;
+}				t_start;
 
 typedef struct s_line
 {
-    int x;         // columna a dibujar
-    int start_y;   // inicio de la línea vertical
-    int end_y;     // fin de la línea vertical
-    int color;     // color de la línea
-}   t_line;
-
-// Estructura para el estado de las teclas
-typedef struct s_input
-{
-    bool	w;
-    bool	a;
-    bool	s;
-    bool	d;
-    bool	left;
-    bool	right;
-}	t_input;
-
-// Estructura principal del juego (contiene todo)
-typedef struct t_game
-{
-	void		*mlx;		// Conexión MLX
-	void		*window;	// Ventana del juego
-	t_textures	textures;	// Todas las texturas
-	t_player	player;		// Datos del jugador
-	t_map		map;		// Datos del mapa
-	t_data		data;		// Datos de parsing temporal
-	t_ray		ray;		// Datos del raycasting
-	t_input		input;		// Estado de las teclas
-	t_texture	*texture; // Textura actual para el rayo
-}	t_game;
+	int			x;
+	int			y_start;
+	int			y_end;
+	uint32_t	color;
+}				t_line;
 
 /************
 * FUNCTIONS *
 ************/
 
-/* main.c */
-int		main(int argc, char **argv);
+/**********++****HOOK***********************/
 
-/* init.c */
-void	ft_initialize_graphics(t_game *game);
-void	ft_initialize_player_position(t_game *game);
-void	ft_load_textures(t_game *game);
-void	ft_init(t_game *game);
+/*KEY_HOOK*/
+void	key_hook(mlx_key_data_t keydata, void *param);
 
-/* init_utils.c */
-void	ft_key_hook(mlx_key_data_t keydata, void *param);
+/********************INIT*******************/
+/*INIT*/
+void        ft_init_game(t_game *game);
+void	    ft_set_player_plane(t_game *game, int x, int y);
+void	    ft_set_player_direction(t_game *game, int x, int y);
+void	    ft_init_player_position(t_game *game);
+void	    ft_init(t_game *game);
 
-/* elements.c */
-void	ft_initialize_map(t_map *map);
-void	ft_validate_elements_count(t_data *data);
-void	ft_count_element_occurrences(t_data *data, char *line);
+/*INIT_ELEMEMTS*/
+void    	ft_init_elem(t_elem *elem);
+void	    ft_validate_element_counts(t_game *game, t_elem *elem);
+void	    ft_check_elements(t_game *game, int i, t_elem *elem);
+void	    ft_init_game(t_game *game);
 
-/* input.c */
-void	ft_process_player_input(t_game *game);
+/**************INPUT*********************/
+/*INPUT_UTILS*/
+void	    ft_rotate_player(t_player *p, double dir);
+int		    ft_is_wall(t_game *game, double x, double y);
 
-/* key_hook.c */
-void	ft_move_player_forward(t_game *game, double speed);
-void	ft_move_player_left(t_game *game, double speed);
-void	ft_move_player_backward(t_game *game, double speed);
-void	ft_move_player_right(t_game *game, double speed);
+/*INPUT*/
+void	    ft_handle_input(void *param);
 
-/* key_utils.c */
-void	ft_rotate_player(t_player *player, double direction);
-int		ft_is_wall(t_data *data, double x, double y);
+/****************RAYCASTING*****************/
+/*RAYCASTING_UTILS*/
+void	    ft_calculate_projection(t_ray	*ray);
+uint32_t	ft_get_pixel_from_texture(mlx_image_t *img, int x, int y);
+void	    ft_draw_wall_slice_with_aux(t_game *game, t_ray *ray, int x, t_ray_aux *aux);
+void	    ft_draw_wall_slice(t_game *game, t_ray *ray, int x);
+void	    ft_raycast_all_columns(t_game *game);
 
-/* raycasting_utils.c */
-void	ft_initialize_raycasting(t_ray *ray, t_game *game, int x);
-void	ft_calculate_step_and_side_dist(t_ray *ray, t_game *game);
-void	ft_perform_dda(t_ray *ray, t_game *game);
-void	ft_calculate_wall_distance(t_ray *ray, t_game *game);
-
-/* raycasting.c */
-void	ft_calculate_projection(t_ray *ray);
-void	ft_render_wall_slice(t_game *game, t_ray *ray, int column);
-void	ft_raycast_all_columns(t_game *game);
-
-/* render.c */
+/****************RENDER*************************/
+/*RENDER*/
 void	ft_draw_background(t_game *game);
-void	ft_draw_vertical_line(void *window, t_line line);
-void	ft_draw_column(t_game *game, int column, int start, int end);
+void	ft_draw_vertical_line(mlx_image_t *img, t_line line);
+void	ft_draw_column(t_game *game, int x, int start, int end);
 void	ft_update_game(void *param);
 
-/* textures.c */
-char	*ft_find_texture_path(t_data *data, char identifier);
-void	ft_load_texture(t_game *game, char identifier, t_texture *texture);
-void	ft_load_all_textures(t_game *game);
+/****************TEXTURES*************************/
+/*TEXTURES*/
+char	*ft_search_texture(t_game *game, char c);
+void	ft_load_textures(t_game *game);
+void	ft_load_texture_east(t_game *game, mlx_texture_t *texture);
+void	ft_load_texture_south(t_game *game, mlx_texture_t *texture);
+void	ft_load_texture_west(t_game *game, mlx_texture_t *texture);
 
-/* utils.c */
-void	ft_close_with_error(t_data *data);
-char	**ft_copy_matrix(char **src);
-int		ft_is_whitespace(const char *str, int index);
-int		ft_is_digit(int c);
-int		ft_string_to_int(const char *str);
+/****************UTILS*************************/
+/*MAPS_UTILS*/
+int	ft_count_lines(char *map, t_game *game);
+void	ft_free_map(t_game *game);
+void	ft_read_map_lines(int fd, char *line, t_game *game);
+void	ft_read_map(t_game *game, char **argv);
+void	ft_check_name(char **argv);
 
-/* maps_utils.c */
-int		ft_count_map_lines(const char *map_path, t_data *data);
-void	ft_free_map(t_data *data);
-void	ft_read_map_lines(int fd, char *line, t_data *data);
-void	ft_read_map(t_data *data, char **argv);
-void	ft_validate_map_name(char **argv);
+/*UTILS*/
+void	ft_close_with_error(t_game *game);
+char	**ft_cpy_matrix(char **src);
+int	ft_is_space(const char *str, int counter);
 
-/* mlx_utils.c */
-uint32_t mlx_get_pixel(t_img *img, int x, int y);
+/*******************MAIN************************* */
+/*MAIN*/
+int	main(int argc, char **argv);
 
 #endif

@@ -2,29 +2,38 @@
 NAME = cub3d
 
 #Compile
-CC = cc
+CC = clang
 
 #Flags
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address
+
+#MLX
+MLX_PATH = include/lib/MLX42/build
+MLX_LIB = $(MLX_PATH)/libmlx42.a
+MLX_FLAGS = -L$(MLX_PATH) -lmlx -lXext -lX11 -lm -lz
+
+#LIBFT
+LIBFT_PATH = include/lib/libft
+LIBFT_LIB = $(LIBFT_PATH)/libft.a
+LIBFT_FLAGS = -L$(LIBFT_PATH) -lft
 
 #Clean
 CLEAN = rm -Rf
 
 #Sources
-SRC = 	main.c \
-    	init/init.c \
-    	init/init_utils.c \
-    	elements/elements.c \
-    	input/input.c \
-    	raycasting/raycasting.c \
-    	raycasting/raycasting_utils.c \
-    	render/render.c \
-    	render/textures.c \
-    	utils/utils.c \
-		utils/mlx_utils.c \
-    	utils/maps_utils.c
+SRC =	hook/key_hook.c \
+		init/init_elements.c \
+		init/init.c \
+		input/input_utils.c \
+		input/input.c \
+		raycasting/raycasting_utils.c \
+		raycasting/raycasting.c \
+		render/render.c \
+		textures/textures.c \
+		utils/maps_utils.c \
+		utils/utils.c \
+ 		main.c \
 
-#Directories
 SRCS_DIR = src
 SRCS = $(addprefix $(SRCS_DIR)/, $(SRC))
 
@@ -33,13 +42,10 @@ OBJS_DIR = obj
 OBJS = $(addprefix $(OBJS_DIR)/, $(SRC:.c=.o))
 
 #Libraries
-MLX_DIR = include/lib/MLX42/libmlx42.a
-MLX = $(MLX_DIR)
-LIBFT_DIR = libft
-LIBFT = $(LIBFT_DIR)/libft.a
+LIBS = -L$(MLX_PATH) -lXext -lX11 -lm #-lmlx 
 
 #Headers
-HEADERS	= -I ./include -I $(LIBFT_DIR) -I include/lib/MLX42/include
+HEADERS	= -I ./include -I $(MLX_PATH) -I $(LIBFT_PATH)
 
 #Colors
 COLOR_INFO = \033[1;36m
@@ -66,14 +72,14 @@ $(COLOR_RESET)
 endef
 export HEADER_ART
 
-all: header $(NAME)
+all: header $(MLX_LIB) $(LIBFT_LIB) $(NAME)
 
 header:
 	@echo "$$HEADER_ART"
 
-$(NAME): $(OBJS) $(MLX)
+$(NAME): $(OBJS) $(MLX_LIB) $(LIBFT_LIB)
 	@printf "\n$(COLOR_SUCCESS)Compiling executable...$(COLOR_RESET)\n"
-	@$(CC) $(CFLAGS) $(OBJS) $(MLX) -ldl -lm -o $(NAME) 
+	@$(CC) $(OBJS) $(HEADERS) $(LIBS) $(CFLAGS) $(LIBFT_FLAGS) -o $(NAME) 
 	@printf "$(COLOR_SUCCESS)✅ $(NAME) is ready!$(COLOR_RESET)\n"
 
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c
@@ -85,13 +91,17 @@ $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c
 	@for i in $$(seq 1 $(PROGRESS)); do printf "█"; done
 	@for i in $$(seq 1 $$(($(BAR_LENGTH)-$(PROGRESS)))); do printf " "; done
 	@printf "$(COLOR_INFO)] %3d%%$(COLOR_RESET)" $(PERCENT)
-	@$(CC) $(CFLAGS) -c $< -o $@ $(HEADERS)
+	@$(CC) $(CFLAGS) -c $< -o $@ $(HEADERS) 
 
-$(LIBFT):
-	@make -C $(LIBFT_DIR)
+$(MLX_LIB):
+	@printf "$(COLOR_INFO)Compiling MLX library...$(COLOR_RESET)\n"
+	@make -C $(MLX_PATH) all > /dev/null 2>&1
+	@printf "$(COLOR_SUCCESS)✅ MLX library compiled!$(COLOR_RESET)\n"
 
-$(MLX):
-	@make -C include/lib/MLX42
+$(LIBFT_LIB):
+	@printf "$(COLOR_INFO)Compiling libft library...$(COLOR_RESET)\n"
+	@make -C $(LIBFT_PATH) all > /dev/null 2>&1
+	@printf "$(COLOR_SUCCESS)✅ Libft library compiled!$(COLOR_RESET)\n"
 
 clean:
 	@printf "$(COLOR_INFO)Cleaning object files...$(COLOR_RESET)"
@@ -102,7 +112,12 @@ fclean: clean
 	@printf "$(COLOR_INFO)Deleting $(NAME)...$(COLOR_RESET)"
 	@$(CLEAN) $(NAME)
 	@printf "\r$(COLOR_SUCCESS)✅ $(NAME) deleted successfully!$(COLOR_RESET)\n"
-	@make -C include/lib/MLX42 clean
+	@printf "$(COLOR_INFO)Cleaning MLX library...$(COLOR_RESET)\n"
+	@make -C $(MLX_PATH) clean > /dev/null 2>&1
+	@printf "$(COLOR_SUCCESS)✅ MLX library cleaned!$(COLOR_RESET)\n"
+	@printf "$(COLOR_INFO)Cleaning libft library...$(COLOR_RESET)\n"
+	@make -C $(LIBFT_PATH) fclean > /dev/null 2>&1
+	@printf "$(COLOR_SUCCESS)✅ Libft library cleaned!$(COLOR_RESET)\n"
 
 re: fclean all
 

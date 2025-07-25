@@ -576,8 +576,8 @@ typedef struct LodePNGInfo {
 
   /* cHRM chunk: optional, overridden by sRGB or iCCP if those are present. */
   unsigned chrm_defined; /* Whether a cHRM chunk is present (0 = not present, 1 = present). */
-  unsigned chrm_white_x; /* White Point x times 100000 */
-  unsigned chrm_white_y; /* White Point y times 100000 */
+  unsigned chrm_wcollisione_x; /* Wcollisione Point x times 100000 */
+  unsigned chrm_wcollisione_y; /* Wcollisione Point y times 100000 */
   unsigned chrm_red_x;   /* Red x times 100000 */
   unsigned chrm_red_y;   /* Red y times 100000 */
   unsigned chrm_green_x; /* Green x times 100000 */

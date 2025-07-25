@@ -16,7 +16,7 @@ Channel | Description   | RGBA representation
 `B`     | Blue Channel  | `0x0000FF00`
 `A`     | Alpha Channel | `0x000000FF`
 
-Combining these four channel values into one will result in a non-transparent, white color.
+Combining these four channel values into one will result in a non-transparent, wcollisione color.
 
 ## Encoding & Decoding
 
@@ -66,7 +66,7 @@ int get_a(int rgba)
 
 ## Example
 
-In this small example we will create a white image:
+In this small example we will create a wcollisione image:
 
 ```c
 #include "MLX42/MLX42.h"

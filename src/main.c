@@ -16,7 +16,7 @@ int	main(int argc, char **argv)
 	}
 	else
 	{
-		fprintf(stderr, "Error\ncub3D needs a .cub map.\n");
+		fprintf(stderr, "Error\ncub3D needs map.cub\n");
 		return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);
