@@ -1,7 +1,7 @@
 NO ./textures/beds.png
-WE ./textures/campus.png
-SO ./textures/cluster.png
-EA ./textures/lobby.png
+WE ./textures/blue.png
+SO ./textures/tree.png
+EA ./textures/grey.png
 
 
 F 100,100,0

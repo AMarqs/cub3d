@@ -29,6 +29,8 @@ int	ft_atoi(const char *str)
 	i = 0;
 	number = 0;
 	neg = 1;
+	if (str == NULL)
+		return (-1);
 	while (ft_isspace(str[i]) == 1)
 		i++;
 	if (str[i] == '-')
@@ -73,3 +75,6 @@ int	ft_atoi(const char *str)
 representa números hasta el primer caracter no numérico.
 Si los primeros caracteres son espacios, se los salta.
 Si se encuentra un primer guión - , lo contempla como signo negativo*/
+
+/* Alba: He añadido la opción cuando str no exixte: 
+if (str == NULL) -> return (-1); */

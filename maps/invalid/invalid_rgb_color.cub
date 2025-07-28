@@ -1,0 +1,21 @@
+SO ./textures/beds.png
+WE ./textures/blue.png
+EA ./textures/tree.png
+NO ./textures/grey.png
+
+F 20,20,-20
+C 290,200,200
+
+11111
+10001
+10S01
+10001
+10001
+10001
+11001
+10001
+10001
+10001
+10001
+10001
+11111
