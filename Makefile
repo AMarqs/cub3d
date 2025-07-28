@@ -1,15 +1,3 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: albmarqu <albmarqu@student.42malaga.com    +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/07/09 13:08:16 by alba              #+#    #+#              #
-#    Updated: 2025/07/11 10:29:04 by albmarqu         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 #Name
 NAME = cub3d
 
@@ -24,11 +12,19 @@ CLEAN = rm -Rf
 
 #Sources
 SRC = 	main.c \
-		parse/check_args.c \
-		parse/file2array.c \
-		libft_BORRAR.c \
-		get_next_line/get_next_line_bonus.c \
-		get_next_line/get_next_line_utils_bonus.c
+    	init/init.c \
+    	init/init_utils.c \
+    	elements/elements.c \
+    	input/input.c \
+    	raycasting/raycasting.c \
+    	raycasting/raycasting_utils.c \
+    	render/render.c \
+    	render/textures.c \
+    	utils/utils.c \
+		utils/mlx_utils.c \
+    	utils/maps_utils.c
+
+#Directories
 SRCS_DIR = src
 SRCS = $(addprefix $(SRCS_DIR)/, $(SRC))
 
@@ -37,11 +33,13 @@ OBJS_DIR = obj
 OBJS = $(addprefix $(OBJS_DIR)/, $(SRC:.c=.o))
 
 #Libraries
-# MLX_DIR	= /sgoinfre/shared/MLX42/build
-# MLX = $(MLX_DIR)/libmlx42.a
+MLX_DIR = include/lib/MLX42/libmlx42.a
+MLX = $(MLX_DIR)
+LIBFT_DIR = libft
+LIBFT = $(LIBFT_DIR)/libft.a
 
 #Headers
-HEADERS	= -I ./include #$(LIBFT)
+HEADERS	= -I ./include -I $(LIBFT_DIR) -I include/lib/MLX42/include
 
 #Colors
 COLOR_INFO = \033[1;36m
@@ -73,9 +71,9 @@ all: header $(NAME)
 header:
 	@echo "$$HEADER_ART"
 
-$(NAME): $(OBJS) #$(MLX)-lreadline
+$(NAME): $(OBJS) $(MLX)
 	@printf "\n$(COLOR_SUCCESS)Compiling executable...$(COLOR_RESET)\n"
-	@$(CC) $(OBJS) $(HEADERS) -o $(NAME) 
+	@$(CC) $(CFLAGS) $(OBJS) $(MLX) -ldl -lm -o $(NAME) 
 	@printf "$(COLOR_SUCCESS)✅ $(NAME) is ready!$(COLOR_RESET)\n"
 
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c
@@ -89,8 +87,11 @@ $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c
 	@printf "$(COLOR_INFO)] %3d%%$(COLOR_RESET)" $(PERCENT)
 	@$(CC) $(CFLAGS) -c $< -o $@ $(HEADERS)
 
-# $(MLX):
-# 	@make -C $(MLX_DIR) all
+$(LIBFT):
+	@make -C $(LIBFT_DIR)
+
+$(MLX):
+	@make -C include/lib/MLX42
 
 clean:
 	@printf "$(COLOR_INFO)Cleaning object files...$(COLOR_RESET)"
@@ -101,7 +102,7 @@ fclean: clean
 	@printf "$(COLOR_INFO)Deleting $(NAME)...$(COLOR_RESET)"
 	@$(CLEAN) $(NAME)
 	@printf "\r$(COLOR_SUCCESS)✅ $(NAME) deleted successfully!$(COLOR_RESET)\n"
-# 	@make -C $(MLX_DIR) clean
+	@make -C include/lib/MLX42 clean
 
 re: fclean all
 
