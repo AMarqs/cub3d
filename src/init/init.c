@@ -46,7 +46,7 @@ void	set_player_direction(t_game *game, int x, int y)
  * Recorre el mapa para encontrar la posición inicial del jugador y la configura.
  * Si no se encuentra una posición válida, el programa termina con un error.
  */
-void	initialize_player_position(t_game *game)
+void	ft_initialize_player_position(t_game *game)
 {
     int	x;
     int	y;

@@ -6,7 +6,7 @@
 /*   By: albmarqu <albmarqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 21:01:23 by albmarqu          #+#    #+#             */
-/*   Updated: 2025/07/28 11:12:00 by albmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/28 11:30:16 by albmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int	main(int argc, char **argv)
 {
 	t_data	*data;
 	t_init	*init;
+	t_game	*game;
 
 	data = malloc(sizeof(t_data));
 	if (data == NULL)
@@ -58,25 +59,12 @@ int	main(int argc, char **argv)
 	parser(argc, argv, data);
 	initiation(data, init);
 	frees(data);
-	return (0);
-
-	////////////////////////////////77
-	t_game	*game;
-
-	(void)argv;
-	if (argc == 2)
-	{
-		game = malloc(sizeof(t_game));
-        if (!game)
-            return (EXIT_FAILURE);
-        ft_init(game);
-        ft_free_map(&game->data);
-        free(game);
-	}
-	else
-	{
-		fprintf(stderr, "Error\ncub3D needs a .cub map.\n");
-		return (EXIT_FAILURE);
-	}
+	////
+	game = malloc(sizeof(t_game));
+    if (!game)
+        return (EXIT_FAILURE);
+    ft_init(game);
+    // ft_free_map(&game->data);
+    free(game);
 	return (EXIT_SUCCESS);
 }

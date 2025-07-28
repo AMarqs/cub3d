@@ -6,7 +6,7 @@
 #    By: albmarqu <albmarqu@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/09 13:08:16 by albmarqu          #+#    #+#              #
-#    Updated: 2025/07/28 11:02:19 by albmarqu         ###   ########.fr        #
+#    Updated: 2025/07/28 14:52:32 by albmarqu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,15 @@ CLEAN = rm -Rf
 
 #Sources
 SRC = 	main.c \
+		parse/parse_args.c \
+		parse/parse_info.c \
+		parse/parse_textures.c \
+		parse/parse_colors.c \
+		parse/parse_map.c \
+		parse/parse_player.c \
+		parse/errors.c \
+		parse/utils.c \
+		initiation/player_position.c \
     	init/init.c \
     	init/init_utils.c \
     	elements/elements.c \
@@ -45,17 +54,7 @@ SRC = 	main.c \
     	utils/utils.c \
 		utils/mlx_utils.c \
     	utils/maps_utils.c
-
-#Directories
-		parse/parse_args.c \
-		parse/parse_info.c \
-		parse/parse_textures.c \
-		parse/parse_colors.c \
-		parse/parse_map.c \
-		parse/parse_player.c \
-		parse/errors.c \
-		parse/utils.c \
-		initiation/player_position.c		
+				
 SRCS_DIR = src
 SRCS = $(addprefix $(SRCS_DIR)/, $(SRC))
 

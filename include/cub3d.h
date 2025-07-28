@@ -6,7 +6,7 @@
 /*   By: albmarqu <albmarqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 13:06:37 by alba              #+#    #+#             */
-/*   Updated: 2025/07/28 11:08:08 by albmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/28 11:29:45 by albmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,15 @@
 * LIBRARIES *
 ************/
 
-#include "lib/MLX42/include/MLX42/MLX42.h"
-#include "lib/libft/libft.h"
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <fcntl.h>
-#include <math.h>
-#include <string.h>
-#include <stdbool.h>
+# include "lib/MLX42/include/MLX42/MLX42.h"
+# include "lib/libft/libft.h"
+# include <unistd.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <fcntl.h>
+# include <math.h>
+# include <string.h>
+# include <stdbool.h>
 
 /*********
 * MACROS *
@@ -62,7 +62,8 @@
 * STRUCTURES *
 *************/
 
-// Estructura para colores RGB
+//// PARSE ////
+
 typedef struct s_color
 {
 	int	r;	// Componente rojo (0-255)
@@ -81,61 +82,6 @@ typedef struct s_count
 	int	count_c;
 }	t_count;
 
-typedef struct s_count
-{
-	int	total;
-	int	count_no;
-	int	count_so;
-	int	count_we;
-	int	count_ea;
-	int	count_f;
-	int	count_c;
-}	t_count;
-
-// Estructura para imágenes de MLX (texturas y pantalla)
-typedef struct s_img
-{
-    int width;
-    int height;
-    void *data;
-    int bits_per_pixel;
-    int line_length;
-    int endian;
-} t_img;
-
-// Estructura para las 4 texturas de las paredes
-typedef struct s_texture
-{
-    mlx_image_t *img;
-} t_texture;
-
-typedef struct s_textures
-{
-    t_texture east;
-    t_texture west;
-    t_texture south;
-    t_texture north;
-} t_textures;
-
-// Estructura principal del jugador
-typedef struct s_player
-{
-    double x;
-    double y;
-    double dir_x;    // Dirección del jugador en X
-    double dir_y;    // Dirección del jugador en Y
-    double plane_x;  // Plano de cámara en X
-    double plane_y;  // Plano de cámara en Y
-}	t_player;
-
-// Estructura del mapa del juego
-typedef struct s_map
-{
-	t_color		floor;			// Color del suelo
-	t_color		ceiling;		// Color del techo
-}	t_map;
-
-// Estructura temporal para parsear el archivo .cub
 typedef struct s_data
 {
 	int		file_rows;
@@ -151,29 +97,239 @@ typedef struct s_data
 	char	**map;
 }	t_data;
 
+typedef struct s_init
+{
+	int		pos_dir;  // 1-N, 2-S, 3-E, 4-W
+	int		pos_x;
+	int		pos_y;
+}	t_init;
+
+
+//// EXEC ////
+
+typedef struct s_ray
+{
+	double	camera_x;
+	double	ray_x;
+	double	ray_y;
+	double	delta_distance_x;
+	double	delta_distance_y;
+	double	side_distance_x;
+	double	side_distance_y;
+	double	distance_to_wall;
+	int		step_x;
+	int		step_y;
+	int		collision;
+	int		map_x;
+	int		map_y;
+	int		side;
+	int		wall_draw_start;
+	int		wall_draw_end;
+	int		wall_line_height;
+}			t_ray;
+
+typedef struct s_ray_aux
+{
+	mlx_image_t	*texture;
+	double		wall_x;
+	uint32_t	color;
+	int			tex_y;
+	int			tex_x;
+	int			y;
+	int			d;
+}			t_ray_aux;
+
+typedef struct s_player
+{
+	double	x;
+	double	y;
+	double	dir_x;
+	double	dir_y;
+	double	plane_x;
+	double	plane_y;
+	double	move_speed;
+	double	rot_speed;
+}			t_player;
+
+typedef struct s_control
+{
+	bool	w;
+	bool	s;
+	bool	a;
+	bool	d;
+	bool	left;
+	bool	right;
+}			t_control;
+
+typedef struct s_images
+{
+	mlx_image_t	*no;
+	mlx_image_t	*so;
+	mlx_image_t	*ea;
+	mlx_image_t	*we;
+}				t_images;
+
+typedef struct s_game
+{
+	char			**map;
+	int				height;
+	t_player		player;
+	t_control		control;
+	t_images		images;
+	mlx_t			*mlx;
+	mlx_image_t		*img;
+	uint8_t			ceiling_r;
+	uint8_t			ceiling_g;
+	uint8_t			ceiling_b;
+	uint8_t			floor_r;
+	uint8_t			floor_g;
+	uint8_t			floor_b;
+}			t_game;
+
+typedef struct s_elem
+{
+	int	n;
+	int	s;
+	int	e;
+	int	w;
+	int	c;
+	int	f;
+}		t_elem;
+
+typedef struct s_start
+{
+	int	n;
+	int	s;
+	int	e;
+	int	w;
+}				t_start;
+
+typedef struct s_line
+{
+	int			x;
+	int			y_start;
+	int			y_end;
+	uint32_t	color;
+}				t_line;
+
+
 /************
 * FUNCTIONS *
 ************/
 
-size_t	ft_strlen(const char *s);
-int		ft_isletter(int c);
-int		ft_strncmp(const char *s1, const char *s2, size_t n);
-char	*get_next_line(int fd);
+//// PARSE ////
 
-void	check_args(int argc, char **argv);
+void	check_args(int argc, char **argv, t_data *data);
 void	open_file(char *argv, t_data *data);
 void	read_file(char *argv, t_data *data);
-void	file2array(char *argv, t_data *data);
+void	file2map(int file, t_data *data);
+void	parse_info(t_data *data);
+void	init_counters(t_count *count);
+void	check_count(t_count *count, t_data *data);
+// Textures
+void	parse_texture(char *map, t_data *data);
+void	parse_no(char *no, t_data *data);
+void	parse_so(char *so, t_data *data);
+void	parse_we(char *we, t_data *data);
+void	parse_ea(char *ea, t_data *data);
+void	open_texture_file(char *path, t_data *data);
+// Colors
+void	parse_color(char *map, t_data *data);
+void	parse_f(char *f, t_data *data);
+void	parse_c(char *c, t_data *data);
+void	count_commas(char *str, t_data *data);
+long	color_range(const char *str, t_data *data);
+long	ft_atol(const char *str);
+// Map
+void	parse_map(t_data *data, int i);
+void	parse_char(t_data *data);
+void	parse_floor(t_data *data);
+void	correct_floor(t_data *data, int row, int col);
+// Player
+void	parse_player(t_data *data);
+void	good_player(t_data *data, int row, int col);
 
-// void	parse_textures(t_data *data);
-// void	parse_no(char *no, t_data *data);
-// void	parse_so(char *so, t_data *data);
-// void	parse_we(char *we, t_data *data);
-// void	parse_ea(char *ea, t_data *data);
+
+//// ERRORS ////
+
+void	print_error(char *str, t_data *data);
+void	frees(t_data *data);
+void	*ft_freematrix(char **matrix);
 
 
-/******
-* MEM *
-******/
+//// INITIATION ////
+
+void	initiation(t_data *data, t_init	*init);
+void	player_pos(t_data *data, t_init	*init);
+
+
+//// EXECUTION ////
+
+/**********++****HOOK***********************/
+
+/*KEY_HOOK*/
+void	key_hook(mlx_key_data_t keydata, void *param);
+
+/********************INIT*******************/
+/*INIT*/
+void        ft_init_game(t_game *game);
+void	    ft_set_player_plane(t_game *game, int x, int y);
+void	    ft_set_player_direction(t_game *game, int x, int y);
+void	    ft_init_player_position(t_game *game);
+void	    ft_init(t_game *game);
+
+/*INIT_ELEMEMTS*/
+void    	ft_init_elem(t_elem *elem);
+void	    ft_validate_element_counts(t_game *game, t_elem *elem);
+void	    ft_check_elements(t_game *game, int i, t_elem *elem);
+void	    ft_init_game(t_game *game);
+
+/**************INPUT*********************/
+/*INPUT_UTILS*/
+void	    ft_rotate_player(t_player *p, double dir);
+int		    ft_is_wall(t_game *game, double x, double y);
+
+/*INPUT*/
+void	    ft_handle_input(void *param);
+
+/****************RAYCASTING*****************/
+/*RAYCASTING_UTILS*/
+void	    ft_calculate_projection(t_ray	*ray);
+uint32_t	ft_get_pixel_from_texture(mlx_image_t *img, int x, int y);
+void	    ft_draw_wall_slice_with_aux(t_game *game, t_ray *ray, int x, t_ray_aux *aux);
+void	    ft_draw_wall_slice(t_game *game, t_ray *ray, int x);
+void	    ft_raycast_all_columns(t_game *game);
+
+/****************RENDER*************************/
+/*RENDER*/
+void	ft_draw_background(t_game *game);
+void	ft_draw_vertical_line(mlx_image_t *img, t_line line);
+void	ft_draw_column(t_game *game, int x, int start, int end);
+void	ft_update_game(void *param);
+
+/****************TEXTURES*************************/
+/*TEXTURES*/
+char	*ft_search_texture(t_game *game, char c);
+void	ft_load_textures(t_game *game);
+void	ft_load_texture_east(t_game *game, mlx_texture_t *texture);
+void	ft_load_texture_south(t_game *game, mlx_texture_t *texture);
+void	ft_load_texture_west(t_game *game, mlx_texture_t *texture);
+
+/****************UTILS*************************/
+/*MAPS_UTILS*/
+int	ft_count_lines(char *map, t_game *game);
+void	ft_free_map(t_game *game);
+void	ft_read_map_lines(int fd, char *line, t_game *game);
+void	ft_read_map(t_game *game, char **argv);
+void	ft_check_name(char **argv);
+
+/*UTILS*/
+void	ft_close_with_error(t_game *game);
+char	**ft_cpy_matrix(char **src);
+int	ft_is_space(const char *str, int counter);
+
+/*******************MAIN************************* */
+/*MAIN*/
+int	main(int argc, char **argv);
 
 #endif
