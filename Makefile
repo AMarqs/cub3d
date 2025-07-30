@@ -8,9 +8,10 @@ CC = clang
 CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address
 
 #MLX
-MLX_PATH = include/lib/MLX42/build
-MLX_LIB = $(MLX_PATH)/libmlx42.a
-MLX_FLAGS = -L$(MLX_PATH) -lmlx -lXext -lX11 -lm -lz
+MLX_PATH = include/lib/MLX42
+MLX_BUILD_PATH = $(MLX_PATH)/build
+MLX_LIB = $(MLX_BUILD_PATH)/libmlx42.a
+MLX_FLAGS = -L$(MLX_BUILD_PATH) -lmlx42 -ldl -lglfw -pthread -lm
 
 #LIBFT
 LIBFT_PATH = include/lib/libft
@@ -51,10 +52,10 @@ OBJS_DIR = obj
 OBJS = $(addprefix $(OBJS_DIR)/, $(SRC:.c=.o))
 
 #Libraries
-LIBS = -L$(MLX_PATH) -lmlx42 -lglfw -lXext -lX11 -lm -lz 
+LIBS = $(MLX_LIB) -ldl -lglfw -pthread -lm $(LIBFT_FLAGS) 
 
 #Headers
-HEADERS	= -I ./include -I $(MLX_PATH) -I $(LIBFT_PATH)
+HEADERS	= -I ./include -I $(MLX_PATH)/include -I $(LIBFT_PATH)
 
 #Colors
 COLOR_INFO = \033[1;36m
@@ -104,7 +105,10 @@ $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c
 
 $(MLX_LIB):
 	@printf "$(COLOR_INFO)Compiling MLX library...$(COLOR_RESET)\n"
-	@make -C $(MLX_PATH) all > /dev/null 2>&1
+	@if [ ! -d "$(MLX_BUILD_PATH)" ]; then \
+		cmake -B $(MLX_BUILD_PATH) -S $(MLX_PATH) > /dev/null 2>&1; \
+	fi
+	@cmake --build $(MLX_BUILD_PATH) -j4 > /dev/null 2>&1
 	@printf "$(COLOR_SUCCESS)✅ MLX library compiled!$(COLOR_RESET)\n"
 
 $(LIBFT_LIB):
@@ -122,7 +126,9 @@ fclean: clean
 	@$(CLEAN) $(NAME)
 	@printf "\r$(COLOR_SUCCESS)✅ $(NAME) deleted successfully!$(COLOR_RESET)\n"
 	@printf "$(COLOR_INFO)Cleaning MLX library...$(COLOR_RESET)\n"
-	@make -C $(MLX_PATH) clean > /dev/null 2>&1
+	@if [ -d "$(MLX_BUILD_PATH)" ]; then \
+		$(CLEAN) $(MLX_BUILD_PATH); \
+	fi
 	@printf "$(COLOR_SUCCESS)✅ MLX library cleaned!$(COLOR_RESET)\n"
 	@printf "$(COLOR_INFO)Cleaning libft library...$(COLOR_RESET)\n"
 	@make -C $(LIBFT_PATH) fclean > /dev/null 2>&1
