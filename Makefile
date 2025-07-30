@@ -21,17 +21,26 @@ LIBFT_FLAGS = -L$(LIBFT_PATH) -lft
 CLEAN = rm -Rf
 
 #Sources
-SRC =	hook/key_hook.c \
+SRC =	exec/hook/key_hook.c \
 		init/init_elements.c \
 		init/init.c \
-		input/input_utils.c \
-		input/input.c \
-		raycasting/raycasting_utils.c \
-		raycasting/raycasting.c \
-		render/render.c \
-		textures/textures.c \
-		utils/maps_utils.c \
-		utils/utils.c \
+		init/init_player_position.c \
+		exec/input/input_utils.c \
+		exec/input/input.c \
+		parse/parse_args.c \
+		parse/parse_info.c \
+		parse/parse_textures.c \
+		parse/parse_colors.c \
+		parse/parse_map.c \
+		parse/parse_player.c \
+		parse/errors.c \
+		parse/utils.c \
+		exec/raycasting/raycasting_utils.c \
+		exec/raycasting/raycasting.c \
+		exec/render/render.c \
+		exec/texture/texture.c \
+		exec/utils/maps_utils.c \
+		exec/utils/utils.c \
  		main.c \
 
 SRCS_DIR = src
@@ -42,7 +51,7 @@ OBJS_DIR = obj
 OBJS = $(addprefix $(OBJS_DIR)/, $(SRC:.c=.o))
 
 #Libraries
-LIBS = -L$(MLX_PATH) -lXext -lX11 -lm #-lmlx 
+LIBS = -L$(MLX_PATH) -lmlx42 -lglfw -lXext -lX11 -lm -lz 
 
 #Headers
 HEADERS	= -I ./include -I $(MLX_PATH) -I $(LIBFT_PATH)

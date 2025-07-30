@@ -1,11 +1,23 @@
-#include "cub3D.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   raycasting.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jortiz-m <jortiz-m@student.42malaga.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/30 11:29:14 by jortiz-m          #+#    #+#             */
+/*   Updated: 2025/07/30 11:30:38 by jortiz-m         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "cub3d.h"
 
 void	ft_init_ray(t_game *game, t_ray *ray, int x)
 {
 	ray->collision = 0;
-	ray->plane_x = 2.0 * x / (double)WIDTH - 1.0;
-	ray->ray_x = game->player.dir_x + game->player.plane_x * ray->plane_x;
-	ray->ray_y = game->player.dir_y + game->player.plane_y * ray->plane_x;
+	ray->camera_x = 2.0 * x / (double)WIDTH - 1.0;
+	ray->ray_x = game->player.dir_x + game->player.plane_x * ray->camera_x;
+	ray->ray_y = game->player.dir_y + game->player.plane_y * ray->camera_x;
 	ray->map_x = (int)game->player.x;
 	ray->map_y = (int)game->player.y;
 	if (ray->ray_x == 0)
