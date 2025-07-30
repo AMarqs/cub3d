@@ -6,7 +6,7 @@
 /*   By: albmarqu <albmarqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 16:22:48 by albmarqu          #+#    #+#             */
-/*   Updated: 2025/07/21 20:10:08 by albmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/30 18:26:50 by albmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,19 +38,19 @@ long	ft_atol(const char *str)
 	return (num);
 }
 
-long	color_range(const char *str, t_data *data)
+long	color_range(const char *str, t_game *game)
 {
 	long	num;
 
 	if (ft_strlen(str) > 11)
-		print_error("Invaild RGB color\n", data);
+		print_error("Invaild RGB color\n", game);
 	num = ft_atol(str);
 	if (num < 0 || num > 255)
-		print_error("Invaild RGB color\n", data);
+		print_error("Invaild RGB color\n", game);
 	return (num);
 }
 
-void	count_commas(char *str, t_data *data)
+void	count_commas(char *str, t_game *game)
 {
 	int	i;
 	int	comma;
@@ -64,35 +64,35 @@ void	count_commas(char *str, t_data *data)
 		i++;
 	}
 	if (comma != 2)
-		print_error("Wrong RGB color format\n", data);
+		print_error("Wrong RGB color format\n", game);
 }
 
-void	parse_f(char *f, t_data *data)
+void	parse_f(char *f, t_game *game)
 {
 	char	**floor;
 
-	data->floor = malloc(sizeof(t_color));
-	if (data->floor == NULL)
-		print_error("Error allocating memory\n", data);
+	game->data->floor = calloc(1, sizeof(t_color));
+	if (game->data->floor == NULL)
+		print_error("Error allocating memory\n", game);
 	f = ft_strtrim(f, " ");
-	count_commas(f, data);
+	count_commas(f, game);
 	floor = ft_split(f, ',');
-	data->floor->r = color_range(floor[0], data);
-	data->floor->g = color_range(floor[1], data);
-	data->floor->b = color_range(floor[2], data);
+	game->data->floor->r = color_range(floor[0], game);
+	game->data->floor->g = color_range(floor[1], game);
+	game->data->floor->b = color_range(floor[2], game);
 }
 
-void	parse_c(char *c, t_data *data)
+void	parse_c(char *c, t_game *game)
 {
 	char	**ceiling;
 
-	data->ceiling = malloc(sizeof(t_color));
-	if (data->ceiling == NULL)
-		print_error("Error allocating memory\n", data);
+	game->data->ceiling = calloc(1, sizeof(t_color));
+	if (game->data->ceiling == NULL)
+		print_error("Error allocating memory\n", game);
 	c = ft_strtrim(c, " ");
-	count_commas(c, data);
+	count_commas(c, game);
 	ceiling = ft_split(c, ',');
-	data->ceiling->r = color_range(ceiling[0], data);
-	data->ceiling->g = color_range(ceiling[1], data);
-	data->ceiling->b = color_range(ceiling[2], data);
+	game->data->ceiling->r = color_range(ceiling[0], game);
+	game->data->ceiling->g = color_range(ceiling[1], game);
+	game->data->ceiling->b = color_range(ceiling[2], game);
 }

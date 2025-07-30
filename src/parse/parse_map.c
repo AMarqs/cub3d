@@ -6,140 +6,67 @@
 /*   By: albmarqu <albmarqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 20:30:52 by albmarqu          #+#    #+#             */
-/*   Updated: 2025/07/24 17:59:20 by albmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/30 18:54:47 by albmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	parse_char(t_data *data)
+void	parse_char(t_game *game)
 {
 	int		row;
 	int		col;
+	char	box;
 
 	row = 0;
-	while (data->map[row])
+	box = 0;
+	while (game->data->map[row])
 	{
 		col = 0;
-		while (data->map[row] && data->map[row][col])
+		while (game->data->map[row] && game->data->map[row][col])
 		{
-			if (data->map[row][col] != '1' && data->map[row][col] != '0'
-				&& data->map[row][col] != 'N' && data->map[row][col] != 'S'
-				&& data->map[row][col] != 'W' && data->map[row][col] != 'E'
-				&& data->map[row][col] != ' ' && data->map[row][col] != '\t'
-				&& data->map[row][col] != '\n')
-				print_error("Wrong map characters\n", data);
-			col++;
-		}
-		row++;
-	}
-	// write(1, "Good map characters\n", 20);
-}
-
-void	correct_floor(t_data *data, int row, int col)
-{
-	// Verificar límites del array antes de acceder
-	if (row < 0 || col < 0 || !data->map[row] || col >= (int)ft_strlen(data->map[row]))
-		print_error("Map not closed by walls\n", data);
-	
-	// Verificar que la posición adyacente sea una pared o un espacio válido
-	if (data->map[row][col] != '1' && data->map[row][col] != '0'
-		&& data->map[row][col] != 'N' && data->map[row][col] != 'S'
-		&& data->map[row][col] != 'W' && data->map[row][col] != 'E'
-		&& data->map[row][col] != ' ' && data->map[row][col] != '\t')
-		print_error("Map not closed by walls\n", data);
-	
-	// Si hay un espacio donde debería haber una pared, el mapa no está cerrado
-	if (data->map[row][col] == ' ' || data->map[row][col] == '\t' 
-		|| data->map[row][col] == '\n' || data->map[row][col] == '\0')
-		print_error("Map not closed by walls\n", data);
-}
-
-void	new_line(t_data *data, int row)
-{
-	int	okay;
-
-	okay = 0;
-	if (!data->map[row][0])
-		print_error("Splitted map\n", data);
-	if (!ft_strncmp(data->map[row], "\n", 1))
-	{
-		while (data->map[row] && row < data->file_rows)
-		{
-			if (ft_strncmp(data->map[row], "\n", 1))
-				okay = 1;
-			row++;
-		}
-	}
-	if (okay == 1)
-		print_error("Splitted map\n", data);
-}
-
-void	parse_floor(t_data *data)
-{
-	int	row;
-	int	col;
-
-	row = 0;
-	col = 0;
-	while (data->map[row])
-	{
-		col = 0;
-		new_line(data, row);
-		while (data->map[row][col])
-		{
-			if (data->map[row][col] == '0' || data->map[row][col] == 'N' 
-				|| data->map[row][col] == 'S' || data->map[row][col] == 'E' 
-				|| data->map[row][col] == 'W')
-			{
-				correct_floor(data, (row - 1), col);
-				correct_floor(data, (row + 1), col);
-				correct_floor(data, row, (col - 1));
-				correct_floor(data, row, (col + 1));
-			}
+			box = game->data->map[row][col];
+			if (box != '1' && box != '0' && box != 'N' && box != 'S'
+				&& box != 'W' && box != 'E' && box != ' ' && box != '\t'
+				&& box != '\n')
+				print_error("Wrong map characters\n", game);
 			col++;
 		}
 		row++;
 	}
 }
 
-void	parse_map(t_data *data, int i)
+void	parse_map(t_game *game, int i)
 {
 	int		j;
 	int		blank;
 
 	blank = 0;
-	while (data->map_data[i] && blank != 1)
+	while (game->data->map_data[i] && blank != 1)
 	{
 		j = 0;
-		while (data->map_data[i] && data->map_data[i][j] != '\n' && blank != 1)
+		while (game->data->map_data[i]
+			&& game->data->map_data[i][j] != '\n' && blank != 1)
 		{
-			if (data->map_data[i][j] != ' ')
+			if (game->data->map_data[i][j] != ' ')
 				blank = 1;
 			j++;
 		}
 		i++;
 	}
 	i--;
-	data->map = malloc((data->file_rows - i + 1) * sizeof(char *));
-	if (data->map == NULL)
-		print_error("Error allocating memory\n", data);
+	game->data->map = malloc((game->data->file_rows - i + 1) * sizeof(char *));
+	if (game->data->map == NULL)
+		print_error("Error allocating memory\n", game);
 	j = 0;
-	while (data->map_data[i])
+	while (game->data->map_data[i])
 	{
-		data->map[j] = ft_strdup(data->map_data[i]);
+		game->data->map[j] = ft_strdup(game->data->map_data[i++]);
 		i++;
 		j++;
 	}
-	data->map[j] = NULL; // Terminar el array con NULL
-///
-	// i = 0;
-	// printf("\nREAL MAPA\n");
-	// while (i < j)
-	// 	printf("%s", data->map[i++]);
-	// printf("\n");
-///
-	parse_char(data);
-	parse_player(data);
-	parse_floor(data);
+	game->data->map[j] = NULL;
+	parse_char(game);
+	parse_player(game);
+	parse_floor(game);
 }

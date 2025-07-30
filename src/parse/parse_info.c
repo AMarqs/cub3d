@@ -6,67 +6,23 @@
 /*   By: albmarqu <albmarqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 13:57:52 by albmarqu          #+#    #+#             */
-/*   Updated: 2025/07/22 15:31:01 by albmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/30 18:30:30 by albmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	init_counters(t_count *count)
-{
-	count->total = 0;
-	count->count_no = 0;
-	count->count_so = 0;
-	count->count_we = 0;
-	count->count_ea = 0;
-	count->count_f = 0;
-	count->count_c = 0;
-}
-
-void	check_count(t_count *count, t_data *data)
-{
-	if (count->count_no > 1 || count->count_so > 1 || count->count_we > 1
-		|| count->count_ea > 1 || count->count_f > 1 || count->count_c > 1)
-		print_error("Wrong map information\n", data);
-	count->total = count->count_no + count->count_so + count->count_we
-		+ count->count_ea + count->count_f + count->count_c;
-}
-
-void	parse_texture(char *map, t_data *data)
-{
-	if (map[0] == 'N' && map[1] == 'O')
-	{
-		parse_no(map, data);
-		data->count->count_no++;
-	}
-	else if (map[0] == 'S' && map[1] == 'O')
-	{
-		parse_so(map, data);
-		data->count->count_so++;
-	}
-	else if (map[0] == 'W' && map[1] == 'E')
-	{
-		parse_we(map, data);
-		data->count->count_we++;
-	}
-	else if (map[0] == 'E' && map[1] == 'A')
-	{
-		parse_ea(map, data);
-		data->count->count_ea++;
-	}
-}
-
-void	parse_color(char *map, t_data *data)
+void	parse_color(char *map, t_game *game)
 {
 	if (map[0] == 'F')
 	{
-		parse_f((map + 1), data);
-		data->count->count_f++;
+		parse_f((map + 1), game);
+		game->data->count->count_f++;
 	}
 	else if (map[0] == 'C')
 	{
-		parse_c((map + 1), data);
-		data->count->count_c++;
+		parse_c((map + 1), game);
+		game->data->count->count_c++;
 	}
 }
 
@@ -78,28 +34,29 @@ int	is_direction(char *map)
 	return (0);
 }
 
-void	parse_info(t_data *data)
+void	parse_info(t_game *game)
 {
 	int		i;
 
 	i = 0;
-	data->count = malloc(sizeof(t_count));
-	if (data->count == NULL)
-		print_error("Error allocating memory\n", data);
-	init_counters(data->count);
-	while (data->map_data[i] && data->count->total != 6)
+	game->data->count = calloc(1, sizeof(t_count));
+	if (game->data->count == NULL)
+		print_error("Error allocating memory\n", game);
+	init_counters(game);
+	while (game->data->map_data[i] && game->data->count->total != 6)
 	{
-		data->map_aux = ft_strtrim(data->map_data[i], " ");
-		if (is_direction(data->map_aux))
-			parse_texture(data->map_aux, data);
-		else if (data->map_aux[0] == 'F' || data->map_aux[0] == 'C')
-			parse_color(data->map_aux, data);
-		else if (data->map_aux[0] != '\n')
-			print_error("Wrong map info\n", data);
-		check_count(data->count, data);
+		game->data->map_aux = ft_strtrim(game->data->map_data[i], " ");
+		if (is_direction(game->data->map_aux))
+			parse_texture(game->data->map_aux, game);
+
+		else if (game->data->map_aux[0] == 'F' || game->data->map_aux[0] == 'C')
+			parse_color(game->data->map_aux, game);
+		else if (game->data->map_aux[0] != '\n')
+			print_error("Wrong map info\n", game);
+		check_count(game->data->count, game);
 		i++;
 	}
-	if (data->count->total != 6)
-		print_error("Not enough texture data\n", data);
-	parse_map(data, i);
+	if (game->data->count->total != 6)
+		print_error("Not enough texture data\n", game);
+	parse_map(game, i);
 }

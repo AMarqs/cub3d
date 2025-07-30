@@ -12,7 +12,7 @@
 
 #include "cub3d.h"
 
-void	open_texture_file(char *path, t_data *data)
+void	open_texture_file(char *path, t_game *game)
 {
 	int	fd;
 
@@ -22,56 +22,44 @@ void	open_texture_file(char *path, t_data *data)
 		write(2, "Error\nNo such file or directory: ", 32);
 		write(2, path, ft_strlen(path));
 		write(2, "\n", 1);
-		frees(data);
+		frees(game);
 		exit(EXIT_FAILURE);
 	}
 	close(fd);
 }
 
-void	parse_no(char *no, t_data *data)
+void	parse_direction(t_game *game, char *dir, char *path)
 {
 	int		len;
 	char	*aux;
 
-	len = ft_strlen(no);
-	aux = ft_substr(no, 2, len);
-	data->no_texture = ft_strtrim(aux, " \n");
+	len = ft_strlen(dir);
+	aux = ft_substr(dir, 2, len);
+	path = ft_strtrim(aux, " \n");
 	free(aux);
-	open_texture_file(data->no_texture, data);
+	open_texture_file(path, game);
 }
 
-void	parse_so(char *so, t_data *data)
+void	parse_texture(char *map, t_game *game)
 {
-	int		len;
-	char	*aux;
-
-	len = ft_strlen(so);
-	aux = ft_substr(so, 2, len);
-	data->so_texture = ft_strtrim(aux, " \n");
-	free(aux);
-	open_texture_file(data->so_texture, data);
-}
-
-void	parse_we(char *we, t_data *data)
-{
-	int		len;
-	char	*aux;
-
-	len = ft_strlen(we);
-	aux = ft_substr(we, 2, len);
-	data->we_texture = ft_strtrim(aux, " \n");
-	free(aux);
-	open_texture_file(data->we_texture, data);
-}
-
-void	parse_ea(char *ea, t_data *data)
-{
-	int		len;
-	char	*aux;
-
-	len = ft_strlen(ea);
-	aux = ft_substr(ea, 2, len);
-	data->ea_texture = ft_strtrim(aux, " \n");
-	free(aux);
-	open_texture_file(data->ea_texture, data);
+	if (map[0] == 'N' && map[1] == 'O')
+	{
+		parse_direction(game, map, game->data->no_texture);
+		game->data->count->count_no++;
+	}
+	else if (map[0] == 'S' && map[1] == 'O')
+	{
+		parse_direction(game, map, game->data->so_texture);
+		game->data->count->count_so++;
+	}
+	else if (map[0] == 'E' && map[1] == 'A')
+	{
+		parse_direction(game, map, game->data->ea_texture);
+		game->data->count->count_ea++;
+	}
+	else if (map[0] == 'W' && map[1] == 'E')
+	{
+		parse_direction(game, map, game->data->we_texture);
+		game->data->count->count_we++;
+	}
 }

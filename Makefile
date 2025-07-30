@@ -22,25 +22,26 @@ LIBFT_FLAGS = -L$(LIBFT_PATH) -lft
 CLEAN = rm -Rf
 
 #Sources
-SRC =	exec/hook/key_hook.c \
-		init/init_elements.c \
-		init/init.c \
-		exec/input/input_utils.c \
-		exec/input/input.c \
+SRC =	main.c \
+		errors.c \
 		parse/parse_args.c \
 		parse/parse_info.c \
 		parse/parse_textures.c \
 		parse/parse_colors.c \
 		parse/parse_map.c \
 		parse/parse_player.c \
-		parse/errors.c \
-		parse/utils.c \
+		init/init_elements.c \
+		init/init.c \
+		exec/hook/key_hook.c \
+		exec/input/input_utils.c \
+		exec/input/input.c \
 		exec/raycasting/raycasting_utils.c \
 		exec/raycasting/raycasting.c \
 		exec/render/render.c \
 		exec/texture/texture.c \
 		exec/utils/utils.c \
- 		main.c \
+
+ 		
 
 SRCS_DIR = src
 SRCS = $(addprefix $(SRCS_DIR)/, $(SRC))

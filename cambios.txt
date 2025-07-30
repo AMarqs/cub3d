@@ -1,3 +1,9 @@
 quitar el fprintf
 mirar duplicados
 liberar estructuras completas, data dentro de game
+
+
+ALBA
+- He modificado toda mi parte para que coincida con la estructura y la he añadido al main
+- He sacado el archivo de errors.c fuera, así puedes poner también la parte de los free de EXEC
+- Mi parte de la estructura ya no tiene nada de sobra

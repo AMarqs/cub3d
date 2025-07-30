@@ -3,25 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jortiz-m <jortiz-m@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: albmarqu <albmarqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 19:52:39 by albmarqu          #+#    #+#             */
-/*   Updated: 2025/07/30 13:56:27 by jortiz-m         ###   ########.fr       */
+/*   Updated: 2025/07/30 18:18:30 by albmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	frees(t_data *data)
+void	*ft_freematrix(char **matrix)
+{
+	int	i;
+
+	i = 0;
+	while (matrix[i])
+	{
+		free(matrix[i]);
+		i++;
+	}
+	free(matrix);
+	return (NULL);
+}
+
+void	free_data(t_data *data)
 {
 	if (data->no_texture)
 		free(data->no_texture);
 	if (data->so_texture)
 		free(data->so_texture);
-	if (data->we_texture)
-		free(data->we_texture);
 	if (data->ea_texture)
 		free(data->ea_texture);
+	if (data->we_texture)
+		free(data->we_texture);
 	if (data->floor)
 		free(data->floor);
 	if (data->ceiling)
@@ -38,10 +52,15 @@ void	frees(t_data *data)
 		free(data);
 }
 
-void	print_error(char *str, t_data *data)
+void	frees(t_game *game)
+{
+	free_data(game->data);
+}
+
+void	print_error(char *str, t_game *game)
 {
 	write(2, "Error\n", 6);
 	write(2, str, ft_strlen(str));
-	frees(data);
+	frees(game);
 	exit(EXIT_FAILURE);
 }
