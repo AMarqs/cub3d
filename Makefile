@@ -25,7 +25,6 @@ CLEAN = rm -Rf
 SRC =	exec/hook/key_hook.c \
 		init/init_elements.c \
 		init/init.c \
-		init/init_player_position.c \
 		exec/input/input_utils.c \
 		exec/input/input.c \
 		parse/parse_args.c \
@@ -40,7 +39,6 @@ SRC =	exec/hook/key_hook.c \
 		exec/raycasting/raycasting.c \
 		exec/render/render.c \
 		exec/texture/texture.c \
-		exec/utils/maps_utils.c \
 		exec/utils/utils.c \
  		main.c \
 

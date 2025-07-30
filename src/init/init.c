@@ -6,7 +6,7 @@
 /*   By: jortiz-m <jortiz-m@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 11:30:09 by jortiz-m          #+#    #+#             */
-/*   Updated: 2025/07/30 11:30:31 by jortiz-m         ###   ########.fr       */
+/*   Updated: 2025/07/30 14:09:20 by jortiz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,14 @@ void	ft_init_mlx(t_game	*game)
 
 void	ft_set_player_plane(t_game *game, int x, int y)
 {
-	if (game->map[y][x] == 'E')
+	if (game->data->map[y][x] == 'E')
 	{
 		game->player.dir_x = 1;
 		game->player.dir_y = 0;
 		game->player.plane_x = 0;
 		game->player.plane_y = 0.66;
 	}
-	else if (game->map[y][x] == 'W')
+	else if (game->data->map[y][x] == 'W')
 	{
 		game->player.dir_x = -1;
 		game->player.dir_y = 0;
@@ -52,14 +52,14 @@ void	ft_set_player_direction(t_game *game, int x, int y)
 {
 	game->player.x = (double)x + 0.5;
 	game->player.y = (double)y + 0.5;
-	if (game->map[y][x] == 'N')
+	if (game->data->map[y][x] == 'N')
 	{
 		game->player.dir_x = 0;
 		game->player.dir_y = -1;
 		game->player.plane_x = 0.66;
 		game->player.plane_y = 0;
 	}
-	else if (game->map[y][x] == 'S')
+	else if (game->data->map[y][x] == 'S')
 	{
 		game->player.dir_x = 0;
 		game->player.dir_y = 1;
@@ -73,29 +73,32 @@ void	ft_set_player_direction(t_game *game, int x, int y)
 
 void	ft_init_player_position(t_game *game)
 {
-	int	x;
-	int	y;
+	int	row;
+	int	col;
 
-	y = 0;
-	while (game->map[y] && (game->map[y][0] == 'N' || game->map[y][0] == 'S'
-		|| game->map[y][0] == 'E' || game->map[y][0] == 'W'
-		|| game->map[y][0] == 'F' || game->map[y][0] == 'C'
-		|| game->map[y][0] == '\n'))
-		y++;
-	while (game->map[y])
+	row = 0;
+	while (game->data->map[row])
 	{
-		x = 0;
-		while (game->map[y][x])
+		col = 0;
+		while (game->data->map[row][col])
 		{
-			if (game->map[y][x] == 'N' || game->map[y][x] == 'S'
-				|| game->map[y][x] == 'E' || game->map[y][x] == 'W')
+			if (game->data->map[row][col] == 'N' || game->data->map[row][col] == 'S'
+				|| game->data->map[row][col] == 'E' || game->data->map[row][col] == 'W')
 			{
-				ft_set_player_direction(game, x, y);
-				return ;
+				game->player.y = row;
+				game->player.x = col;
 			}
-			x++;
+			if (game->data->map[row][col] == 'N')
+				game->player.dir = 1;
+			else if (game->data->map[row][col] == 'S')
+				game->player.dir = 2;
+			else if (game->data->map[row][col] == 'E')
+				game->player.dir = 3;
+			else if (game->data->map[row][col] == 'W')
+				game->player.dir = 4;
+			col++;
 		}
-		y++;
+		row++;
 	}
 }
 

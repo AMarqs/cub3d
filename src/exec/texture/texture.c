@@ -6,7 +6,7 @@
 /*   By: jortiz-m <jortiz-m@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 11:29:35 by jortiz-m          #+#    #+#             */
-/*   Updated: 2025/07/30 12:29:37 by jortiz-m         ###   ########.fr       */
+/*   Updated: 2025/07/30 13:27:58 by jortiz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ char	*ft_search_texture_from_file(char *filename, char *prefix)
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
 		return (NULL);
-	
 	prefix_len = ft_strlen(prefix);
 	line = get_next_line(fd);
 	while (line)
@@ -34,7 +33,6 @@ char	*ft_search_texture_from_file(char *filename, char *prefix)
 			while (line[j] && line[j] <= 32)
 				j++;
 			result = ft_substr(line, j, ft_strlen(line) - j);
-			// Remover salto de línea si existe
 			if (result && ft_strlen(result) > 0 && result[ft_strlen(result) - 1] == '\n')
 				result[ft_strlen(result) - 1] = '\0';
 			free(line);
@@ -46,29 +44,6 @@ char	*ft_search_texture_from_file(char *filename, char *prefix)
 	}
 	close(fd);
 	return (NULL);
-}
-
-char	*ft_search_texture(t_game *game, char c)
-{
-	// Esta función ahora es obsoleta, pero la mantenemos por compatibilidad
-	// En su lugar deberíamos usar ft_search_texture_from_file
-	int	i;
-	int	j;
-
-	i = -1;
-	j = 1;
-	while (game->map[++i])
-	{
-		if (game->map[i][0] == c)
-		{
-			while (game->map[i][++j] <= 32)
-				;
-			break ;
-		}
-	}
-	if (!game->map[i])
-		return (NULL);
-	return (ft_substr(game->map[i], j, ft_strlen(game->map[i])));
 }
 
 void	ft_load_textures(t_game *game)
@@ -92,14 +67,15 @@ void	ft_load_textures(t_game *game)
 	free(path);
 	game->images.no = mlx_texture_to_image(game->mlx, texture);
 	mlx_delete_texture(texture);
-	ft_load_texture_east(game, texture);
-	ft_load_texture_south(game, texture);
-	ft_load_texture_west(game, texture);
+	ft_load_texture_east(game);
+	ft_load_texture_south(game);
+	ft_load_texture_west(game);
 }
 
-void	ft_load_texture_east(t_game *game, mlx_texture_t *texture)
+void	ft_load_texture_east(t_game *game)
 {
 	char	*path;
+	mlx_texture_t	*texture;
 
 	path = ft_search_texture_from_file(game->filename, "EA");
 	if (!path)
@@ -119,9 +95,10 @@ void	ft_load_texture_east(t_game *game, mlx_texture_t *texture)
 	mlx_delete_texture(texture);
 }
 
-void	ft_load_texture_south(t_game *game, mlx_texture_t *texture)
+void	ft_load_texture_south(t_game *game)
 {
 	char	*path;
+	mlx_texture_t	*texture;
 
 	path = ft_search_texture_from_file(game->filename, "SO");
 	if (!path)
@@ -141,9 +118,10 @@ void	ft_load_texture_south(t_game *game, mlx_texture_t *texture)
 	mlx_delete_texture(texture);
 }
 
-void	ft_load_texture_west(t_game *game, mlx_texture_t *texture)
+void	ft_load_texture_west(t_game *game)
 {
 	char	*path;
+	mlx_texture_t	*texture;
 
 	path = ft_search_texture_from_file(game->filename, "WE");
 	if (!path)

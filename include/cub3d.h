@@ -6,7 +6,7 @@
 /*   By: jortiz-m <jortiz-m@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 13:06:37 by joritz-m          #+#    #+#             */
-/*   Updated: 2025/07/30 11:26:23 by jortiz-m         ###   ########.fr       */
+/*   Updated: 2025/07/30 14:09:56 by jortiz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ typedef struct s_player
 {
 	double	x;
 	double	y;
+	double	dir;////
 	double	dir_x;
 	double	dir_y;
 	double	plane_x;
@@ -114,22 +115,66 @@ typedef struct s_images
 	mlx_image_t	*we;
 }				t_images;
 
+typedef struct s_color
+{
+	int		r;
+	int		g;
+	int		b;
+}				t_color;
+
+typedef struct s_count
+{
+	int		no;
+	int		so;
+	int		we;
+	int		ea;
+	int		f;
+	int		c;
+	int		total;
+	int		count_no;
+	int		count_so;
+	int		count_we;
+	int		count_ea;
+	int		count_f;
+	int		count_c;
+}				t_count;
+
+typedef struct s_init
+{
+	int		pos_x;
+	int		pos_y;
+	int		pos_dir;
+}				t_init;
+
+typedef struct s_data
+{
+	char		**map_data;
+	char		**map;
+	char		*map_aux;
+	char		*no_texture;
+	char		*so_texture;
+	char		*we_texture;
+	char		*ea_texture;
+	int			file_rows;
+	int			floor_r;
+	int			floor_g;
+	int			floor_b;
+	int			ceiling_r;
+	int			ceiling_g;
+	int			ceiling_b;
+	t_color		*floor;
+	t_color		*ceiling;
+	t_count		*count;
+}				t_data;
+
 typedef struct s_game
 {
-	char			**map;
-	char			*filename;
-	int				height;
+	t_data			*data;
 	t_player		player;
 	t_control		control;
 	t_images		images;
 	mlx_t			*mlx;
 	mlx_image_t		*img;
-	uint8_t			ceiling_r;
-	uint8_t			ceiling_g;
-	uint8_t			ceiling_b;
-	uint8_t			floor_r;
-	uint8_t			floor_g;
-	uint8_t			floor_b;
 }			t_game;
 
 typedef struct s_elem
@@ -157,58 +202,6 @@ typedef struct s_line
 	int			y_end;
 	uint32_t	color;
 }				t_line;
-
-typedef struct s_color
-{
-	int		r;
-	int		g;
-	int		b;
-}				t_color;
-
-typedef struct s_count
-{
-	int		no;
-	int		so;
-	int		we;
-	int		ea;
-	int		f;
-	int		c;
-	int		total;
-	int		count_no;
-	int		count_so;
-	int		count_we;
-	int		count_ea;
-	int		count_f;
-	int		count_c;
-}				t_count;
-
-typedef struct s_data
-{
-	char		**map_data;
-	char		**map;
-	char		*map_aux;
-	char		*no_texture;
-	char		*so_texture;
-	char		*we_texture;
-	char		*ea_texture;
-	int			file_rows;
-	int			floor_r;
-	int			floor_g;
-	int			floor_b;
-	int			ceiling_r;
-	int			ceiling_g;
-	int			ceiling_b;
-	t_color		*floor;
-	t_color		*ceiling;
-	t_count		*count;
-}				t_data;
-
-typedef struct s_init
-{
-	int		pos_x;
-	int		pos_y;
-	int		pos_dir;
-}				t_init;
 
 /******************FUNCTIONS******************/
 
@@ -257,26 +250,16 @@ void	ft_update_game(void *param);
 /******************TEXTURE******************/
 
 /* TEXTURE */
-char	*ft_search_texture(t_game *game, char c);
 char	*ft_search_texture_from_file(char *filename, char *prefix);
 void	ft_load_textures(t_game *game);
-void	ft_load_texture_east(t_game *game, mlx_texture_t *texture);
-void	ft_load_texture_south(t_game *game, mlx_texture_t *texture);
-void	ft_load_texture_west(t_game *game, mlx_texture_t *texture);
+void	ft_load_texture_east(t_game *game);
+void	ft_load_texture_south(t_game *game);
+void	ft_load_texture_west(t_game *game);
 
 /******************UTILS******************/
 
-/* MAPS_UTILS */
-int		ft_count_lines(char *map, t_game *game);
-void	ft_free_map(t_game *game);
-void	ft_read_map_lines(int fd, char *line, t_game *game);
-void	ft_read_map(t_game *game, char **argv);
-void	ft_check_name(char **argv);
-void	ft_validate_map_walls(t_game *game);
-
 /* UTILS */
 void	ft_close_with_error(t_game *game);
-char	**ft_cpy_matrix(char **src);
 int		ft_is_space(const char *str, int counter);
 
 
@@ -291,10 +274,6 @@ void	ft_init_elem(t_elem *elem);
 void	ft_validate_element_counts(t_game *game, t_elem *elem);
 void	ft_check_elements(t_game *game, int i, t_elem *elem);
 void	ft_init_game(t_game *game);
-
-/* INIT_PLAYER_POSITION */
-void	initiation(t_data *data, t_init *init);
-void	player_pos(t_data *data, t_init *init);
 
 /* INIT */
 void	ft_init_mlx(t_game *game);

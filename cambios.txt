@@ -1,0 +1,3 @@
+quitar el fprintf
+mirar duplicados
+liberar estructuras completas, data dentro de game
