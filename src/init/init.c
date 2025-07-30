@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jortiz-m <jortiz-m@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: albmarqu <albmarqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 11:30:09 by jortiz-m          #+#    #+#             */
-/*   Updated: 2025/07/30 14:09:20 by jortiz-m         ###   ########.fr       */
+/*   Updated: 2025/07/30 19:07:57 by albmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ void	ft_init_mlx(t_game	*game)
 	game->mlx = mlx_init(WIDTH, HEIGHT, TITLE, true);
 	if (!game->mlx)
 	{
-		fprintf(stderr, "Error:\nCould not init MLX42");
+		print_error("Could not init MLX42\n", game);
 		ft_close_with_error(game);
 	}
 	game->img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
 	if (!game->img)
 	{
-		fprintf(stderr, "Error:\nCould not create image");
+		print_error("Could not create image\n", game);
 		ft_close_with_error(game);
 	}
 	mlx_image_to_window(game->mlx, game->img, 0, 0);
@@ -73,28 +73,30 @@ void	ft_set_player_direction(t_game *game, int x, int y)
 
 void	ft_init_player_position(t_game *game)
 {
-	int	row;
-	int	col;
+	int		row;
+	int		col;
+	char	box;
 
 	row = 0;
+	box = 0;
 	while (game->data->map[row])
 	{
 		col = 0;
 		while (game->data->map[row][col])
 		{
-			if (game->data->map[row][col] == 'N' || game->data->map[row][col] == 'S'
-				|| game->data->map[row][col] == 'E' || game->data->map[row][col] == 'W')
+			box = game->data->map[row][col];
+			if (box == 'N' || box == 'S' || box == 'E' || box == 'W')
 			{
 				game->player.y = row;
 				game->player.x = col;
 			}
-			if (game->data->map[row][col] == 'N')
+			if (box == 'N')
 				game->player.dir = 1;
-			else if (game->data->map[row][col] == 'S')
+			else if (box == 'S')
 				game->player.dir = 2;
-			else if (game->data->map[row][col] == 'E')
+			else if (box == 'E')
 				game->player.dir = 3;
-			else if (game->data->map[row][col] == 'W')
+			else if (box == 'W')
 				game->player.dir = 4;
 			col++;
 		}

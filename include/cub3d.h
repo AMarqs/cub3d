@@ -6,7 +6,7 @@
 /*   By: albmarqu <albmarqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 13:06:37 by joritz-m          #+#    #+#             */
-/*   Updated: 2025/07/30 18:51:15 by albmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/30 19:06:31 by albmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -257,6 +257,27 @@ void	parse_floor(t_game *game);
 void	correct_floor(t_game *game, int row, int col);
 void	new_line(t_game *game, int row);
 
+
+/**************
+*     INIT    *
+***************/
+
+/******************INIT******************/
+
+/* INIT_ELEMENTS */
+void	ft_init_elem(t_elem *elem);
+void	ft_validate_element_counts(t_game *game, t_elem *elem);
+void	ft_check_elements(t_game *game, int i, t_elem *elem);
+void	ft_init_game(t_game *game);
+
+/* INIT */
+void	ft_init_mlx(t_game *game);
+void	ft_set_player_plane(t_game *game, int x, int y);
+void	ft_set_player_direction(t_game *game, int x, int y);
+void	ft_init_player_position(t_game *game);
+void	ft_init(t_game *game);
+
+
 /**************
 *     EXEC    *
 ***************/
@@ -303,6 +324,7 @@ void	ft_update_game(void *param);
 /* TEXTURE */
 char	*ft_search_texture_from_file(char *filename, char *prefix);
 void	ft_load_textures(t_game *game);
+void	ft_load_texture_north(t_game *game);
 void	ft_load_texture_east(t_game *game);
 void	ft_load_texture_south(t_game *game);
 void	ft_load_texture_west(t_game *game);
@@ -312,26 +334,6 @@ void	ft_load_texture_west(t_game *game);
 /* UTILS */
 void	ft_close_with_error(t_game *game);
 int		ft_is_space(const char *str, int counter);
-
-
-/**************
-*     INIT    *
-***************/
-
-/******************INIT******************/
-
-/* INIT_ELEMENTS */
-void	ft_init_elem(t_elem *elem);
-void	ft_validate_element_counts(t_game *game, t_elem *elem);
-void	ft_check_elements(t_game *game, int i, t_elem *elem);
-void	ft_init_game(t_game *game);
-
-/* INIT */
-void	ft_init_mlx(t_game *game);
-void	ft_set_player_plane(t_game *game, int x, int y);
-void	ft_set_player_direction(t_game *game, int x, int y);
-void	ft_init_player_position(t_game *game);
-void	ft_init(t_game *game);
 
 
 /****************

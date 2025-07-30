@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jortiz-m <jortiz-m@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: albmarqu <albmarqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 11:29:47 by jortiz-m          #+#    #+#             */
-/*   Updated: 2025/07/30 13:57:09 by jortiz-m         ###   ########.fr       */
+/*   Updated: 2025/07/30 19:00:01 by albmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,9 @@ void	ft_close_with_error(t_game *game)
 {
 	if (game)
 	{
-		frees(game->data);
 		if (game->mlx)
 			mlx_terminate(game->mlx);
-		free(game);
+		frees(game);
 	}
 	exit(EXIT_FAILURE);
 }
