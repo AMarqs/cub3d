@@ -6,7 +6,7 @@
 /*   By: albmarqu <albmarqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 13:06:37 by albmarqu          #+#    #+#             */
-/*   Updated: 2025/07/24 18:10:44 by albmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/29 18:33:51 by albmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,14 @@
 ************/
 
 # include "lib/MLX42/include/MLX42/MLX42.h"
-# include "libft.h"
+# include "lib/libft/libft.h"
 # include <unistd.h>
+# include <stdio.h>
 # include <stdlib.h>
 # include <fcntl.h>
-# include <stdio.h>
+# include <math.h>
+# include <string.h>
+# include <stdbool.h>
 # include <limits.h>
 
 
@@ -31,9 +34,11 @@
 * MACROS *
 *********/
 
-# define WIN_WIDTH		1920
-# define WIN_HEIGHT		1080
-# define TEXTURE_SIZE	64
+# define TITLE 				"cub3D"
+# define WIDTH 				1920
+# define HEIGHT 			1080
+# define COLLISION_MARGIN 	0.2
+
 # define KEY_W			119
 # define KEY_A			97
 # define KEY_S			115
@@ -59,6 +64,8 @@
 /*************
 * STRUCTURES *
 *************/
+
+//// PARSE ////
 
 typedef struct s_color
 {
@@ -93,12 +100,30 @@ typedef struct s_data
 	char	**map;
 }	t_data;
 
+//// INITIATION ////
+
+typedef struct s_image
+{
+	mlx_texture_t	*n_texture;
+	mlx_texture_t	*s_texture;
+	mlx_texture_t	*e_texture;
+	mlx_texture_t	*w_texture;
+	mlx_image_t		*n_image;
+	mlx_image_t		*s_image;
+	mlx_image_t		*e_image;
+	mlx_image_t		*w_image
+}	t_image;
+
 typedef struct s_init
 {
-	int		pos_dir;  // 1-N, 2-S, 3-E, 4-W
-	int		pos_x;
-	int		pos_y;
+	int				pos_dir;  // 1-N, 2-S, 3-E, 4-W
+	int				pos_x;
+	int				pos_y;
+	mlx_t			*mlx;
+	t_image			*img;
 }	t_init;
+
+
 
 /************
 * FUNCTIONS *
@@ -149,6 +174,6 @@ void	*ft_freematrix(char **matrix);
 
 void	initiation(t_data *data, t_init	*init);
 void	player_pos(t_data *data, t_init	*init);
-
+void	init_window(void);
 
 #endif

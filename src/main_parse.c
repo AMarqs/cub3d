@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main_parse.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: albmarqu <albmarqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 21:01:23 by albmarqu          #+#    #+#             */
-/*   Updated: 2025/07/24 18:23:07 by albmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/29 16:14:42 by albmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	initiation(t_data *data, t_init	*init)
 	init->pos_x = 0;
 	init->pos_y = 0;
 	player_pos(data, init);
-	
+	init_window();
 }
 
 int	main(int argc, char **argv)

@@ -6,7 +6,7 @@
 #    By: albmarqu <albmarqu@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/09 13:08:16 by albmarqu          #+#    #+#              #
-#    Updated: 2025/07/24 17:51:50 by albmarqu         ###   ########.fr        #
+#    Updated: 2025/07/29 16:38:31 by albmarqu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,8 @@ CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address
 #MLX
 MLX_PATH = include/lib/MLX42/build
 MLX_LIB = $(MLX_PATH)/libmlx42.a
-MLX_FLAGS = -L$(MLX_PATH) -lmlx -lXext -lX11 -lm -lz
+MLX_FLAGS = -L$(MLX_PATH) -ldl -lglfw -pthread -lm
+# MLX_FLAGS = -L$(MLX_PATH) -lmlx -lXext -lX11 -lm -lz
 
 #LIBFT
 LIBFT_PATH = include/lib/libft
@@ -33,7 +34,7 @@ LIBFT_FLAGS = -L$(LIBFT_PATH) -lft
 CLEAN = rm -Rf
 
 #Sources
-SRC = 	main.c \
+SRC = 	main_parse.c \
 		parse/parse_args.c \
 		parse/parse_info.c \
 		parse/parse_textures.c \
@@ -42,7 +43,8 @@ SRC = 	main.c \
 		parse/parse_player.c \
 		parse/errors.c \
 		parse/utils.c \
-		initiation/player_position.c		
+		initiation/player_position.c \
+		initiation/init_window.c
 SRCS_DIR = src
 SRCS = $(addprefix $(SRCS_DIR)/, $(SRC))
 
@@ -51,7 +53,7 @@ OBJS_DIR = obj
 OBJS = $(addprefix $(OBJS_DIR)/, $(SRC:.c=.o))
 
 #Libraries
-LIBS = -L$(MLX_PATH) -lXext -lX11 -lm #-lmlx 
+# LIBS = -L$(MLX_PATH) -lXext -lX11 -lm 
 
 #Headers
 HEADERS	= -I ./include -I $(MLX_PATH) -I $(LIBFT_PATH)
@@ -88,7 +90,7 @@ header:
 
 $(NAME): $(OBJS) $(MLX_LIB) $(LIBFT_LIB)
 	@printf "\n$(COLOR_SUCCESS)Compiling executable...$(COLOR_RESET)\n"
-	@$(CC) $(OBJS) $(HEADERS) $(LIBS) $(CFLAGS) $(LIBFT_FLAGS) -o $(NAME) 
+	@$(CC) $(OBJS) $(MLX_LIB) $(LIBFT_LIB) $(HEADERS) $(CFLAGS) $(MLX_FLAGS) $(LIBFT_FLAGS) -o $(NAME) 
 	@printf "$(COLOR_SUCCESS)✅ $(NAME) is ready!$(COLOR_RESET)\n"
 
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c
