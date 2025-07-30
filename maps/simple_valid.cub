@@ -1,0 +1,11 @@
+NO ./textures/beds.png
+WE ./textures/campus.png
+SO ./textures/cluster.png
+EA ./textures/lobby.png
+
+F 171,181,187
+C 50,50,52
+
+11111
+10S01
+11111
