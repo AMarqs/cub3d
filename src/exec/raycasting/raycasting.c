@@ -6,7 +6,7 @@
 /*   By: jortiz-m <jortiz-m@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 11:29:14 by jortiz-m          #+#    #+#             */
-/*   Updated: 2025/07/30 11:30:38 by jortiz-m         ###   ########.fr       */
+/*   Updated: 2025/07/31 11:11:51 by jortiz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	ft_perform_dda(t_game *game, t_ray *ray)
 			ray->map_y += ray->step_y;
 			ray->side = 1;
 		}
-		if (game->map[ray->map_y][ray->map_x] == '1')
+		if (game->data->map[ray->map_y][ray->map_x] == '1')
 			ray->collision = 1;
 	}
 	if (ray->side == 0)

@@ -28,38 +28,38 @@ void	open_texture_file(char *path, t_game *game)
 	close(fd);
 }
 
-void	parse_direction(t_game *game, char *dir, char *path)
+void	parse_direction(t_game *game, char *dir, char **path)
 {
 	int		len;
 	char	*aux;
 
 	len = ft_strlen(dir);
 	aux = ft_substr(dir, 2, len);
-	path = ft_strtrim(aux, " \n");
+	*path = ft_strtrim(aux, " \n");
 	free(aux);
-	open_texture_file(path, game);
+	open_texture_file(*path, game);
 }
 
 void	parse_texture(char *map, t_game *game)
 {
 	if (map[0] == 'N' && map[1] == 'O')
 	{
-		parse_direction(game, map, game->data->no_texture);
+		parse_direction(game, map, &game->data->no_texture);
 		game->data->count->count_no++;
 	}
 	else if (map[0] == 'S' && map[1] == 'O')
 	{
-		parse_direction(game, map, game->data->so_texture);
+		parse_direction(game, map, &game->data->so_texture);
 		game->data->count->count_so++;
 	}
 	else if (map[0] == 'E' && map[1] == 'A')
 	{
-		parse_direction(game, map, game->data->ea_texture);
+		parse_direction(game, map, &game->data->ea_texture);
 		game->data->count->count_ea++;
 	}
 	else if (map[0] == 'W' && map[1] == 'E')
 	{
-		parse_direction(game, map, game->data->we_texture);
+		parse_direction(game, map, &game->data->we_texture);
 		game->data->count->count_we++;
 	}
 }

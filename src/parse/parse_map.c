@@ -61,7 +61,7 @@ void	parse_map(t_game *game, int i)
 	j = 0;
 	while (game->data->map_data[i])
 	{
-		game->data->map[j] = ft_strdup(game->data->map_data[i++]);
+		game->data->map[j] = ft_strdup(game->data->map_data[i]);
 		i++;
 		j++;
 	}

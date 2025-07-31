@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albmarqu <albmarqu@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jortiz-m <jortiz-m@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 13:06:37 by joritz-m          #+#    #+#             */
-/*   Updated: 2025/07/30 19:06:31 by albmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/31 12:12:22 by jortiz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,10 @@
 # define HEIGHT 			1080
 # define COLLISION_MARGIN 	0.2
 
-/******KEYBOARD*******/
+/******MOVEMENT*******/
 
-# define KEY_W			119
-# define KEY_A			97
-# define KEY_S			115
-# define KEY_D			100
-# define KEY_LEFT  		65361
-# define KEY_RIGHT 		65363
-# define KEY_ESC  		65307
+# define MOVE_SPEED			0.08
+# define ROT_SPEED			0.03
 
 /******COLORS*******/
 
@@ -92,12 +87,6 @@ typedef struct s_data
 	char		*ea_texture;
 	char		*we_texture;
 	int			file_rows;
-	int			floor_r;
-	int			floor_g;
-	int			floor_b;
-	int			ceiling_r;
-	int			ceiling_g;
-	int			ceiling_b;
 	t_color		*floor;
 	t_color		*ceiling;
 	t_count		*count;
@@ -143,7 +132,6 @@ typedef struct s_player
 {
 	double	x;
 	double	y;
-	double	dir;////
 	double	dir_x;
 	double	dir_y;
 	double	plane_x;
@@ -169,24 +157,6 @@ typedef struct s_images
 	mlx_image_t	*ea;
 	mlx_image_t	*we;
 }				t_images;
-
-typedef struct s_elem
-{
-	int	n;
-	int	s;
-	int	e;
-	int	w;
-	int	c;
-	int	f;
-}		t_elem;
-
-typedef struct s_start
-{
-	int	n;
-	int	s;
-	int	e;
-	int	w;
-}		t_start;
 
 typedef struct s_line
 {
@@ -233,7 +203,7 @@ void	check_count(t_count *count, t_game *game);
 
 /* TEXTURES */
 void	parse_texture(char *map, t_game *game);
-void	parse_direction(t_game *game, char *dir, char *path);
+void	parse_direction(t_game *game, char *dir, char **path);
 void	open_texture_file(char *path, t_game *game);
 
 /* COLORS */
@@ -264,12 +234,6 @@ void	new_line(t_game *game, int row);
 
 /******************INIT******************/
 
-/* INIT_ELEMENTS */
-void	ft_init_elem(t_elem *elem);
-void	ft_validate_element_counts(t_game *game, t_elem *elem);
-void	ft_check_elements(t_game *game, int i, t_elem *elem);
-void	ft_init_game(t_game *game);
-
 /* INIT */
 void	ft_init_mlx(t_game *game);
 void	ft_set_player_plane(t_game *game, int x, int y);
@@ -286,7 +250,6 @@ void	ft_init(t_game *game);
 
 /* KEY_HOOK */
 void	key_hook(mlx_key_data_t keydata, void *param);
-
 
 /******************INPUT******************/
 
@@ -316,13 +279,12 @@ void	ft_perform_dda(t_game *game, t_ray *ray);
 /* RENDER */
 void	ft_draw_background(t_game *game);
 void	ft_draw_vertical_line(mlx_image_t *img, t_line line);
-void	ft_draw_column(t_game *game, int x, int start, int end);
 void	ft_update_game(void *param);
 
 /******************TEXTURE******************/
 
 /* TEXTURE */
-char	*ft_search_texture_from_file(char *filename, char *prefix);
+
 void	ft_load_textures(t_game *game);
 void	ft_load_texture_north(t_game *game);
 void	ft_load_texture_east(t_game *game);
@@ -333,8 +295,6 @@ void	ft_load_texture_west(t_game *game);
 
 /* UTILS */
 void	ft_close_with_error(t_game *game);
-int		ft_is_space(const char *str, int counter);
-
 
 /****************
 *     ERRORS    *

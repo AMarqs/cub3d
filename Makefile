@@ -26,11 +26,12 @@ SRC =	main.c \
 		errors.c \
 		parse/parse_args.c \
 		parse/parse_info.c \
+		parse/parse_floor.c \
 		parse/parse_textures.c \
 		parse/parse_colors.c \
 		parse/parse_map.c \
+		parse/parse_counter.c \
 		parse/parse_player.c \
-		init/init_elements.c \
 		init/init.c \
 		exec/hook/key_hook.c \
 		exec/input/input_utils.c \

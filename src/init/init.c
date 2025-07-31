@@ -67,8 +67,8 @@ void	ft_set_player_direction(t_game *game, int x, int y)
 		game->player.plane_y = 0;
 	}
 	ft_set_player_plane(game, x, y);
-	game->player.move_speed = 0.05;
-	game->player.rot_speed = 0.17;
+	game->player.move_speed = MOVE_SPEED;
+	game->player.rot_speed = ROT_SPEED;
 }
 
 void	ft_init_player_position(t_game *game)
@@ -87,17 +87,9 @@ void	ft_init_player_position(t_game *game)
 			box = game->data->map[row][col];
 			if (box == 'N' || box == 'S' || box == 'E' || box == 'W')
 			{
-				game->player.y = row;
-				game->player.x = col;
+				ft_set_player_direction(game, col, row);
+				return ;
 			}
-			if (box == 'N')
-				game->player.dir = 1;
-			else if (box == 'S')
-				game->player.dir = 2;
-			else if (box == 'E')
-				game->player.dir = 3;
-			else if (box == 'W')
-				game->player.dir = 4;
 			col++;
 		}
 		row++;

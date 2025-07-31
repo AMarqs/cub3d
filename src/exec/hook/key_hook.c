@@ -31,4 +31,10 @@ void	key_hook(mlx_key_data_t keydata, void *param)
         game->control.left = (keydata.action != MLX_RELEASE);
     if (keydata.key == MLX_KEY_RIGHT)
         game->control.right = (keydata.action != MLX_RELEASE);
+    
+    // Ajuste dinámico de sensibilidad (opcional)
+    if (keydata.key == MLX_KEY_KP_ADD && keydata.action == MLX_PRESS) // Tecla +
+        game->player.move_speed += 0.01;
+    if (keydata.key == MLX_KEY_KP_SUBTRACT && keydata.action == MLX_PRESS) // Tecla -
+        game->player.move_speed = fmax(0.01, game->player.move_speed - 0.01);
 }

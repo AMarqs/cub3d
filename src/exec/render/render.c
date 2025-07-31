@@ -6,7 +6,7 @@
 /*   By: jortiz-m <jortiz-m@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 11:29:23 by jortiz-m          #+#    #+#             */
-/*   Updated: 2025/07/30 11:30:39 by jortiz-m         ###   ########.fr       */
+/*   Updated: 2025/07/31 11:15:53 by jortiz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ void	ft_draw_background(t_game *game)
 	int			x;
 	int			y;
 
-	c_color = (game->ceiling_r << 24) | (game->ceiling_g << 16)
-		| (game->ceiling_b << 8) | 255;
-	f_color = (game->floor_r << 24) | (game->floor_g << 16)
-		| (game->floor_b << 8) | 255;
+	c_color = (game->data->ceiling->r << 24) | (game->data->ceiling->g << 16)
+		| (game->data->ceiling->b << 8) | 255;
+	f_color = (game->data->floor->r << 24) | (game->data->floor->g << 16)
+		| (game->data->floor->b << 8) | 255;
 	y = 0;
 	while (y < HEIGHT)
 	{

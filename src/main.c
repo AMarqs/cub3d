@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albmarqu <albmarqu@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jortiz-m <jortiz-m@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 11:30:25 by jortiz-m          #+#    #+#             */
-/*   Updated: 2025/07/30 18:56:08 by albmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/31 11:35:15 by jortiz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@ int	main(int argc, char **argv)
 
 	game = ft_calloc(1, sizeof(t_game));
 	if (!game)
+		print_error("Error allocating memory\n", game);
+	game->data = ft_calloc(1, sizeof(t_data));
+	if (!game->data)
 		print_error("Error allocating memory\n", game);
 	parser(argc, argv, game);
 

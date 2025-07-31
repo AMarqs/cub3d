@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_floor.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albmarqu <albmarqu@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jortiz-m <jortiz-m@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 18:43:59 by albmarqu          #+#    #+#             */
-/*   Updated: 2025/07/30 18:50:00 by albmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/31 11:23:53 by jortiz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,13 @@
 
 void	correct_floor(t_game *game, int row, int col) /// ESTA FUNCION ME LA HAS MODIFICADO
 {
-	char	*box;
+	char	box;
 
+	if (row < 0 || col < 0 || !game->data->map[row] || !game->data->map[row][col])
+		print_error("Map not closed by walls\n", game);
 	box = game->data->map[row][col];
-	if (!box || (box != '1' && box != '0'
-			&& box != 'N' && box != 'S' && box != 'E' && box != 'W'))
+	if (box != '1' && box != '0'
+			&& box != 'N' && box != 'S' && box != 'E' && box != 'W')
 		print_error("Map not closed by walls\n", game);
 }
 
