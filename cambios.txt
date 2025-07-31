@@ -1,6 +1,6 @@
 HACER
 -----
-- Revisar leaks.
-- Romperlo.
-- Cambiar la señora corriendo.
-- Quitar sanitaze.
+x Revisar leaks.
+x Romperlo.
+- Cambiar a la señora corriendo.
+x Quitar sanitaze.

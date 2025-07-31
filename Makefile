@@ -5,7 +5,7 @@ NAME = cub3d
 CC = clang
 
 #Flags
-CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g
 
 #MLX
 MLX_PATH = include/lib/MLX42

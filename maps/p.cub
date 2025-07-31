@@ -1,7 +1,7 @@
-NO ./textures/beds.png
-WE ./textures/campus.png
-SO ./textures/cluster.png
-EA ./textures/lobby.png
+NO ./textures/minecraft.png
+WE ./textures/psico.png
+SO ./textures/one_piece.png
+EA ./textures/efect.png
 
 
 F 100,100,0

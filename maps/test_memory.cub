@@ -1,7 +1,7 @@
-NO ./textures/beds.png
-SO ./textures/beds.png
-WE ./textures/beds.png
-EA ./textures/beds.png
+NO ./textures/minecraft.png
+WE ./textures/psico.png
+SO ./textures/one_piece.png
+EA ./textures/efect.png
 
 C 220,100,0
 F 135,206,235

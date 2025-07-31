@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jortiz-m <jortiz-m@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: albmarqu <albmarqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 20:30:52 by albmarqu          #+#    #+#             */
-/*   Updated: 2025/07/31 13:35:23 by jortiz-m         ###   ########.fr       */
+/*   Updated: 2025/07/31 17:34:10 by albmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ static void	extract_map_data(t_game *game, int start_index)
 {
 	int	j;
 
-	game->data->map = malloc((game->data->file_rows - start_index + 1)
-			* sizeof(char *));
+	game->data->map_size = game->data->file_rows - start_index;
+	game->data->map = malloc((game->data->map_size + 1) * sizeof(char *));
 	if (game->data->map == NULL)
 		print_error("Error allocating memory\n", game);
 	j = 0;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jortiz-m <jortiz-m@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: albmarqu <albmarqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 19:52:39 by albmarqu          #+#    #+#             */
-/*   Updated: 2025/07/31 13:42:23 by jortiz-m         ###   ########.fr       */
+/*   Updated: 2025/07/31 16:26:56 by albmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ void	*ft_freematrix(char **matrix)
 
 void	free_data(t_data *data)
 {
-	if (!data)
-		return ;
 	if (data->no_texture)
 		free(data->no_texture);
 	if (data->so_texture)
@@ -38,10 +36,16 @@ void	free_data(t_data *data)
 		free(data->ea_texture);
 	if (data->we_texture)
 		free(data->we_texture);
+	if (data->f_rgb)
+		free_matrix(data->f_rgb);
+	if (data->c_rgb)
+		free_matrix(data->c_rgb);
 	if (data->floor)
 		free(data->floor);
 	if (data->ceiling)
 		free(data->ceiling);
+	// if (data->map_aux)
+	// 	free(data->map_aux);
 	if (data->map)
 		ft_freematrix(data->map);
 	if (data->count)

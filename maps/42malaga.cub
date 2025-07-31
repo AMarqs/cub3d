@@ -1,14 +1,14 @@
-NO ./textures/beds.png
-WE ./textures/campus.png
-SO ./textures/cluster.png
-EA ./textures/lobby.png
+NO ./textures/minecraft.png
+WE ./textures/psico.png
+SO ./textures/one_piece.png
+EA ./textures/efect.png
 
 F 171,181,187
 C 50,50,52
 
                      11111111111
                      10000000001
-                     1000000000
+                     10000000001
          1111111111  10000000001
          1000000001  10000000001
          1000000001  10000000001
@@ -48,6 +48,5 @@ C 50,50,52
                   1000001
                   1000001
                   1000001
-                  100N001
-                  1111111
-
+                  1000001
+				  1111111

@@ -1,7 +1,7 @@
-NO ./textures/beds.png
-WE ./textures/blue.png
-SO ./textures/tree.png
-EA ./textures/grey.png
+NO ./textures/minecraft.png
+WE ./textures/psico.png
+SO ./textures/one_piece.png
+EA ./textures/efect.png
 
 
 F 161,87,18

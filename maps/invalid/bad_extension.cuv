@@ -1,7 +1,7 @@
-SO ./textures/beds.png
-WE ./textures/blue.png
-EA ./textures/tree.png
-NO ./textures/grey.png
+NO ./textures/minecraft.png
+WE ./textures/psico.png
+SO ./textures/one_piece.png
+EA ./textures/efect.png
 
 C 9, 24, 51
 F 48, 27, 104

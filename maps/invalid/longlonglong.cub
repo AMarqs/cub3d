@@ -1,7 +1,12 @@
-NOL                                    ./textures/beds.png
-WE ./textures/campus.png
-SO ./textures/cluster.png
-EA ./textures/lobby.png
+NO 
+WE ./textures/psico.png
+SO ./textures/one_piece.png
+EA ./textures/efect.png
+
+NOL                                    ./textures/minecraft.png
+WE ./textures/psico.png
+SO ./textures/one_piece.png
+EA ./textures/run.png
 F 171,181,187
 C 0,0,0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 

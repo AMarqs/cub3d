@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_info.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jortiz-m <jortiz-m@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: albmarqu <albmarqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 13:57:52 by albmarqu          #+#    #+#             */
-/*   Updated: 2025/07/31 13:44:27 by jortiz-m         ###   ########.fr       */
+/*   Updated: 2025/07/31 16:30:10 by albmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@ void	parse_color(char *map, t_game *game)
 {
 	if (map[0] == 'F')
 	{
-		parse_f((map + 1), game);
+		parse_f(map, game);
 		game->data->count->count_f++;
 	}
 	else if (map[0] == 'C')
 	{
-		parse_c((map + 1), game);
+		parse_c(map, game);
 		game->data->count->count_c++;
 	}
 }
@@ -46,9 +46,8 @@ static void	process_info_line(t_game *game, int i)
 		free(game->data->map_aux);
 		print_error("Wrong map info\n", game);
 	}
-	free(game->data->map_aux);
-	game->data->map_aux = NULL;
 	check_count(game->data->count, game);
+	free(game->data->map_aux);
 }
 
 void	parse_info(t_game *game)

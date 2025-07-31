@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jortiz-m <jortiz-m@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: albmarqu <albmarqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 13:06:37 by joritz-m          #+#    #+#             */
-/*   Updated: 2025/07/31 14:22:52 by jortiz-m         ###   ########.fr       */
+/*   Updated: 2025/07/31 17:34:27 by albmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@
 
 /***************************** STRUCTURES *************************************/
 
-/**************
+/***************
  *    PARSE    *
  ***************/
 
@@ -87,12 +87,15 @@ typedef struct s_data
 	char		*ea_texture;
 	char		*we_texture;
 	int			file_rows;
+	int			map_size;
+	char		**f_rgb;
+	char		**c_rgb;
 	t_color		*floor;
 	t_color		*ceiling;
 	t_count		*count;
 }				t_data;
 
-/**************
+/***************
  *     EXEC    *
  ***************/
 
@@ -178,13 +181,13 @@ typedef struct s_game
 
 /******************FUNCTIONS******************/
 
-/*************
+/**************
  *    MAIN    *
  **************/
 
 int				main(int argc, char **argv);
 
-/**************
+/***************
  *    PARSE    *
  ***************/
 
@@ -224,7 +227,7 @@ void			parse_floor(t_game *game);
 void			correct_floor(t_game *game, int row, int col);
 void			new_line(t_game *game, int row);
 
-/**************
+/***************
  *     INIT    *
  ***************/
 
@@ -237,7 +240,7 @@ void			ft_set_player_direction(t_game *game, int x, int y);
 void			ft_init_player_position(t_game *game);
 void			ft_init(t_game *game);
 
-/**************
+/***************
  *     EXEC    *
  ***************/
 
@@ -287,7 +290,7 @@ void			ft_load_texture_east(t_game *game);
 void			ft_load_texture_south(t_game *game);
 void			ft_load_texture_west(t_game *game);
 
-/****************
+/*****************
  *     ERRORS    *
  *****************/
 

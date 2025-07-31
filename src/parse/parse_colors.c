@@ -6,7 +6,7 @@
 /*   By: albmarqu <albmarqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 16:22:48 by albmarqu          #+#    #+#             */
-/*   Updated: 2025/07/30 18:26:50 by albmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/31 16:28:11 by albmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,49 +64,46 @@ void	count_commas(char *str, t_game *game)
 		i++;
 	}
 	if (comma != 2)
+	{
+		free(str);
 		print_error("Wrong RGB color format\n", game);
+	}
 }
 
 void	parse_f(char *f, t_game *game)
 {
-	char	**floor;
 	char	*f_trimmed;
-	int		i;
 
 	game->data->floor = calloc(1, sizeof(t_color));
 	if (game->data->floor == NULL)
+	{
+		free(f);
 		print_error("Error allocating memory\n", game);
-	f_trimmed = ft_strtrim(f, " ");
+	}
+	f_trimmed = ft_strtrim((f + 1), " ");
 	count_commas(f_trimmed, game);
-	floor = ft_split(f_trimmed, ',');
-	game->data->floor->r = color_range(floor[0], game);
-	game->data->floor->g = color_range(floor[1], game);
-	game->data->floor->b = color_range(floor[2], game);
-	i = 0;
-	while (floor[i])
-		free(floor[i++]);
-	free(floor);
+	game->data->f_rgb = ft_split(f_trimmed, ',');
 	free(f_trimmed);
+	game->data->floor->r = color_range(game->data->f_rgb[0], game);
+	game->data->floor->g = color_range(game->data->f_rgb[1], game);
+	game->data->floor->b = color_range(game->data->f_rgb[2], game);
 }
 
 void	parse_c(char *c, t_game *game)
 {
-	char	**ceiling;
 	char	*c_trimmed;
-	int		i;
 
 	game->data->ceiling = calloc(1, sizeof(t_color));
 	if (game->data->ceiling == NULL)
+	{
+		free(c);
 		print_error("Error allocating memory\n", game);
-	c_trimmed = ft_strtrim(c, " ");
+	}
+	c_trimmed = ft_strtrim((c + 1), " ");
 	count_commas(c_trimmed, game);
-	ceiling = ft_split(c_trimmed, ',');
-	game->data->ceiling->r = color_range(ceiling[0], game);
-	game->data->ceiling->g = color_range(ceiling[1], game);
-	game->data->ceiling->b = color_range(ceiling[2], game);
-	i = 0;
-	while (ceiling[i])
-		free(ceiling[i++]);
-	free(ceiling);
+	game->data->c_rgb = ft_split(c_trimmed, ',');
 	free(c_trimmed);
+	game->data->ceiling->r = color_range(game->data->c_rgb[0], game);
+	game->data->ceiling->g = color_range(game->data->c_rgb[1], game);
+	game->data->ceiling->b = color_range(game->data->c_rgb[2], game);
 }

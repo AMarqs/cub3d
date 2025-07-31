@@ -1,0 +1,14 @@
+NO ./textures/minecraft.png
+WE ./textures/psico.png
+SO ./textures/one_piece.png
+EA ./textures/efect.png
+
+F 100,100,0
+C 225,30,0
+
+11111111
+100W001
+10111010
+101101 
+1010101
+1111111
