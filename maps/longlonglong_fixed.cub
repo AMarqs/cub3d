@@ -1,11 +1,11 @@
-NO ./textures/beds.png
-WE ./textures/campus.png
-SO ./textures/cluster.png
-EA ./textures/lobby.png
+NO ./textures/minecraft.png
+WE ./textures/one_piece.png
+SO ./textures/run.png
+EA ./textures/psico.png
 
 F 171,181,187
 C 50,50,52
 
-111111111111111111111
+11111111111111111111
 100N00000000000000001
 111111111111111111111

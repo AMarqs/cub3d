@@ -6,7 +6,7 @@
 /*   By: jortiz-m <jortiz-m@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 13:06:37 by joritz-m          #+#    #+#             */
-/*   Updated: 2025/07/31 13:32:11 by jortiz-m         ###   ########.fr       */
+/*   Updated: 2025/07/31 14:22:52 by jortiz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 /******MOVEMENT*******/
 
 # define MOVE_SPEED 0.08
-# define ROT_SPEED 0.03
+# define ROT_SPEED 0.05
 
 /******COLORS*******/
 

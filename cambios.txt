@@ -1,6 +1,6 @@
 HACER
 -----
-permisos del archivo
-que borren la carpeta
-que no sea un directorio
-que el archivo exista dentro de la carpeta tenga ese nombre
+- Revisar leaks.
+- Romperlo.
+- Cambiar la señora corriendo.
+- Quitar sanitaze.
