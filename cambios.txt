@@ -1,19 +1,6 @@
 HACER
 -----
-quitar el fprintf
-mirar duplicados
-liberar estructuras completas, data dentro de game
-
-
-ALBA
-----
-- He modificado toda mi parte para que coincida con la estructura y la he añadido al main
-- He sacado el archivo de errors.c fuera, así puedes poner también la parte de los free de EXEC
-- Mi parte de la estructura ya no tiene nada de sobra
-
-me he quedado por la parte de ft_init, hay muchas funciones que no sé dónde las llamas,
-si se han perdido al borrar de forma masiva xd
-te dejo eso para por la mañana, porque no sé cómo tocarlo, lo voy a romper más
-
-también habría que ir añadiendo los frees de la estructura game al archivo de errors.c 
-(no sé si tú tienes alguna función por ahí que libere game)
+permisos del archivo
+que borren la carpeta
+que no sea un directorio
+que el archivo exista dentro de la carpeta tenga ese nombre

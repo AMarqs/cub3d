@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albmarqu <albmarqu@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jortiz-m <jortiz-m@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 20:30:52 by albmarqu          #+#    #+#             */
-/*   Updated: 2025/07/30 18:54:47 by albmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/31 13:35:23 by jortiz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,17 @@ void	parse_char(t_game *game)
 	}
 }
 
-void	parse_map(t_game *game, int i)
+static int	find_map_start(t_game *game, int i)
 {
-	int		j;
-	int		blank;
+	int	j;
+	int	blank;
 
 	blank = 0;
 	while (game->data->map_data[i] && blank != 1)
 	{
 		j = 0;
-		while (game->data->map_data[i]
-			&& game->data->map_data[i][j] != '\n' && blank != 1)
+		while (game->data->map_data[i] && game->data->map_data[i][j] != '\n'
+			&& blank != 1)
 		{
 			if (game->data->map_data[i][j] != ' ')
 				blank = 1;
@@ -54,18 +54,33 @@ void	parse_map(t_game *game, int i)
 		}
 		i++;
 	}
-	i--;
-	game->data->map = malloc((game->data->file_rows - i + 1) * sizeof(char *));
+	return (i - 1);
+}
+
+static void	extract_map_data(t_game *game, int start_index)
+{
+	int	j;
+
+	game->data->map = malloc((game->data->file_rows - start_index + 1)
+			* sizeof(char *));
 	if (game->data->map == NULL)
 		print_error("Error allocating memory\n", game);
 	j = 0;
-	while (game->data->map_data[i])
+	while (game->data->map_data[start_index])
 	{
-		game->data->map[j] = ft_strdup(game->data->map_data[i]);
-		i++;
+		game->data->map[j] = ft_strdup(game->data->map_data[start_index]);
+		start_index++;
 		j++;
 	}
 	game->data->map[j] = NULL;
+}
+
+void	parse_map(t_game *game, int i)
+{
+	int	map_start;
+
+	map_start = find_map_start(game, i);
+	extract_map_data(game, map_start);
 	parse_char(game);
 	parse_player(game);
 	parse_floor(game);

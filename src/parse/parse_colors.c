@@ -70,29 +70,43 @@ void	count_commas(char *str, t_game *game)
 void	parse_f(char *f, t_game *game)
 {
 	char	**floor;
+	char	*f_trimmed;
+	int		i;
 
 	game->data->floor = calloc(1, sizeof(t_color));
 	if (game->data->floor == NULL)
 		print_error("Error allocating memory\n", game);
-	f = ft_strtrim(f, " ");
-	count_commas(f, game);
-	floor = ft_split(f, ',');
+	f_trimmed = ft_strtrim(f, " ");
+	count_commas(f_trimmed, game);
+	floor = ft_split(f_trimmed, ',');
 	game->data->floor->r = color_range(floor[0], game);
 	game->data->floor->g = color_range(floor[1], game);
 	game->data->floor->b = color_range(floor[2], game);
+	i = 0;
+	while (floor[i])
+		free(floor[i++]);
+	free(floor);
+	free(f_trimmed);
 }
 
 void	parse_c(char *c, t_game *game)
 {
 	char	**ceiling;
+	char	*c_trimmed;
+	int		i;
 
 	game->data->ceiling = calloc(1, sizeof(t_color));
 	if (game->data->ceiling == NULL)
 		print_error("Error allocating memory\n", game);
-	c = ft_strtrim(c, " ");
-	count_commas(c, game);
-	ceiling = ft_split(c, ',');
+	c_trimmed = ft_strtrim(c, " ");
+	count_commas(c_trimmed, game);
+	ceiling = ft_split(c_trimmed, ',');
 	game->data->ceiling->r = color_range(ceiling[0], game);
 	game->data->ceiling->g = color_range(ceiling[1], game);
 	game->data->ceiling->b = color_range(ceiling[2], game);
+	i = 0;
+	while (ceiling[i])
+		free(ceiling[i++]);
+	free(ceiling);
+	free(c_trimmed);
 }

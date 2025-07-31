@@ -6,7 +6,7 @@
 /*   By: jortiz-m <jortiz-m@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 11:30:25 by jortiz-m          #+#    #+#             */
-/*   Updated: 2025/07/31 11:35:15 by jortiz-m         ###   ########.fr       */
+/*   Updated: 2025/07/31 12:14:33 by jortiz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,7 @@ int	main(int argc, char **argv)
 	if (!game->data)
 		print_error("Error allocating memory\n", game);
 	parser(argc, argv, game);
-
 	ft_init(game);
 	frees(game);
-	// free(game);
 	return (EXIT_SUCCESS);
 }

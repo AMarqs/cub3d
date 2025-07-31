@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albmarqu <albmarqu@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jortiz-m <jortiz-m@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 19:52:39 by albmarqu          #+#    #+#             */
-/*   Updated: 2025/07/30 18:18:30 by albmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/31 13:42:23 by jortiz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void	*ft_freematrix(char **matrix)
 
 void	free_data(t_data *data)
 {
+	if (!data)
+		return ;
 	if (data->no_texture)
 		free(data->no_texture);
 	if (data->so_texture)
@@ -44,17 +46,31 @@ void	free_data(t_data *data)
 		ft_freematrix(data->map);
 	if (data->count)
 		free(data->count);
-	if (data->map_aux)
-		free(data->map_aux);
 	if (data->map_data)
 		ft_freematrix(data->map_data);
-	if (data)
-		free(data);
+	free(data);
 }
 
 void	frees(t_game *game)
 {
-	free_data(game->data);
+	if (game)
+	{
+		if (game->data)
+			free_data(game->data);
+		if (game->images.no)
+			mlx_delete_image(game->mlx, game->images.no);
+		if (game->images.so)
+			mlx_delete_image(game->mlx, game->images.so);
+		if (game->images.ea)
+			mlx_delete_image(game->mlx, game->images.ea);
+		if (game->images.we)
+			mlx_delete_image(game->mlx, game->images.we);
+		if (game->img)
+			mlx_delete_image(game->mlx, game->img);
+		if (game->mlx)
+			mlx_terminate(game->mlx);
+		free(game);
+	}
 }
 
 void	print_error(char *str, t_game *game)

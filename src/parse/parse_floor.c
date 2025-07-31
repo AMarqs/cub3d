@@ -6,21 +6,23 @@
 /*   By: jortiz-m <jortiz-m@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 18:43:59 by albmarqu          #+#    #+#             */
-/*   Updated: 2025/07/31 11:23:53 by jortiz-m         ###   ########.fr       */
+/*   Updated: 2025/07/31 13:56:38 by jortiz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	correct_floor(t_game *game, int row, int col) /// ESTA FUNCION ME LA HAS MODIFICADO
+void	correct_floor(t_game *game, int row, int col)
 {
 	char	box;
 
-	if (row < 0 || col < 0 || !game->data->map[row] || !game->data->map[row][col])
+	box = 0;
+	if (row < 0 || col < 0 || !game->data->map[row]
+		|| !game->data->map[row][col])
 		print_error("Map not closed by walls\n", game);
 	box = game->data->map[row][col];
-	if (box != '1' && box != '0'
-			&& box != 'N' && box != 'S' && box != 'E' && box != 'W')
+	if (box != '1' && box != '0' && box != 'N' && box != 'S' && box != 'E'
+		&& box != 'W')
 		print_error("Map not closed by walls\n", game);
 }
 

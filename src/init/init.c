@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albmarqu <albmarqu@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: jortiz-m <jortiz-m@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 11:30:09 by jortiz-m          #+#    #+#             */
-/*   Updated: 2025/07/30 19:07:57 by albmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/31 13:52:38 by jortiz-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,10 @@ void	ft_init_mlx(t_game	*game)
 	mlx_set_setting(MLX_STRETCH_IMAGE, true);
 	game->mlx = mlx_init(WIDTH, HEIGHT, TITLE, true);
 	if (!game->mlx)
-	{
 		print_error("Could not init MLX42\n", game);
-		ft_close_with_error(game);
-	}
 	game->img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
 	if (!game->img)
-	{
 		print_error("Could not create image\n", game);
-		ft_close_with_error(game);
-	}
 	mlx_image_to_window(game->mlx, game->img, 0, 0);
 }
 
@@ -104,5 +98,4 @@ void	ft_init(t_game *game)
 	mlx_loop_hook(game->mlx, &ft_update_game, game);
 	mlx_key_hook(game->mlx, &key_hook, game);
 	mlx_loop(game->mlx);
-	mlx_terminate(game->mlx);
 }

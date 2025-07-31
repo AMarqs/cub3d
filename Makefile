@@ -5,7 +5,7 @@ NAME = cub3d
 CC = clang
 
 #Flags
-CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 
 #MLX
 MLX_PATH = include/lib/MLX42
@@ -39,10 +39,7 @@ SRC =	main.c \
 		exec/raycasting/raycasting_utils.c \
 		exec/raycasting/raycasting.c \
 		exec/render/render.c \
-		exec/texture/texture.c \
-		exec/utils/utils.c \
-
- 		
+		exec/texture/texture.c
 
 SRCS_DIR = src
 SRCS = $(addprefix $(SRCS_DIR)/, $(SRC))
@@ -122,6 +119,7 @@ clean:
 	@printf "\r$(COLOR_SUCCESS)✅ Object files cleaned successfully!$(COLOR_RESET)\n"
 
 fclean: clean
+	clear
 	@printf "$(COLOR_INFO)Deleting $(NAME)...$(COLOR_RESET)"
 	@$(CLEAN) $(NAME)
 	@printf "\r$(COLOR_SUCCESS)✅ $(NAME) deleted successfully!$(COLOR_RESET)\n"

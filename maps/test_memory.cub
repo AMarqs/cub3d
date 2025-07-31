@@ -1,0 +1,12 @@
+NO ./textures/beds.png
+SO ./textures/beds.png
+WE ./textures/beds.png
+EA ./textures/beds.png
+
+C 220,100,0
+F 135,206,235
+
+111111
+100N01
+100001
+111111
