@@ -6,7 +6,7 @@
 /*   By: albmarqu <albmarqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 13:57:52 by albmarqu          #+#    #+#             */
-/*   Updated: 2025/07/31 16:30:10 by albmarqu         ###   ########.fr       */
+/*   Updated: 2025/08/05 17:30:27 by albmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 void	parse_color(char *map, t_game *game)
 {
-	if (map[0] == 'F')
+	if (map[0] == 'F' && map[1] == ' ')
 	{
 		parse_f(map, game);
 		game->data->count->count_f++;
 	}
-	else if (map[0] == 'C')
+	else if (map[0] == 'C' && map[1] == ' ')
 	{
 		parse_c(map, game);
 		game->data->count->count_c++;

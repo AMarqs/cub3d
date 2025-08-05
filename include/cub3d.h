@@ -6,7 +6,7 @@
 /*   By: albmarqu <albmarqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 13:06:37 by joritz-m          #+#    #+#             */
-/*   Updated: 2025/07/31 17:34:27 by albmarqu         ###   ########.fr       */
+/*   Updated: 2025/08/05 17:31:54 by albmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 
 /******MOVEMENT*******/
 
-# define MOVE_SPEED 0.08
+# define MOVE_SPEED 0.05
 # define ROT_SPEED 0.05
 
 /******COLORS*******/

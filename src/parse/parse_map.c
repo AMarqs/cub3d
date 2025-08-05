@@ -6,7 +6,7 @@
 /*   By: albmarqu <albmarqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 20:30:52 by albmarqu          #+#    #+#             */
-/*   Updated: 2025/07/31 17:34:10 by albmarqu         ###   ########.fr       */
+/*   Updated: 2025/08/05 17:33:14 by albmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,20 +59,20 @@ static int	find_map_start(t_game *game, int i)
 
 static void	extract_map_data(t_game *game, int start_index)
 {
-	int	j;
+	int	i;
 
 	game->data->map_size = game->data->file_rows - start_index;
 	game->data->map = malloc((game->data->map_size + 1) * sizeof(char *));
 	if (game->data->map == NULL)
 		print_error("Error allocating memory\n", game);
-	j = 0;
+	i = 0;
 	while (game->data->map_data[start_index])
 	{
-		game->data->map[j] = ft_strdup(game->data->map_data[start_index]);
+		game->data->map[i] = ft_strdup(game->data->map_data[start_index]);
 		start_index++;
-		j++;
+		i++;
 	}
-	game->data->map[j] = NULL;
+	game->data->map[i] = NULL;
 }
 
 void	parse_map(t_game *game, int i)

@@ -1,6 +1,31 @@
 HACER
 -----
-x Revisar leaks.
-x Romperlo.
-- Cambiar a la señora corriendo.
-x Quitar sanitaze.
+x Nombre cub3D
+
+x Makefile que haga comprobaciones del libft cuando se modifica algo para que compile el elemento cambiado
+	.PHONY: check_libft
+	check_libft:
+		@make -C $(LIBFT_PATH) all > /dev/null 2>&1
+
+	$(LIBFT_LIB): check_libft
+		@if [ ! -f $(LIBFT_LIB) ]; then \
+			@printf "$(COLOR_INFO)Compiling libft library...$(COLOR_RESET)\n"; \
+			@make -C $(LIBFT_PATH) all > /dev/null 2>&1; \
+			@printf "$(COLOR_SUCCESS)✅ Libft library compiled!$(COLOR_RESET)\n"; \
+		fi
+
+x Los números de los elementos F y C
+
+x La pared del mapa al crear una isla se crea de esta forma -> mirar wrong len
+
+	 11
+	1N1
+	 1
+
+	Este no
+	11
+	1N1
+	1
+
+- El parseo de color se come cualquier carácter (incluso que no haya nada al final)
+

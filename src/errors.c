@@ -6,7 +6,7 @@
 /*   By: albmarqu <albmarqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 19:52:39 by albmarqu          #+#    #+#             */
-/*   Updated: 2025/07/31 16:26:56 by albmarqu         ###   ########.fr       */
+/*   Updated: 2025/08/05 13:16:25 by albmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void	*ft_freematrix(char **matrix)
 	i = 0;
 	while (matrix[i])
 	{
-		free(matrix[i]);
+		if (matrix[i] != NULL)
+			free(matrix[i]);
 		i++;
 	}
 	free(matrix);
@@ -44,8 +45,6 @@ void	free_data(t_data *data)
 		free(data->floor);
 	if (data->ceiling)
 		free(data->ceiling);
-	// if (data->map_aux)
-	// 	free(data->map_aux);
 	if (data->map)
 		ft_freematrix(data->map);
 	if (data->count)

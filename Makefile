@@ -1,5 +1,5 @@
 #Name
-NAME = cub3d
+NAME = cub3D
 
 #Compile
 CC = clang
@@ -108,10 +108,16 @@ $(MLX_LIB):
 	@cmake --build $(MLX_BUILD_PATH) -j4 > /dev/null 2>&1
 	@printf "$(COLOR_SUCCESS)✅ MLX library compiled!$(COLOR_RESET)\n"
 
-$(LIBFT_LIB):
-	@printf "$(COLOR_INFO)Compiling libft library...$(COLOR_RESET)\n"
-	@make -C $(LIBFT_PATH) all > /dev/null 2>&1
-	@printf "$(COLOR_SUCCESS)✅ Libft library compiled!$(COLOR_RESET)\n"
+.PHONY: check_libft
+check_libft:
+	@make -C $(LIBFT_PATH) all > /dev/null 2>&1; \
+
+$(LIBFT_LIB): check_libft
+	@if [ ! -f $(LIBFT_LIB) ]; then \
+		@printf "$(COLOR_INFO)Compiling libft library...$(COLOR_RESET)\n"; \
+		@make -C $(LIBFT_PATH) all > /dev/null 2>&1; \
+		@printf "$(COLOR_SUCCESS)✅ Libft library compiled!$(COLOR_RESET)\n"; \
+	fi
 
 clean:
 	@printf "$(COLOR_INFO)Cleaning object files...$(COLOR_RESET)"
