@@ -6,7 +6,7 @@
 /*   By: albmarqu <albmarqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 18:29:44 by albmarqu          #+#    #+#             */
-/*   Updated: 2025/07/30 18:19:57 by albmarqu         ###   ########.fr       */
+/*   Updated: 2025/08/06 12:22:47 by albmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	read_file(char *argv, t_game *game)
 	int	file;
 
 	file = open(argv, O_RDONLY);
-	if (file == -1)
+	if (file < 0)
 		print_error("Error opening file\n", game);
 	game->data->map_data = malloc((game->data->file_rows + 1) * sizeof(char *));
 	if (game->data->map_data == NULL)
@@ -51,7 +51,7 @@ void	open_file(char *argv, t_game *game)
 	char	*line;
 
 	file = open(argv, O_RDONLY);
-	if (file == -1)
+	if (file < 0)
 		print_error("Error opening file\n", game);
 	game->data->file_rows = 0;
 	line = get_next_line(file);

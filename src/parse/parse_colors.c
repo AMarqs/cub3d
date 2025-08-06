@@ -6,7 +6,7 @@
 /*   By: albmarqu <albmarqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 16:22:48 by albmarqu          #+#    #+#             */
-/*   Updated: 2025/08/05 18:47:39 by albmarqu         ###   ########.fr       */
+/*   Updated: 2025/08/06 12:17:33 by albmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,11 @@ long	color_range(const char *str, t_game *game)
 	int		i;
 
 	i = 0;
+	if (str == NULL)
+		print_error("Not enough RGB color components\n", game);
 	if (ft_strlen(str) > 11)
 		print_error("Invaild RGB color\n", game);
-	while (str[i])
+	while (str[i] && str[i] != '\n')
 	{
 		if (!ft_isdigit(str[i]))
 			print_error("Invaild RGB color2\n", game);
@@ -92,11 +94,11 @@ void	parse_f(char *f, t_game *game)
 	count_commas(f_trimmed, game);
 	game->data->f_rgb = ft_split(f_trimmed, ',');
 	free(f_trimmed);
-	if (game->data->f_rgb[2][0] == '\n')
-		game->data->f_rgb[2] = NULL;
 	if (game->data->f_rgb[0] == NULL || game->data->f_rgb[1] == NULL
 		|| game->data->f_rgb[2] == NULL)
 		print_error("Not enough RGB color components\n", game);
+	if (game->data->f_rgb[2][0] == '\n')
+		game->data->f_rgb[2] = NULL;
 	game->data->floor->r = color_range(game->data->f_rgb[0], game);
 	game->data->floor->g = color_range(game->data->f_rgb[1], game);
 	game->data->floor->b = color_range(game->data->f_rgb[2], game);
@@ -116,11 +118,11 @@ void	parse_c(char *c, t_game *game)
 	count_commas(c_trimmed, game);
 	game->data->c_rgb = ft_split(c_trimmed, ',');
 	free(c_trimmed);
-	if (game->data->c_rgb[2][0] == '\n')
-		game->data->c_rgb[2] = NULL;
 	if (game->data->c_rgb[0] == NULL || game->data->c_rgb[1] == NULL
 		|| game->data->c_rgb[2] == NULL)
 		print_error("Not enough RGB color components\n", game);
+	if (game->data->c_rgb[2][0] == '\n')
+		game->data->c_rgb[2] = NULL;
 	game->data->ceiling->r = color_range(game->data->c_rgb[0], game);
 	game->data->ceiling->g = color_range(game->data->c_rgb[1], game);
 	game->data->ceiling->b = color_range(game->data->c_rgb[2], game);

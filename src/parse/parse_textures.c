@@ -42,22 +42,22 @@ void	parse_direction(t_game *game, char *dir, char **path)
 
 void	parse_texture(char *map, t_game *game)
 {
-	if (map[0] == 'N' && map[1] == 'O')
+	if (map[0] == 'N' && map[1] == 'O' && map[2] == ' ')
 	{
 		parse_direction(game, map, &game->data->no_texture);
 		game->data->count->count_no++;
 	}
-	else if (map[0] == 'S' && map[1] == 'O')
+	else if (map[0] == 'S' && map[1] == 'O' && map[2] == ' ')
 	{
 		parse_direction(game, map, &game->data->so_texture);
 		game->data->count->count_so++;
 	}
-	else if (map[0] == 'E' && map[1] == 'A')
+	else if (map[0] == 'E' && map[1] == 'A' && map[2] == ' ')
 	{
 		parse_direction(game, map, &game->data->ea_texture);
 		game->data->count->count_ea++;
 	}
-	else if (map[0] == 'W' && map[1] == 'E')
+	else if (map[0] == 'W' && map[1] == 'E' && map[2] == ' ')
 	{
 		parse_direction(game, map, &game->data->we_texture);
 		game->data->count->count_we++;
