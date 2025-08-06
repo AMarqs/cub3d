@@ -6,7 +6,7 @@
 /*   By: albmarqu <albmarqu@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 16:22:48 by albmarqu          #+#    #+#             */
-/*   Updated: 2025/08/06 12:17:33 by albmarqu         ###   ########.fr       */
+/*   Updated: 2025/08/06 17:12:04 by albmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,16 @@ long	color_range(const char *str, t_game *game)
 	if (str == NULL)
 		print_error("Not enough RGB color components\n", game);
 	if (ft_strlen(str) > 11)
-		print_error("Invaild RGB color\n", game);
+		print_error("Invalid RGB color\n", game);
 	while (str[i] && str[i] != '\n')
 	{
 		if (!ft_isdigit(str[i]))
-			print_error("Invaild RGB color2\n", game);
+			print_error("Invalid RGB color\n", game);
 		i++;
 	}
 	num = ft_atol(str);
 	if (num < 0 || num > 255)
-		print_error("Invaild RGB color\n", game);
+		print_error("Invalid RGB color\n", game);
 	return (num);
 }
 
